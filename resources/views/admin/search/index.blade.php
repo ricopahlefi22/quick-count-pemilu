@@ -67,12 +67,11 @@
                                 <div class="mt-2">
                                     <a class="name text-reset fw-bold font-size-18"></a>
                                     <br>
-                                    {{-- <span class="badge bg-primary">Koordinator</span> --}}
-                                    <span id="badge" class="badge bg-danger">Belum Terdaftar</span>
+                                    <span id="badge" class="badge"></span>
 
                                 </div>
 
-                                <a href="" class="btn btn-sm btn-dark mt-2">
+                                <a href="" class="btn btn-sm btn-dark mt-2 d-none">
                                     <i class="mdi mdi-account-card-details"></i> Lihat KTP
                                 </a>
 
@@ -84,27 +83,6 @@
                                         <h5 class="mb-0">9,025</h5>
                                     </div>
                                 </div>
-
-                                {{-- <div class="mt-4">
-                                    <ul class="list-inline social-source-list">
-                                        <li class="list-inline-item">
-                                            <div class="avatar-xs">
-                                                <span class="avatar-title rounded-circle bg-success">
-                                                    <i class="mdi mdi-whatsapp"></i>
-                                                </span>
-                                            </div>
-                                        </li>
-
-                                        <li class="list-inline-item">
-                                            <div class="avatar-xs">
-                                                <span class="avatar-title rounded-circle bg-info">
-                                                    <i class="mdi mdi-phone-outline"></i>
-                                                </span>
-                                            </div>
-                                        </li>
-                                    </ul>
-
-                                </div> --}}
                             </div>
 
                         </div>
@@ -282,7 +260,7 @@
         $(document).ready(function() {
             $(".input-mask").inputmask();
             $("#idNumber").focus();
-            $("#idNumber").val(6104175101030004);
+            $("#idNumber").val(6104180107510035);
 
             $("#form").on('submit', function(e) {
                 e.preventDefault();
@@ -309,11 +287,13 @@
                             $(".name").html(response.data.name);
                             $(".id-number").html(response.data.id_number);
                             $(".family-card-number").html(response.data.family_card_number);
-                            $(".phone-number").html(
-                                (response.data.phone_number == null) ?
-                                '-' :
-                                response.data.phone_number
-                            );
+
+                            if (response.data.phone_number == "" || response.data.phone_number == null) {
+                                $(".phone-number").html('-');
+                            } else {
+                                $(".phone-number").html(response.data.phone_number);
+                            }
+
                             $(".birthday").html(
                                 response.data.birthplace +
                                 ", " + response.data.birthday
@@ -328,23 +308,56 @@
                                 ", RT " + response.data.rt +
                                 "/RW " + response.data.rt
                             );
-                            $(".marital-status").html(
-                                response.data.marital_status
-                            );
-                            $(".e-ktp").html(
-                                response.data.e_ktp_record_state
-                            );
-                            $(".disability").html(
-                                response.data.e_ktp_record_state
-                            );
-                            $(".description").html(
-                                response.data.e_ktp_record_state
-                            );
+
+                            if (response.data.marital_status == "B") {
+                                $(".marital-status").html("Belum Menikah");
+                            } else if (response.data.marital_status == "S") {
+                                $(".marital-status").html("Sudah Menikah");
+                            } else if (response.data.marital_status == "P") {
+                                $(".marital-status").html("Pernah Menikah");
+                            } else {
+                                $(".marital-status").html("-");
+                            }
+
+                            if (response.data.e_ktp_record_state == "B") {
+                                $(".e-ktp").html("Belum Rekam");
+                            } else if (response.data.e_ktp_record_state == "S") {
+                                $(".e-ktp").html("Sudah Rekam");
+                            } else if (response.data.e_ktp_record_state == "K") {
+                                $(".e-ktp").html("Sudah Rekam (E-KTP)");
+                            } else {
+                                $(".e-ktp").html("-");
+                            }
+
+                            if (response.data.disability_information == "0") {
+                                $(".disability").html("-");
+                            } else if (response.data.disability_information == "1") {
+                                $(".disability").html("Disabilitas Fisik");
+                            } else if (response.data.disability_information == "2") {
+                                $(".disability").html("Disabilitas Intelektual");
+                            } else if (response.data.disability_information == "3") {
+                                $(".disability").html("Disabilitas Mental");
+                            } else if (response.data.disability_information == "4") {
+                                $(".disability").html("Disabilitas Sensorik");
+                            } else {
+                                $(".disability").html("-");
+                            }
 
                             if (response.data.level == 1) {
-                                console.log('Koordinator')
+                                console.log('Koordinator');
+                                $("#badge").removeClass('bg-danger').removeClass('bg-success')
+                                    .addClass('bg-primary').html('Koordinator');
                             } else {
-
+                                if (response.data.coordinator_id == null) {
+                                    $("#badge").removeClass('bg-primary').removeClass(
+                                        'bg-success').addClass('bg-danger').html(
+                                        'Belum Terdaftar');
+                                } else {
+                                    $("#badge").removeClass('bg-danger').removeClass(
+                                        'bg-primary').addClass('bg-success').html(
+                                        'Terdaftar');
+                                }
+                                console.log('Bukan Koordinator');
                             }
 
 

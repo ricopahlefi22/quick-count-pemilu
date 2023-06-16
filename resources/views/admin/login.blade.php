@@ -46,3 +46,7 @@
         </div>
     </div>
 @endsection
+
+@push('script')
+    <script src="{{ asset('js/login.js') }}"></script>
+@endpush

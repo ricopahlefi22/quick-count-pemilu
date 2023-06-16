@@ -21,7 +21,7 @@ class Dapil1Seeder extends Seeder
         District::factory()->create(['name' => 'Delta Pawan']);
         // KELURAHAN KANTOR
         Village::factory()->create(['name' => 'Kelurahan Kantor', 'district_id' => 1]);
-        for ($i = 1; $i <= 24; $i++) {
+        for ($i = 1; $i <= 17; $i++) {
             VotingPlace::factory()->create([
                 'name' => (strlen($i) != 2) ? '00' . $i : '0' . $i,
                 'village_id' => 1,
@@ -30,7 +30,7 @@ class Dapil1Seeder extends Seeder
         }
         // KELURAHAN MULIA BARU
         Village::factory()->create(['name' => 'Kelurahan Mulia Baru', 'district_id' => 1]);
-        for ($i = 1; $i <= 35; $i++) {
+        for ($i = 1; $i <= 34; $i++) {
             VotingPlace::factory()->create([
                 'name' => (strlen($i) != 2) ? '00' . $i : '0' . $i,
                 'village_id' => 2,
@@ -39,7 +39,7 @@ class Dapil1Seeder extends Seeder
         }
         // KELURAHAN SAMPIT
         Village::factory()->create(['name' => 'Kelurahan Sampit', 'district_id' => 1]);
-        for ($i = 1; $i <= 42; $i++) {
+        for ($i = 1; $i <= 44; $i++) {
             VotingPlace::factory()->create([
                 'name' => (strlen($i) != 2) ? '00' . $i : '0' . $i,
                 'village_id' => 3,
@@ -48,16 +48,35 @@ class Dapil1Seeder extends Seeder
         }
         // KELURAHAN SUKAHARJA
         Village::factory()->create(['name' => 'Kelurahan Sukaharja', 'district_id' => 1]);
-        for ($i = 1; $i <= 40; $i++) {
+        for ($i = 1; $i <= 45; $i++) {
             VotingPlace::factory()->create([
                 'name' => (strlen($i) != 2) ? '00' . $i : '0' . $i,
                 'village_id' => 4,
                 'district_id' => 1,
             ]);
         }
+
+        VotingPlace::factory()->create([
+            'name' => '901',
+            'village_id' => 4,
+            'district_id' => 1,
+        ]);
+
+        VotingPlace::factory()->create([
+            'name' => '902',
+            'village_id' => 4,
+            'district_id' => 1,
+        ]);
+
+        VotingPlace::factory()->create([
+            'name' => '903',
+            'village_id' => 4,
+            'district_id' => 1,
+        ]);
+
         // KELURAHAN TENGAH
         Village::factory()->create(['name' => 'Kelurahan Tengah', 'district_id' => 1]);
-        for ($i = 1; $i <= 30; $i++) {
+        for ($i = 1; $i <= 19; $i++) {
             VotingPlace::factory()->create([
                 'name' => (strlen($i) != 2) ? '00' . $i : '0' . $i,
                 'village_id' => 5,
@@ -67,7 +86,7 @@ class Dapil1Seeder extends Seeder
 
         // DESA KALINILAM
         Village::factory()->create(['name' => 'Desa Kalinilam', 'district_id' => 1]);
-        for ($i = 1; $i <= 29; $i++) {
+        for ($i = 1; $i <= 33; $i++) {
             VotingPlace::factory()->create([
                 'name' => (strlen($i) != 2) ? '00' . $i : '0' . $i,
                 'village_id' => 6,
@@ -76,7 +95,7 @@ class Dapil1Seeder extends Seeder
         }
         // DESA PAYA KUMANG
         Village::factory()->create(['name' => 'Desa Paya Kumang', 'district_id' => 1]);
-        for ($i = 1; $i <= 23; $i++) {
+        for ($i = 1; $i <= 18; $i++) {
             VotingPlace::factory()->create([
                 'name' => (strlen($i) != 2) ? '00' . $i : '0' . $i,
                 'village_id' => 7,
@@ -85,7 +104,7 @@ class Dapil1Seeder extends Seeder
         }
         // DESA SUKABANGUN
         Village::factory()->create(['name' => 'Desa Sukabangun', 'district_id' => 1]);
-        for ($i = 1; $i <= 24; $i++) {
+        for ($i = 1; $i <= 23; $i++) {
             VotingPlace::factory()->create([
                 'name' => (strlen($i) != 2) ? '00' . $i : '0' . $i,
                 'village_id' => 8,
@@ -94,7 +113,7 @@ class Dapil1Seeder extends Seeder
         }
         Village::factory()->create(['name' => 'Desa Sukabangun Dalam', 'district_id' => 1]);
         // DESA SUKABANGUN DALAM
-        for ($i = 1; $i <= 17; $i++) {
+        for ($i = 1; $i <= 11; $i++) {
             VotingPlace::factory()->create([
                 'name' => (strlen($i) != 2) ? '00' . $i : '0' . $i,
                 'village_id' => 9,
@@ -184,7 +203,7 @@ class Dapil1Seeder extends Seeder
 
         // DESA KUALA SATONG
         Village::factory()->create(['name' => 'Desa Kuala Satong', 'district_id' => 3]);
-        for ($i = 1; $i <= 17; $i++) {
+        for ($i = 1; $i <= 9; $i++) {
             VotingPlace::factory()->create([
                 'name' => (strlen($i) != 2) ? '00' . $i : '0' . $i,
                 'village_id' => 18,
@@ -193,7 +212,7 @@ class Dapil1Seeder extends Seeder
         }
         // DESA KUALA TOLAK
         Village::factory()->create(['name' => 'Desa Kuala Tolak', 'district_id' => 3]);
-        for ($i = 1; $i <= 19; $i++) {
+        for ($i = 1; $i <= 14; $i++) {
             VotingPlace::factory()->create([
                 'name' => (strlen($i) != 2) ? '00' . $i : '0' . $i,
                 'village_id' => 19,
@@ -202,7 +221,7 @@ class Dapil1Seeder extends Seeder
         }
         // DESA LAMAN SATONG
         Village::factory()->create(['name' => 'Desa Laman Satong', 'district_id' => 3]);
-        for ($i = 1; $i <= 18; $i++) {
+        for ($i = 1; $i <= 11; $i++) {
             VotingPlace::factory()->create([
                 'name' => (strlen($i) != 2) ? '00' . $i : '0' . $i,
                 'village_id' => 20,
@@ -211,7 +230,7 @@ class Dapil1Seeder extends Seeder
         }
         // DESA SUNGAI PUTRI
         Village::factory()->create(['name' => 'Desa Sungai Putri', 'district_id' => 3]);
-        for ($i = 1; $i <= 16; $i++) {
+        for ($i = 1; $i <= 8; $i++) {
             VotingPlace::factory()->create([
                 'name' => (strlen($i) != 2) ? '00' . $i : '0' . $i,
                 'village_id' => 21,
@@ -220,7 +239,7 @@ class Dapil1Seeder extends Seeder
         }
         // DESA TANJUNG BAIK BUDI
         Village::factory()->create(['name' => 'Desa Tanjung Baik Budi', 'district_id' => 3]);
-        for ($i = 1; $i <= 18; $i++) {
+        for ($i = 1; $i <= 12; $i++) {
             VotingPlace::factory()->create([
                 'name' => (strlen($i) != 2) ? '00' . $i : '0' . $i,
                 'village_id' => 22,

@@ -6,16 +6,8 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h6 class="page-title mb-5 mb-md-0">Data TPS di {{ $village->name }}</h6>
-
-                    <div class="page-title-right d-none">
-                        <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item">
-                                <a href="javascript: void(0);">Data Pemilih</a>
-                            </li>
-                            <li class="breadcrumb-item active">Kecamatan {{ $village->district->name }}</li>
-                        </ol>
-                    </div>
+                    <h6 class="page-title mb-5 mb-md-0">Data TPS di
+                        {{ $village->name }}</h6>
                 </div>
             </div>
         </div>
@@ -23,6 +15,30 @@
 
 
         <div class="row">
+            <div class="col-2">
+                <div class="btn-group dropdown float-end">
+                    <button id="btnGroupDropdown" type="button" class="btn btn-block btn-dark dropdown-toggle"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Aksi Lainnya <i class="mdi mdi-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDropdown">
+                        <a href="" class="dropdown-item" disabled><i class="fa fa-chart-bar"></i> Hasil Pemetaan</a>
+                        <button class="dropdown-item" disabled><i class="fa fa-file-csv"></i> Ekspor CSV</button>
+                        <button class="dropdown-item" disabled><i class="fa fa-file-pdf"></i> Cetak PDF</button>
+                        <a href="{{ url('voters/import') }}" class="dropdown-item text-success"><i
+                                class="fa fa-file-pdf"></i> Impor</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-10">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <span>Jumlah</span>
+                        <span>{{ $voter_count }} Pemilih</span>
+                    </div>
+                </div>
+            </div>
+
             @foreach ($votingPlaces as $votingPlace)
                 <div class="col-12 col-sm-6 col-md-3">
                     <a href="voters?tps={{ $votingPlace->id }}">

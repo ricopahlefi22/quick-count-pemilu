@@ -29,12 +29,19 @@
                     </a>
                 </li>
 
-                {{-- <li>
-                    <a href="search" class=" waves-effect">
+                <li>
+                    <a href="{{ url('search') }}" class="waves-effect">
                         <i class="bx bx-search-alt"></i>
-                        <span>Cari Data Pemilih</span>
+                        <span>Pencarian</span>
                     </a>
-                </li> --}}
+                </li>
+
+                <li>
+                    <a href="{{ url('coordinators') }}" class="waves-effect">
+                        <i class="fa fa-user-tie"></i>
+                        <span>Data Koordinator</span>
+                    </a>
+                </li>
 
                 @if (App\Models\WebConfig::first()->strict == false)
                     {{-- <li class="menu-title">Pemetaan Suara</li>
@@ -69,9 +76,9 @@
                             <i class="fas fa-users"></i>
                             <span>{{ $district->name }}</span>
                         </a>
-                        <ul class="sub-menu" aria-expanded="false">
+                        <ul class="sub-menu" aria-expanded="true">
                             @foreach (App\Models\Village::where('district_id', $district->id)->get() as $village)
-                                <li><a href="{{ url('voters') }}?vllg={{ $village->id }}">{{ $village->name }}</a></li>
+                                <li ><a href="{{ url('voters') }}?vllg={{ $village->id }}">{{ $village->name }}</a></li>
                             @endforeach
                         </ul>
                     </li>

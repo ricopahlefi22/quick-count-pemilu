@@ -166,6 +166,22 @@
                     </div>
                 </div>
             </div>
+
+            @foreach (App\Models\District::all() as $district)
+                <h4>Kecamatan {{ $district->name }}</h4>
+                <div class="row">
+                    @foreach ($district->village as $village)
+                        <div class="col-4">
+                            <div class="card">
+                                <div class="card-body d-flex justify-content-between">
+                                    <span>{{ $village->name }}</span>
+                                    <span>{{$village->voters->whereNotNull('coordinator_id')->count()}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endforeach
         @endif
     </div>
 @endsection

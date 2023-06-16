@@ -22,19 +22,16 @@
         <div class="row mt-4 mt-sm-2 mt-md-1">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title mb-2 mb-md-0 font-size-18" style="line-height: 1.5em;">Pemilih di
-                        {{ $tps->village->name }} TPS
-                        {{ $tps->name }}</h4>
+                    <h4 class="page-title mb-2 mb-md-0 font-size-18" style="line-height: 1.5em;">
+                        Koordinator di {{ $village->name }}
+                    </h4>
 
                     <div class="page-title-right d-none d-xl-block">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item">
                                 <a href="javascript: void(0);">Data Pemilih</a>
                             </li>
-                            <li class="breadcrumb-item">
-                                <a href="javascript: void(0);">Kecamatan {{ $tps->district->name }}</a>
-                            </li>
-                            <li class="breadcrumb-item active">{{ $tps->village->name }}</li>
+                            <li class="breadcrumb-item active">Kecamatan {{ $village->district->name }}</li>
                         </ol>
                     </div>
                 </div>
@@ -61,7 +58,7 @@
                     </div>
                     <div class="card-body">
                         @if (Auth::user()->level == true)
-                            <div class="btn-group dropdown float-end">
+                            <div class="btn-group dropup float-end">
                                 <button id="btnGroupDropdown" type="button" class="btn btn-sm btn-dark dropdown-toggle"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Aksi Lainnya <i class="mdi mdi-chevron-down"></i>
@@ -69,10 +66,9 @@
                                 <div class="dropdown-menu" aria-labelledby="btnGroupDropdown">
                                     <button id="createButton" class="dropdown-item"><i class="fa fa-plus-circle"></i> Tambah
                                         Data</button>
-                                    <button class="dropdown-item" disabled><i class="fa fa-file-csv"></i> Ekspor CSV</button>
+                                    <button class="dropdown-item" disabled><i class="fa fa-file-csv"></i> Ekspor
+                                        CSV</button>
                                     <button class="dropdown-item" disabled><i class="fa fa-file-pdf"></i> Cetak PDF</button>
-                                    <a href="{{ url('voters/import') }}"
-                                        class="dropdown-item text-success"><i class="fa fa-file-pdf"></i> Impor</a>
                                 </div>
                             </div>
                         @endif
@@ -110,10 +106,10 @@
         <!-- end row -->
     </div>
 
-    @include('modals.form-modal')
+    {{-- @include('modals.form-modal')
     @include('modals.coordinator')
     @include('modals.be-coordinator')
-    @include('modals.cancel-coordinator')
+    @include('modals.cancel-coordinator') --}}
 @endsection
 
 @push('script')
@@ -135,5 +131,5 @@
     <script src="{{ asset('assets/libs/dropify/js/dropify.min.js') }}"></script>
 
     <!-- Script -->
-    <script src="{{ asset('js/voter-table.js') }}"></script>
+    <script src="{{ asset('js/coordinator-table.js') }}"></script>
 @endpush

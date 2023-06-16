@@ -23,7 +23,7 @@
                             Profil Saya
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item text-danger" href="logout">
+                        <a class="dropdown-item text-danger" href="{{ url('logout') }}">
                             <i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>
                             Keluar
                         </a>

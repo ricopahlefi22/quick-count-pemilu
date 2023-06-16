@@ -20,6 +20,7 @@ class VoterController extends Controller
         if ($request->vllg) {
             $data['votingPlaces'] = VotingPlace::where('village_id', $request->vllg)->get();
             $data['village'] = Village::findOrFail($request->vllg);
+            $data['voter_count'] = Voter::where('village_id', $request->vllg)->count();
 
             return view('admin.voter.index', $data);
         }
@@ -79,6 +80,8 @@ class VoterController extends Controller
             }
             return view('admin.voter.table', $data);
         }
+
+        return abort(404);
     }
 
     function store(Request $request)
@@ -189,6 +192,10 @@ class VoterController extends Controller
 
     function destroy(Request $request){
         $data = Voter::findOrFail($request->id);
+        foreach ($data->member as $member) {
+            $member->coordinator_id = null;
+            $member->update();
+        }
         $data->delete();
 
         return response()->json([

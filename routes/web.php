@@ -32,8 +32,8 @@ Route::group(['domain' => 'app.' . env('DOMAIN')], function () {
 Route::controller(AuthAdminController::class)->group(function () {
     Route::get('login', 'login')->name('login');
     Route::post('login', 'loginProcess');
-    // Route::get('forgot-password', 'forgotPassword');
-    // Route::post('forgot-password', 'forgotPasswordProcess');
+    Route::get('forgot-password', 'forgotPassword');
+    Route::post('forgot-password', 'forgotPasswordProcess');
     Route::get('logout', 'logout');
 });
 
@@ -43,7 +43,7 @@ Route::middleware('auth:admin')->group(function () {
         Route::get('dashboard', 'dashboard');
     });
 
-    // Route::get('profile', [ProfileController::class, 'admin']);
+    Route::get('profile', [ProfileController::class, 'admin']);
 
     Route::prefix('search')->controller(SearchController::class)->group(function () {
         Route::get('/', 'index');
