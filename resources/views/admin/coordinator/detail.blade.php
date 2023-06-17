@@ -8,12 +8,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title mb-0 font-size-18">Profil Saya</h4>
+                    <h4 class="page-title mb-0 font-size-18">Detail Data {{ $coordinator->name }}</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Akun</a></li>
-                            <li class="breadcrumb-item active">Profil</li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Data Koordinator</a></li>
+                            <li class="breadcrumb-item active">Detail</li>
                         </ol>
                     </div>
 
@@ -38,8 +38,9 @@
                                 </div>
 
                                 <div class="mt-3 ">
-                                    <a href="#" class="text-reset fw-medium font-size-16">Patrick
-                                        Becker</a>
+                                    <a href="#" class="text-reset fw-medium font-size-16">
+                                        {{ $coordinator->name }}
+                                    </a>
                                     <p class="text-body mt-1 mb-1">UI/UX Designer</p>
 
                                     <span class="badge bg-success">Follow Me</span>
@@ -60,44 +61,6 @@
                                         </h6>
                                         <h5 class="mb-0">11,025</h5>
                                     </div>
-                                </div>
-
-                                <div class="mt-4">
-
-                                    <ui class="list-inline social-source-list">
-                                        <li class="list-inline-item">
-                                            <div class="avatar-xs">
-                                                <span class="avatar-title rounded-circle">
-                                                    <i class="mdi mdi-facebook"></i>
-                                                </span>
-                                            </div>
-                                        </li>
-
-                                        <li class="list-inline-item">
-                                            <div class="avatar-xs">
-                                                <span class="avatar-title rounded-circle bg-info">
-                                                    <i class="mdi mdi-twitter"></i>
-                                                </span>
-                                            </div>
-                                        </li>
-
-                                        <li class="list-inline-item">
-                                            <div class="avatar-xs">
-                                                <span class="avatar-title rounded-circle bg-danger">
-                                                    <i class="mdi mdi-google-plus"></i>
-                                                </span>
-                                            </div>
-                                        </li>
-
-                                        <li class="list-inline-item">
-                                            <div class="avatar-xs">
-                                                <span class="avatar-title rounded-circle bg-pink">
-                                                    <i class="mdi mdi-instagram"></i>
-                                                </span>
-                                            </div>
-                                        </li>
-                                    </ui>
-
                                 </div>
                             </div>
 
@@ -130,263 +93,9 @@
 
                     </div>
                 </div>
-
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title mb-2">My Top Skills</h5>
-                        <p class="text-muted">Suspendisse mattis rutrum orci eu pellentesque. </p>
-                        <ul class="list-unstyled list-inline language-skill mb-0">
-                            <li class="list-inline-item badge bg-primary"><span>java</span></li>
-                            <li class="list-inline-item badge bg-primary"><span>Javascript</span></li>
-                            <li class="list-inline-item badge bg-primary"><span>laravel</span></li>
-                            <li class="list-inline-item badge bg-primary"><span>HTML5</span></li>
-                            <li class="list-inline-item badge bg-primary"><span>android</span></li>
-                            <li class="list-inline-item badge bg-primary"><span>zengo</span></li>
-                            <li class="list-inline-item badge bg-primary"><span>python</span></li>
-                            <li class="list-inline-item badge bg-primary"><span>react</span></li>
-                            <li class="list-inline-item badge bg-primary"><span>php</span></li>
-                        </ul>
-                    </div>
-                </div>
-
             </div>
 
             <div class="col-md-12 col-xl-9">
-                <div class="row">
-                    <div class="col-md-12 col-xl-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col-8">
-                                        <p class="mb-2">Completed Projects</p>
-                                        <h4 class="mb-0">3,524</h4>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="text-end">
-                                            <div>
-                                                2.06 % <i class="mdi mdi-arrow-up text-success ml-1"></i>
-                                            </div>
-                                            <div class="progress progress-sm mt-3">
-                                                <div class="progress-bar" role="progressbar" style="width: 62%"
-                                                    aria-valuenow="62" aria-valuemin="0" aria-valuemax="100">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 col-xl-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col-8">
-                                        <p class="mb-2">Pending Projects</p>
-                                        <h4 class="mb-0">5,362</h4>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="text-end">
-                                            <div>
-                                                3.12 % <i class="mdi mdi-arrow-up text-success ms-1"></i>
-                                            </div>
-                                            <div class="progress progress-sm mt-3">
-                                                <div class="progress-bar bg-warning" role="progressbar"
-                                                    style="width: 78%" aria-valuenow="78" aria-valuemin="0"
-                                                    aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 col-xl-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col-8">
-                                        <p class="mb-2">Total Revenue</p>
-                                        <h4 class="mb-0">6,245</h4>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="text-end">
-                                            <div>
-                                                2.12 % <i class="mdi mdi-arrow-up text-success ml-1"></i>
-                                            </div>
-                                            <div class="progress progress-sm mt-3">
-                                                <div class="progress-bar bg-success" role="progressbar"
-                                                    style="width: 75%" aria-valuenow="75" aria-valuemin="0"
-                                                    aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-body">
-
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-bs-toggle="tab" href="#experience" role="tab">
-                                    <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
-                                    <span class="d-none d-sm-block">Experience</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" href="#revenue" role="tab">
-                                    <span class="d-none d-sm-block">Revenue</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" href="#settings" role="tab">
-                                    <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
-                                    <span class="d-none d-sm-block">Settings</span>
-                                </a>
-                            </li>
-                        </ul>
-
-                        <!-- Tab panes -->
-                        <div class="tab-content p-3 text-muted">
-                            <div class="tab-pane active" id="experience" role="tabpanel">
-                                <div class="timeline-count mt-5">
-                                    <!-- Timeline row Start -->
-                                    <div class="row">
-
-                                        <!-- Timeline 1 -->
-                                        <div class="timeline-box col-lg-4">
-                                            <div class="mb-5 mb-lg-0">
-                                                <div class="item-lable bg-primary rounded">
-                                                    <p class="text-center text-white">2016 - 20</p>
-                                                </div>
-                                                <div class="timeline-line active">
-                                                    <div class="dot bg-primary"></div>
-                                                </div>
-                                                <div class="vertical-line">
-                                                    <div class="wrapper-line bg-light"></div>
-                                                </div>
-                                                <div class="bg-light p-4 rounded mx-3">
-                                                    <h5>Back end Developer</h5>
-                                                    <p class="text-muted mt-1 mb-0">Voluptatem accntium
-                                                        doemque lantium, totam rem aperiam, eaque ipsa quae
-                                                        ab illo quasi sunt explicabo.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Timeline 1 -->
-
-                                        <!-- Timeline 2 -->
-                                        <div class="timeline-box col-lg-4">
-                                            <div class="mb-5 mb-lg-0">
-                                                <div class="item-lable bg-primary rounded">
-                                                    <p class="text-center text-white">2013 - 16</p>
-                                                </div>
-                                                <div class="timeline-line active">
-                                                    <div class="dot bg-primary"></div>
-                                                </div>
-                                                <div class="vertical-line">
-                                                    <div class="wrapper-line bg-light"></div>
-                                                </div>
-                                                <div class="bg-light p-4 rounded mx-3">
-                                                    <h5>Front end Developer</h5>
-                                                    <p class="text-muted mt-1 mb-0">Vivamus ultrices massa
-                                                        tellus, sed convallis urna interdum eu. Pellentesque
-                                                        htant morbi varius mollis et quis nisi.</p>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Timeline 2 -->
-
-                                        <!-- Timeline 3 -->
-                                        <div class="timeline-box col-lg-4">
-                                            <div class="mb-5 mb-lg-0">
-                                                <div class="item-lable bg-primary rounded">
-                                                    <p class="text-center text-white">2011 - 13</p>
-                                                </div>
-                                                <div class="timeline-line active">
-                                                    <div class="dot bg-primary"></div>
-                                                </div>
-                                                <div class="vertical-line">
-                                                    <div class="wrapper-line bg-light"></div>
-                                                </div>
-                                                <div class="bg-light p-4 rounded mx-3">
-                                                    <h5>UI /UX Designer</h5>
-                                                    <p class="text-muted mt-1 mb-0">Suspendisse potenti.
-                                                        senec netus malesuada fames ac turpis egesta vitae
-                                                        blandit ac tempus nulla.</p>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Timeline 3 -->
-                                    </div>
-                                    <!-- Timeline row Over -->
-
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="revenue" role="tabpanel">
-                                <div id="revenue-chart" class="apex-charts mt-4"></div>
-                            </div>
-                            <div class="tab-pane" id="settings" role="tabpanel">
-
-                                <div class="row mt-4">
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="firstname">First Name</label>
-                                            <input type="text" class="form-control" id="firstname"
-                                                placeholder="Enter first name">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="lastname">Last Name</label>
-                                            <input type="text" class="form-control" id="lastname"
-                                                placeholder="Enter last name">
-                                        </div>
-                                    </div> <!-- end col -->
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="userbio">Bio</label>
-                                            <textarea class="form-control" id="userbio" rows="4" placeholder="Write something..."></textarea>
-                                        </div>
-                                    </div> <!-- end col -->
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="mb-0">
-                                            <label class="form-label" for="useremail">Email Address</label>
-                                            <input type="email" class="form-control" id="useremail"
-                                                placeholder="Enter email">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="mb-0">
-                                            <label class="form-label" for="userpassword">Password</label>
-                                            <input type="password" class="form-control" id="userpassword"
-                                                placeholder="Enter password">
-                                        </div>
-                                    </div> <!-- end col -->
-                                </div>
-
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title mb-4">Projects</h4>

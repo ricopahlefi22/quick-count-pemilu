@@ -49,8 +49,6 @@ class VoterImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnFai
             'birthday' => date_format($create_date, 'Y-m-d'),
             'marital_status' => $row['status'],
             'gender' => $row['jenis_kelamin'],
-            'disability_information' => $row['disabilitas'],
-            'e_ktp_record_state' => $row['e_ktp'],
             'district_id' => $district->id,
             'village_id' => $village->id,
             'voting_place_id' => $voting_place->id,

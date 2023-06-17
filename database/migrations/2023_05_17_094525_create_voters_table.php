@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('photo')->nullable();
             $table->string('evidence_image')->nullable();
+            $table->string('ktp_image')->nullable();
             $table->string('name');
             $table->string('id_number');
             $table->string('family_card_number')->nullable();
@@ -26,9 +27,6 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('rt')->nullable();
             $table->string('rw')->nullable();
-            $table->tinyInteger('disability_information')->default(0)->nullable();
-            $table->string('e_ktp_record_state', 5)->nullable();
-            $table->string('e_ktp_image')->nullable();
             $table->text('note')->nullable();
             $table->boolean('level')->default(0);
             $table->foreignId('district_id')->nullable();

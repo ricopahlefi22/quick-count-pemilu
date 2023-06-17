@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthOwnerController;
 use App\Http\Controllers\CoordinatorController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
@@ -81,6 +82,10 @@ Route::middleware('auth:admin')->group(function () {
             Route::post('check-coordinator', 'checkCoordinator');
             Route::post('be-coordinator', 'beCoordinator');
             Route::post('cancel-coordinator', 'cancelCoordinator');
+        });
+
+        Route::controller(ExportController::class)->group(function(){
+            Route::get('export', 'export');
         });
 
         Route::controller(ImportController::class)->group(function(){

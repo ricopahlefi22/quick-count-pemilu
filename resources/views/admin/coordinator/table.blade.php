@@ -29,7 +29,7 @@
                     <div class="page-title-right d-none d-xl-block">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item">
-                                <a href="javascript: void(0);">Data Pemilih</a>
+                                <a href="javascript: void(0);">Data Koordinator</a>
                             </li>
                             <li class="breadcrumb-item active">Kecamatan {{ $village->district->name }}</li>
                         </ol>
@@ -43,28 +43,15 @@
             <div class="col-12">
 
                 <div class="card">
-                    <div class="card-header d-flex justify-content-between flex-column flex-sm-row">
-                        <div class="d-flex align-items-center">
-                            <span style="height: 10px;width:10px;margin-right:5px;" class="bg-primary"></span> = Koordinator
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <span style="height: 10px;width:10px;margin-right:5px;" class="bg-primary-subtle"></span> =
-                            Terdaftar
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <span style="height: 10px;width:10px;margin-right:5px;" class="bg-secondary-subtle"></span> =
-                            Tidak Terdaftar
-                        </div>
-                    </div>
                     <div class="card-body">
                         @if (Auth::user()->level == true)
-                            <div class="btn-group dropup float-end">
+                            <div class="btn-group dropdown float-start">
                                 <button id="btnGroupDropdown" type="button" class="btn btn-sm btn-dark dropdown-toggle"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Aksi Lainnya <i class="mdi mdi-chevron-down"></i>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="btnGroupDropdown">
-                                    <button id="createButton" class="dropdown-item"><i class="fa fa-plus-circle"></i> Tambah
+                                    <button id="createButton" class="dropdown-item" disabled><i class="fa fa-plus-circle"></i> Tambah
                                         Data</button>
                                     <button class="dropdown-item" disabled><i class="fa fa-file-csv"></i> Ekspor
                                         CSV</button>
@@ -83,7 +70,7 @@
                                     <th title="Nomor Induk Kependudukan">NIK</th>
                                     <th>Alamat</th>
                                     <th>Nomor Ponsel</th>
-                                    <th>Koordinator</th>
+                                    <th>Jumlah Anggota</th>
                                 </tr>
                             </thead>
                             <tfoot>
@@ -94,7 +81,7 @@
                                     <th title="Nomor Induk Kependudukan">NIK</th>
                                     <th>Alamat</th>
                                     <th>Nomor Ponsel</th>
-                                    <th>Koordinator</th>
+                                    <th>Jumlah Anggota</th>
                                 </tr>
                             </tfoot>
                         </table>

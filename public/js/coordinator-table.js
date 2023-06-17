@@ -62,8 +62,8 @@ $(document).ready(function () {
             name: "phone_number",
         },
         {
-            data: "coordinator_id",
-            name: "coordinator_id",
+            data: "member_total",
+            name: "member_total",
         },
     ];
 

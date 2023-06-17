@@ -21,33 +21,34 @@ class CoordinatorController extends Controller
             if ($request->ajax()) {
                 return DataTables::of($data['coordinators'])
                     ->addIndexColumn()
-                    ->addColumn('family_card_number', function (Voter $voter) {
-                        return empty($voter->family_card_number) ? '-' : $voter->family_card_number;
+                    ->addColumn('family_card_number', function (Voter $coordinator) {
+                        return empty($coordinator->family_card_number) ? '-' : $coordinator->family_card_number;
                     })
-                    ->addColumn('address', function (Voter $voter) {
-                        return $voter->address . ', RT ' . $voter->rt . '/RW ' . $voter->rw;
+                    ->addColumn('address', function (Voter $coordinator) {
+                        return $coordinator->address . ', RT ' . $coordinator->rt . '/RW ' . $coordinator->rw;
                     })
-                    ->addColumn('phone_number', function (Voter $voter) {
-                        return empty($voter->phone_number) ? '-' : $voter->phone_number;
+                    ->addColumn('phone_number', function (Voter $coordinator) {
+                        return empty($coordinator->phone_number) ? '-' : $coordinator->phone_number;
                     })
-                    ->addColumn('coordinator_id', function (Voter $voter) {
-                        return empty($voter->coordinator_id) ? '-' : $voter->coordinator->name;
+                    ->addColumn('member_total', function (Voter $coordinator) {
+                        return $coordinator->member->where('level', 0)->count();
                     })
-                    ->addColumn('voting_place_id', function (Voter $voter) {
-                        return empty($voter->voting_place_id) ? '-' : $voter->votingPlace->name;
+                    ->addColumn('voting_place_id', function (Voter $coordinator) {
+                        return empty($coordinator->voting_place_id) ? '-' : $coordinator->votingPlace->name;
                     })
-                    ->addColumn('action', function (Voter $voter) {
-                        $btn = '<button data-id="' . $voter->id . '"  class="dropdown-item text-warning edit">Edit</button> ';
+                    ->addColumn('action', function (Voter $coordinator) {
+                        $btn = '<a href="coordinators?id=' . $coordinator->id . '" class="dropdown-item" disabled>Detail</a> ';
+                        $btn .= '<button data-id="' . $coordinator->id . '"  class="dropdown-item text-warning edit" disabled>Edit</button> ';
 
-                        if ($voter->level == 0) {
-                            $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item coordinator">' . (empty($voter->coordinator_id) ? 'Tambah Koordinator' : 'Ganti Koordinator') . '</button>';
-                            $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-primary be-coordinator">Jadikan Koordinator</button>';
+                        if ($coordinator->level == 0) {
+                            $btn .= '<button data-id="' . $coordinator->id . '" class="dropdown-item coordinator" disabled>' . (empty($coordinator->coordinator_id) ? 'Tambah Koordinator' : 'Ganti Koordinator') . '</button>';
+                            $btn .= '<button data-id="' . $coordinator->id . '" class="dropdown-item text-primary be-coordinator" disabled>Jadikan Koordinator</button>';
                         } else {
-                            $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-danger cancel-coordinator">Batalkan Koordinator</button>';
+                            $btn .= '<button data-id="' . $coordinator->id . '" class="dropdown-item text-danger cancel-coordinator" disabled>Batalkan Koordinator</button>';
                         }
 
                         if (Auth::user()->level == true) {
-                            $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-danger delete">Hapus Data</button>';
+                            $btn .= '<button data-id="' . $coordinator->id . '" class="dropdown-item text-danger delete" disabled>Hapus Data</button>';
                         }
                         return '<div class="btn-group dropup"><button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></button>'
                             . '<div class="dropdown-menu" role="menu">'
@@ -55,18 +56,18 @@ class CoordinatorController extends Controller
                             . '</div></div>';
                     })
                     ->rawColumns(['action'])
-                    ->setRowClass(function (Voter $voter) {
-                        if ($voter->level == 1) {
-                            return 'bg-primary text-white';
-                        } else if ($voter->coordinator_id) {
-                            return 'bg-primary-subtle';
-                        } else {
-                            return 'bg-secondary-subtle';
-                        }
-                    })
                     ->make(true);
             }
+
+
             return view('admin.coordinator.table', $data);
+        }
+
+        if ($request->id) {
+            $data['coordinator'] = Voter::findOrFail($request->id);
+            $data['title'] = 'Detail Data ' . $data['coordinator']->name;
+
+            return view('admin.coordinator.detail', $data);
         }
 
         $data['coordinator_count'] = Voter::where('level', 1)->count();

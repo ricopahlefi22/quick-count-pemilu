@@ -61,11 +61,11 @@ class AuthAdminController extends Controller
 
     function forgotPasswordProcess(Request $request)
     {
-        try {
-            $request->validate([
-                'phone_number' => 'required',
-            ]);
+        // $request->validate([
+        //     'phone_number' => 'required',
+        // ]);
 
+        try {
             $check = Admin::where('phone_number', $request->phone_number)->first();
 
             if (!empty($check)) {
@@ -73,18 +73,20 @@ class AuthAdminController extends Controller
                 $checkOTP = DB::table('admin_password_resets')->where('phone_number', $request->phone_number)->first();
 
                 if (empty($checkOTP)) {
+                    $otp = rand(123456, 999999);
+                    $token = Str::random(60);
                     DB::table('admin_password_resets')->insert([
                         'phone_number' => $request->phone_number,
-                        'otp' => rand(123456, 999999),
-                        'token' => Str::random(60),
+                        'otp' => $otp,
+                        'token' => $token,
                         'expired_at' => Carbon::now()->addMinutes(10)
                     ]);
 
-                    $response = Http::asForm()->post('https://wa.srv2.watsap.id/send-message', [
-                        'api_key' => 'b7cd27c8019ef0e860deb04f26ca192a8d2bb79f',
+                    $response = Http::asForm()->post('https://wa.srv2.wapanels.com/send-message', [
+                        'api_key' => '0GxB0JURoGbukwlxok6sY9DKhnyjQTvy',
                         'sender' => '6285171121070',
                         'number' => $request->phone_number,
-                        'message' => 'Hellooooo',
+                        'message' => $otp." adalah kode OTP anda. Jangan berikan kode ini kepada siapapun. \nQuixx - Rekan Pemenangan",
                     ]);
 
                     return response()->json([

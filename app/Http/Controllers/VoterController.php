@@ -135,37 +135,47 @@ class VoterController extends Controller
         $ktp = $request->hidden_ktp;
 
         if ($request->file('ktp')) {
-            $path = 'public/voter-ktp-images/';
+            $path = 'public/voter-ktp/';
             $file = $request->file('ktp');
             $file_name = Str::random(5) . time() . '_' . $file->getClientOriginalName();
 
             $file->storeAs($path, $file_name);
-            $ktp = "storage/voter-ktp-images/" . $file_name;
+            $ktp = "storage/voter-ktp/" . $file_name;
+        }
+
+        $evidence = $request->hidden_evidence;
+
+        if ($request->file('evidence')) {
+            $path = 'public/voter-evidence/';
+            $file = $request->file('evidence');
+            $file_name = Str::random(5) . time() . '_' . $file->getClientOriginalName();
+
+            $file->storeAs($path, $file_name);
+            $evidence = "storage/voter-evidence/" . $file_name;
         }
 
         $data = Voter::updateOrCreate([
             'id' => $request->id,
         ], [
             'photo' => $photo,
+            'evidence_image' => $evidence,
+            'ktp_image' => $ktp,
             'name' => ucwords(strtolower($request->name)),
             'id_number' => str_replace(' ', '', $request->id_number),
             'family_card_number' => str_replace(' ', '', $request->family_card_number),
+            'phone_number' => str_replace('-', '', $request->phone_number),
+            'birthplace' => ucwords(strtolower($request->birthplace)),
+            'birthday' => $request->birthday,
+            'gender' => $request->gender,
+            'marital_status' => $request->marital_status,
             'address' => ucwords(strtolower($request->address)),
             'rt' => $request->rt,
             'rw' => $request->rw,
-            'birthplace' => ucwords(strtolower($request->birthplace)),
-            'birthday' => $request->birthday,
-            'phone_number' => str_replace('-', '', $request->phone_number),
-            'gender' => $request->gender,
-            'marital_status' => $request->marital_status,
-            'disability_information' => $request->disability_information,
-            'e_ktp_record_state' => $request->e_ktp_record_state,
-            'e_ktp_image' => $ktp,
             'note' => $request->note,
             'district_id' => $request->district_id,
             'village_id' => $request->village_id,
-            'coordinator_id' => $request->coordinator_id,
             'voting_place_id' => $request->voting_place_id,
+            'coordinator_id' => $request->coordinator_id,
         ]);
 
         if ($request->id != $data->id) {
