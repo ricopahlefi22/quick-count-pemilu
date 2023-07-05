@@ -249,6 +249,10 @@
 
 
         </div>
+
+        <div id="emptyCard" class="d-none text-center">
+            Tidak Ditemukan
+        </div>
     </div>
 @endsection
 
@@ -278,17 +282,19 @@
                         $("#idNumber").removeClass('is-invalid');
                         $("#loader").removeClass('d-none');
                         $("#resultCard").addClass('d-none');
+                        $("#emptyCard").addClass('d-none');
                     },
                     success: function(response) {
+                        console.log(response);
                         if (response.status == 'success') {
-                            console.log(response.data);
                             $("#resultCard").removeClass('d-none');
 
                             $(".name").html(response.data.name);
                             $(".id-number").html(response.data.id_number);
                             $(".family-card-number").html(response.data.family_card_number);
 
-                            if (response.data.phone_number == "" || response.data.phone_number == null) {
+                            if (response.data.phone_number == "" || response.data
+                                .phone_number == null) {
                                 $(".phone-number").html('-');
                             } else {
                                 $(".phone-number").html(response.data.phone_number);
@@ -357,10 +363,11 @@
                                         'bg-primary').addClass('bg-success').html(
                                         'Terdaftar');
                                 }
-                                console.log('Bukan Koordinator');
                             }
 
 
+                        } else {
+                            $("#emptyCard").removeClass('d-none');
                         }
 
                         $("#loader").addClass('d-none');

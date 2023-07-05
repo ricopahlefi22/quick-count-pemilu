@@ -5,8 +5,8 @@
         <div class="bg-login text-center">
             <div class="bg-login-overlay"></div>
             <div class="position-relative">
-                <h5 class="text-white font-size-20">Selamat Datang!</h5>
-                <p class="text-white-50 mb-0">Berikan kata sandi yang tepat untuk masuk ke sistem!</p>
+                <h5 class="text-white font-size-20">Selamat Datang di Quixx!</h5>
+                <p class="text-white-50 mb-0">Kami memerlukan kata sandi untuk mengenali anda!</p>
                 <a href="http://{{ env('DOMAIN') }}:8000" class="logo logo-admin mt-4">
                     <img src="{{ asset('assets/images/logo-sm-dark.png') }}" alt="" height="30">
                 </a>
@@ -16,7 +16,6 @@
 
             <div class="p-2">
                 <form id="form" class="form-horizontal">
-
                     <div class="user-thumb text-center mb-4">
                         <img src="{{ asset($config->photo) }}" class="rounded-circle img-thumbnail avatar-md">
                         <h5 class="font-size-15 mt-3"><strong>{{ $config->name }}</strong></h5>
@@ -46,3 +45,6 @@
     </div>
 @endsection
 
+@push('script')
+    <script src="{{ asset('js/login.js') }}"></script>
+@endpush

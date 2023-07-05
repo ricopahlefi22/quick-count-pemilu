@@ -1,6 +1,8 @@
 @extends('auth.auth-base')
 
 @section('content')
+    @include('modals.otp')
+
     <div class="card overflow-hidden">
         <div class="bg-login text-center">
             <div class="bg-login-overlay"></div>
@@ -28,7 +30,8 @@
 
                     <div class="row mb-0">
                         <div class="col-12 text-end">
-                            <button class="btn btn-primary w-md waves-effect waves-light" type="submit">Kirim</button>
+                            <button id="button" class="btn btn-primary w-md waves-effect waves-light"
+                                type="submit">Kirim</button>
                         </div>
                     </div>
 
@@ -53,7 +56,7 @@
                 },
             });
 
-            $("#foerm").on('submit', function(e) {
+            $("#form").on('submit', function(e) {
                 e.preventDefault();
 
                 $.ajax({
@@ -65,9 +68,10 @@
                     contentType: false,
                     beforeSend: function() {
                         $("#phoneNumber").removeClass('is-invalid');
+
+                        $("#button").prop('disabled', true);
                     },
                     success: function(response) {
-                        console.log(response);
                         if (response.code == 200) {
                             Swal.fire({
                                 type: "success",
@@ -81,7 +85,8 @@
                                 },
                             }).then((result) => {
                                 if (result.value == true) {
-                                    window.location.href = 'otp';
+                                    $("#otpModal").modal('show');
+                                    $("#token").val(response.token);
                                 }
                             });
                         } else {
@@ -93,6 +98,8 @@
                                 confirmButtonColor: "#6C757D",
                             });
                         }
+
+                        $("#button").prop('disabled', false);
                     },
                     error: function(error) {
                         if (error.status == 422) {
@@ -103,6 +110,77 @@
                                 $("#phoneNumber").addClass('is-invalid').focus();
                             }
                         }
+
+                        $("#button").prop('disabled', false);
+                    },
+                });
+            });
+
+            $("#otp").keyup(function() {
+                var val = $(this).val();
+                if(val.length == 6){
+                    $("#otpButton").prop('disabled', false);
+                } else {
+                    $("#otpButton").prop('disabled', true);
+                }
+            });
+
+            $("#otpForm").on('submit', function(e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: 'otp',
+                    method: $(this).attr("method"),
+                    data: new FormData(this),
+                    processData: false,
+                    dataType: "json",
+                    contentType: false,
+                    beforeSend: function() {
+                        $("#phoneNumber").removeClass('is-invalid');
+
+                        $("#otpButton").prop('disabled', true);
+                    },
+                    success: function(response) {
+                        if (response.code == 200) {
+                            Swal.fire({
+                                type: "success",
+                                title: response.status,
+                                text: response.message,
+                                confirmButtonText: "Lanjut",
+                                confirmButtonColor: "#007BFF",
+                                backdrop: true,
+                                allowOutsideClick: () => {
+                                    console.log("Klik Tombol Lanjut");
+                                },
+                            }).then((result) => {
+                                if (result.value == true) {
+                                    $("#otpModal").modal('show');
+                                    $("#token").val(response.token);
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                type: "error",
+                                title: response.status,
+                                text: response.message,
+                                confirmButtonText: "Tutup",
+                                confirmButtonColor: "#6C757D",
+                            });
+                        }
+
+                        $("#otpButton").prop('disabled', false);
+                    },
+                    error: function(error) {
+                        if (error.status == 422) {
+                            var errors = error["responseJSON"]["errors"];
+                            $("#phoneNumberError").html(errors["phone_number"]);
+
+                            if (errors["phone_number"]) {
+                                $("#phoneNumber").addClass('is-invalid').focus();
+                            }
+                        }
+
+                        $("#otpButton").prop('disabled', false);
                     },
                 });
             });

@@ -34,7 +34,7 @@
                         <p>©
                             <script>
                                 document.write(new Date().getFullYear())
-                            </script> Quixx. Dikembangkan oleh <a href="">Kayong Developer</a>.
+                            </script> Quixx. Dikembangkan oleh <a href="https://kayong-dev.com">Kayong Developer</a>.
                         </p>
                     </div>
                 </div>

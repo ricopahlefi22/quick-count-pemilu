@@ -247,82 +247,79 @@ class Dapil1Seeder extends Seeder
             ]);
         }
 
-        // Voter::truncate();
+        Voter::truncate();
 
-        // $csvFile = fopen(base_path("database/data/delta-pawan/kantor.csv"), "r");
+        $csvFile = fopen(base_path("database/data/delta-pawan/kantor.csv"), "r");
 
-        // $firstline = true;
-        // while (($data = fgetcsv($csvFile, 20000, ",")) !== FALSE) {
-        //     if (!$firstline) {
-        //         $date_normalize = str_replace('|', '-', $data['4']);
-        //         $create_date = date_create($date_normalize);
+        $firstline = true;
+        while (($data = fgetcsv($csvFile, 20000, ",")) !== FALSE) {
+            if (!$firstline) {
+                $date_normalize = str_replace('|', '-', $data['4']);
+                $create_date = date_create($date_normalize);
 
-        //         $district = District::where('name', 'LIKE', '%' . $data['14'] . '%')->first();
-        //         $village = Village::where('name', 'LIKE', '%' . $data['15'] . '%')->first();
+                $district = District::where('name', 'LIKE', '%' . $data['14'] . '%')->first();
+                $village = Village::where('name', 'LIKE', '%' . $data['15'] . '%')->first();
 
-        //         $voting_place = VotingPlace::where('village_id', $village->id)->where('name', $data['13'])->first();
+                $voting_place = VotingPlace::where('village_id', $village->id)->where('name', $data['13'])->first();
 
-        //         Voter::create([
-        //             'family_card_number' => $data['0'],
-        //             "id_number" => $data['1'],
-        //             'name' => ucwords(strtolower($data['2'])),
-        //             'birthplace' => ucwords(strtolower($data['3'])),
-        //             'birthday' => date_format($create_date, 'Y-m-d'),
-        //             'marital_status' => $data['5'],
-        //             'gender' => $data['6'],
-        //             'address' => ucwords(strtolower($data['7'])),
-        //             'rt' => $data['8'],
-        //             'rw' => $data['9'],
-        //             'disability_information' => $data['10'],
-        //             'e_ktp_record_state' => $data['11'],
-        //             'district_id' => $district->id,
-        //             'village_id' => $village->id,
-        //             'voting_place_id' => $voting_place->id,
-        //         ]);
-        //     }
+                Voter::create([
+                    'family_card_number' => $data['0'],
+                    "id_number" => $data['1'],
+                    'name' => ucwords(strtolower($data['2'])),
+                    'birthplace' => ucwords(strtolower($data['3'])),
+                    'birthday' => date_format($create_date, 'Y-m-d'),
+                    'marital_status' => $data['5'],
+                    'gender' => $data['6'],
+                    'address' => ucwords(strtolower($data['7'])),
+                    'rt' => $data['8'],
+                    'rw' => $data['9'],
 
-        //     $firstline = false;
-        // }
+                    'district_id' => $district->id,
+                    'village_id' => $village->id,
+                    'voting_place_id' => $voting_place->id,
+                ]);
+            }
 
-        // fclose($csvFile);
+            $firstline = false;
+        }
 
-        // $csvFile = fopen(base_path("database/data/delta-pawan/mulia-baru.csv"), "r");
+        fclose($csvFile);
 
-        // $firstline = true;
-        // while (($data = fgetcsv($csvFile, 20000, ",")) !== FALSE) {
-        //     if (!$firstline) {
-        //         $date_normalize = str_replace('|', '-', $data['4']);
-        //         $create_date = date_create($date_normalize);
+        $csvFile = fopen(base_path("database/data/delta-pawan/mulia-baru.csv"), "r");
 
-        //         $district = District::where('name', 'LIKE', '%' . $data['14'] . '%')->first();
-        //         $village = Village::where('name', 'LIKE', '%' . $data['15'] . '%')->first();
+        $firstline = true;
+        while (($data = fgetcsv($csvFile, 20000, ",")) !== FALSE) {
+            if (!$firstline) {
+                $date_normalize = str_replace('|', '-', $data['4']);
+                $create_date = date_create($date_normalize);
 
-        //         $voting_place = VotingPlace::where('village_id', $village->id)->where('name', $data['13'])->first();
+                $district = District::where('name', 'LIKE', '%' . $data['14'] . '%')->first();
+                $village = Village::where('name', 'LIKE', '%' . $data['15'] . '%')->first();
 
-        //         Voter::create([
-        //             'family_card_number' => $data['0'],
-        //             "id_number" => $data['1'],
-        //             'name' => ucwords(strtolower($data['2'])),
-        //             'birthplace' => ucwords(strtolower($data['3'])),
-        //             'birthday' => date_format($create_date, 'Y-m-d'),
-        //             'marital_status' => $data['5'],
-        //             'gender' => $data['6'],
-        //             'address' => ucwords(strtolower($data['7'])),
-        //             'rt' => $data['8'],
-        //             'rw' => $data['9'],
-        //             'disability_information' => $data['10'],
-        //             'e_ktp_record_state' => $data['11'],
+                $voting_place = VotingPlace::where('village_id', $village->id)->where('name', $data['13'])->first();
 
-        //             'district_id' => $district->id,
-        //             'village_id' => $village->id,
-        //             'voting_place_id' => $voting_place->id,
-        //         ]);
-        //     }
+                Voter::create([
+                    'family_card_number' => $data['0'],
+                    "id_number" => $data['1'],
+                    'name' => ucwords(strtolower($data['2'])),
+                    'birthplace' => ucwords(strtolower($data['3'])),
+                    'birthday' => date_format($create_date, 'Y-m-d'),
+                    'marital_status' => $data['5'],
+                    'gender' => $data['6'],
+                    'address' => ucwords(strtolower($data['7'])),
+                    'rt' => $data['8'],
+                    'rw' => $data['9'],
 
-        //     $firstline = false;
-        // }
+                    'district_id' => $district->id,
+                    'village_id' => $village->id,
+                    'voting_place_id' => $voting_place->id,
+                ]);
+            }
 
-        // fclose($csvFile);
+            $firstline = false;
+        }
+
+        fclose($csvFile);
 
         // $csvFile = fopen(base_path("database/data/delta-pawan/sampit.csv"), "r");
 

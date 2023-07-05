@@ -4,8 +4,10 @@
 
         <div class="user-wid text-center py-4">
             <div class="user-img">
-                <a class="image-popup-no-margins" href="{{ asset(Auth::user()->photo) }}">
-                    <img src="{{ asset(Auth::user()->photo) }}" class="avatar-md mx-auto img-thumbnail rounded-circle">
+                <a class="image-popup-no-margins"
+                    href="{{ asset(empty(Auth::user()->photo) ? 'images/default-photos.jpg' : Auth::user()->photo) }}">
+                    <img src="{{ asset(empty(Auth::user()->photo) ? 'images/default-photos.jpg' : Auth::user()->photo) }}"
+                        class="avatar-md mx-auto img-thumbnail rounded-circle">
                 </a>
             </div>
 
@@ -78,7 +80,7 @@
                         </a>
                         <ul class="sub-menu" aria-expanded="true">
                             @foreach (App\Models\Village::where('district_id', $district->id)->get() as $village)
-                                <li ><a href="{{ url('voters') }}?vllg={{ $village->id }}">{{ $village->name }}</a></li>
+                                <li><a href="{{ url('voters') }}?vllg={{ $village->id }}">{{ $village->name }}</a></li>
                             @endforeach
                         </ul>
                     </li>

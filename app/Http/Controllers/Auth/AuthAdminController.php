@@ -36,13 +36,13 @@ class AuthAdminController extends Controller
                 return response()->json([
                     'code' => 200,
                     'status' => 'Berhasil!',
-                    'message' => 'Selamat datang kembali, kami akan mengantarmu ke dalam sistem.',
+                    'message' => 'Halo Admin! kami akan mengantarmu ke dalam sistem.',
                 ]);
             } else {
                 return response()->json([
                     'code' => 300,
                     'status' => 'Gagal!',
-                    'message' => 'Kami tidak mengenali anda.',
+                    'message' => 'Maaf, kami tidak mengenali anda.',
                 ]);
             }
         } catch (Exception $e) {
@@ -61,9 +61,9 @@ class AuthAdminController extends Controller
 
     function forgotPasswordProcess(Request $request)
     {
-        // $request->validate([
-        //     'phone_number' => 'required',
-        // ]);
+        $request->validate([
+            'phone_number' => 'required',
+        ]);
 
         try {
             $check = Admin::where('phone_number', $request->phone_number)->first();
@@ -86,13 +86,14 @@ class AuthAdminController extends Controller
                         'api_key' => '0GxB0JURoGbukwlxok6sY9DKhnyjQTvy',
                         'sender' => '6285171121070',
                         'number' => $request->phone_number,
-                        'message' => $otp." adalah kode OTP anda. Jangan berikan kode ini kepada siapapun. \nQuixx - Rekan Pemenangan",
+                        'message' => $otp . " adalah kode OTP anda untuk mengatur ulang kata sandi. Jangan berikan kode ini kepada siapapun. \n\n*Quixx - Rekan Pemenangan 2024*",
                     ]);
 
                     return response()->json([
                         'code' => 200,
                         'status' => 'OTP Terkirim!',
                         'message' => 'Mengarahkanmu ke halaman pemeriksaan OTP.',
+                        'token' => $token,
                         'other' => $response,
                     ]);
                 }
@@ -101,6 +102,7 @@ class AuthAdminController extends Controller
                     'code' => 200,
                     'status' => 'OTP Sudah Terkirim Sebelumnya!',
                     'message' => 'Mengarahkanmu ke halaman pemeriksaan OTP.',
+                    'token' => $checkOTP->token,
                 ]);
             }
 
@@ -118,10 +120,30 @@ class AuthAdminController extends Controller
         }
     }
 
+    function otp(Request $request)
+    {
+        $request->validate([
+            'otp' => 'required',
+        ]);
+
+        return response()->json('test');
+    }
+
+    function resetPassword(Request $request)
+    {
+        $check = DB::table('admin_password_resets')->where('token', $request->token)->exists();
+
+        if ($check) {
+            return view('admin.otp');
+        }
+
+        return abort(404);
+    }
+
     function logout()
     {
         Auth::guard('admin')->logout();
 
-        return back();
+        return redirect('login');
     }
 }

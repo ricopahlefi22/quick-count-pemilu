@@ -118,23 +118,6 @@
                                     <span id="villageIdError" class="invalid-feedback"></span>
                                 </div>
                                 <div class="col-12 col-lg-6 mb-2">
-                                    <label for="votingPlaceId" class="form-label">TPS
-                                        <span id="votingPlaceError" class="text-danger"></span></label>
-                                    <select name="voting_place_id" id="votingPlaceId" class="form-control">
-                                        <option id="votingPlaceOption" value="" selected hidden disabled>
-                                            *PILIH KELURAHAN/DESA DAHULU
-                                        </option>
-                                    </select>
-                                </div>
-                                <div id="coordinatorIdFormWrapper" class="col-12 col-lg-6 mb-2">
-                                    <label for="coordinatorId" class="form-label">Koordinator</label>
-                                    <select name="coordinator_id" id="coordinatorId" class="form-control select2">
-                                        <option id="coordinatorOption" value="" selected hidden disabled>
-                                            *PILIH KELURAHAN/DESA DAHULU
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-12 col-lg-6 mb-2">
                                     <label title="Wajib Diisi" for="gender" class="form-label">Jenis
                                         Kelamin</label>
                                     <div class="form-group row">
@@ -153,6 +136,15 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-12 col-lg-6 mb-2">
+                                    <label for="votingPlaceId" class="form-label">TPS
+                                        <span id="votingPlaceError" class="text-danger"></span></label>
+                                    <select name="voting_place_id" id="votingPlaceId" class="form-control">
+                                        <option id="votingPlaceOption" value="" selected hidden disabled>
+                                            *PILIH KELURAHAN/DESA DAHULU
+                                        </option>
+                                    </select>
                                 </div>
                                 <div class="col-12 col-lg-6 mb-2">
                                     <label title="Wajib Diisi" for="marital_status" class="form-label">Status
@@ -183,6 +175,11 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-12 col-lg-6 mb-2">
+                                    <label for="note" class="form-label">Catatan
+                                        <span id="noteError" class="text-danger"></span></label>
+                                    <textarea name="note" id="note" rows="5" class="form-control"></textarea>
                                 </div>
                             </div>
                         </div>

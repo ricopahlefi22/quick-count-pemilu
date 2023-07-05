@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>{{ $title }} | Admin Quixx</title>
+    <title>{{ $title }} | Quixx</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -13,10 +13,10 @@
     <!-- Custom Style -->
     @stack('style')
 
-    <!-- Sweet Alert-->
-    <link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
-    <!-- Lightbox css -->
-    <link href="{{ asset('assets/libs/magnific-popup/magnific-popup.css') }}" rel="stylesheet" type="text/css" />
+    <!-- jquery.vectormap css -->
+    <link href="{{ asset('assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css') }}" rel="stylesheet"
+        type="text/css" />
+
     <!-- Bootstrap Css -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
     <!-- Icons Css -->
@@ -25,7 +25,8 @@
     <link href="{{ asset('assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
 </head>
 
-<body data-layout="detached" data-topbar="colored">
+<body data-layout="detached" data-topbar="colored" data-keep-enlarged="true" class="vertical-collpsed"
+    data-layout-size="boxed">
 
     <!-- Loader -->
     <div id="preloader">
@@ -44,17 +45,16 @@
     <div class="container-fluid">
         <!-- Begin page -->
         <div id="layout-wrapper">
-            @include('admin.template.sections.header')
+            @include('owner.template.sections.header')
 
-            @include('admin.template.sections.sidebar')
+            @include('owner.template.sections.sidebar')
 
             <div class="main-content">
 
                 @yield('content')
 
-                @include('admin.template.sections.footer')
+                @include('owner.template.sections.footer')
             </div>
-            <!-- end main content-->
         </div>
         <!-- END layout-wrapper -->
     </div>
@@ -70,12 +70,16 @@
     <script src="{{ asset('assets/libs/metismenu/metisMenu.min.js') }}"></script>
     <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
     <script src="{{ asset('assets/libs/jquery-sparkline/jquery.sparkline.min.js') }}"></script>
-    <!-- Sweet Alerts js -->
-    <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
-    <!-- Magnific Popup-->
-    <script src="{{ asset('assets/libs/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
-    <!-- Tour init js-->
-    <script src="{{ asset('assets/js/pages/lightbox.init.js') }}"></script>
+
+    <!-- apexcharts -->
+    <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
+
+    <!-- jquery.vectormap map -->
+    <script src="{{ asset('assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-us-merc-en.js') }}">
+    </script>
+
+    <script src="{{ asset('assets/js/pages/dashboard.init.js') }}"></script>
 
     <script src="{{ asset('assets/js/app.js') }}"></script>
 

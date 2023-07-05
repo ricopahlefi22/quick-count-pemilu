@@ -185,40 +185,6 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "coordinators/json",
-            data: {
-                village_id: $(this).val(),
-            },
-            success: function (response) {
-                var options = "";
-                console.log(response);
-
-                if (response.length != 0) {
-                    $.each(response, function (key, value) {
-                        options +=
-                            '<option value="' +
-                            value["id"] +
-                            '">' +
-                            value["name"] +
-                            " (" +
-                            value["village"]["name"] +
-                            ") </option>";
-                    });
-
-                    $("#coordinatorId").html(
-                        '<option value="" selected>--- PILIH KOORDINATOR ---</option>' +
-                            options
-                    );
-                } else {
-                    $("#coordinatorId").html(
-                        "<option selected hidden disabled>--- TIDAK ADA KOORDINATOR ---</option>"
-                    );
-                }
-            },
-        });
-
-        $.ajax({
-            type: "POST",
             url: "voting-places/json",
             data: {
                 village_id: $(this).val(),
@@ -231,7 +197,7 @@ $(document).ready(function () {
                             '<option value="' +
                             value["id"] +
                             '">' +
-                            value["name"] +
+                            value["name"] +     
                             "</option>";
                     });
 
