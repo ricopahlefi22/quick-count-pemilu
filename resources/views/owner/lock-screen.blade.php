@@ -7,7 +7,7 @@
             <div class="position-relative">
                 <h5 class="text-white font-size-20">Selamat Datang di Quixx!</h5>
                 <p class="text-white-50 mb-0">Kami memerlukan kata sandi untuk mengenali anda!</p>
-                <a href="http://{{ env('DOMAIN') }}:8000" class="logo logo-admin mt-4">
+                <a href="{{ url('/') }}" class="logo logo-admin mt-4">
                     <img src="{{ asset('assets/images/logo-sm-dark.png') }}" alt="" height="30">
                 </a>
             </div>
@@ -35,7 +35,8 @@
                             </a>
                         </div>
                         <div class="col-7 text-end">
-                            <button class="btn btn-primary w-md waves-effect waves-light" type="submit">Login</button>
+                            <button id="submit" class="btn btn-primary w-md waves-effect waves-light"
+                                type="submit">Login</button>
                         </div>
                     </div>
                 </form>

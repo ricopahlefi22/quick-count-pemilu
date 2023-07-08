@@ -25,164 +25,138 @@
         </div>
         <!-- end page title -->
 
-        @if (App\Models\WebConfig::first()->strict == true)
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title mb-4">
-                                <i class="fas fa-info-circle h6 text-primary"></i> Panduan
-                            </h4>
-                            <div id="reviewExampleControls" class="carousel slide review-carousel" data-ride="carousel">
-
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <div>
-                                            <p>Sistem ini dikembangkan oleh Kayong Developer Community. apabila terjadi
-                                                kendala
-                                                yang mengganggu berjalannya sistem atau memerlukan bantuan dalam penggunaan
-                                                sistem, harap hubungi kontak berikut melalui telepon ataupun whatsapp.</p>
-                                            <div class="d-flex align-items-start mt-4">
-                                                <div class="avatar-sm me-3">
-                                                    <a href="https://wa.me/6285171121070" target="_blank"
-                                                        class="avatar-title bg-success text-white rounded-circle">
-                                                        <i class="fab fa-whatsapp"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="flex-1">
-                                                    <h5 class="font-size-16 mb-1">Kayong Developer</h5>
-                                                    <p class="mb-2">Kayong Developer</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <div>
-                                            <p>For science, music, sport, etc, Europe uses the same vocabulary
-                                                languages only differ in their grammar</p>
-                                            <div class="d-flex align-items-start mt-4">
-                                                <div class="avatar-sm me-3">
-                                                    <img src="assets/images/users/avatar-4.jpg" alt=""
-                                                        class="img-fluid rounded-circle">
-                                                </div>
-                                                <div class="flex-1">
-                                                    <h5 class="font-size-16 mb-1">Kelly Rivera</h5>
-                                                    <p class="mb-2">Web Developer</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <div>
-                                            <p>The new common language will be more simple and regular than the
-                                                existing European languages.</p>
-                                            <div class="d-flex align-items-start mt-4">
-                                                <div class="avatar-sm me-3">
-                                                    <span class="avatar-title bg-soft-primary text-primary rounded-circle">
-                                                        S
-                                                    </span>
-                                                </div>
-                                                <div class="flex-1">
-                                                    <h5 class="font-size-16 mb-1">Simon Hawkins</h5>
-                                                    <p class="mb-2">CEO of XYZ Company</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+        <div class="row">
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="align-items-center">
+                            <p class="mb-2">Jumlah Kecamatan</p>
+                            <div class="row">
+                                <div class="col-9">
+                                    <h4 class="mb-0">{{ $districts->count() }}</h4>
                                 </div>
-
-                                <a class="carousel-control-prev" href="#reviewExampleControls" role="button"
-                                    data-bs-slide="prev">
-                                    <i class="mdi mdi-chevron-left carousel-control-icon"></i>
-                                </a>
-                                <a class="carousel-control-next" href="#reviewExampleControls" role="button"
-                                    data-bs-slide="next">
-                                    <i class="mdi mdi-chevron-right carousel-control-icon"></i>
-                                </a>
+                                <div class="col-3">
+                                    <button class="btn btn-sm btn-outline-dark"><i class="fa fa-eye"></i></button>
+                                </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
-        @else
-            <div class="row">
-                <div class="col-xl-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-start">
-                                <div class="avatar-sm font-size-20 me-3">
-                                    <span class="avatar-title bg-soft-primary text-primary rounded">
-                                        <i class="fa fa-users"></i>
-                                    </span>
-                                </div>
-                                <div class="flex-1">
-                                    <h5 class="">Jumlah Pemetaan Suara</h5>
-                                </div>
-                            </div>
-                            <h2 class="mt-3 text-end"><strong>{{ $voters }}</strong></h2>
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="align-items-center">
+                            <p class="mb-2">Jumlah Desa</p>
                             <div class="row">
-                                <div class="col-12 align-self-center">
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 62%"
-                                            aria-valuenow="62" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
+                                <div class="col-9">
+                                    <h4 class="mb-0">{{ $villages->count() }}</h4>
+                                </div>
+                                <div class="col-3">
+                                    <button class="btn btn-sm btn-outline-dark"><i class="fa fa-eye"></i></button>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-start">
-                                <div class="avatar-sm font-size-20 me-3">
-                                    <span class="avatar-title bg-soft-primary text-primary rounded">
-                                        <i class="fa fa-user-tie"></i>
-                                    </span>
-                                </div>
-                                <div class="flex-1">
-                                    <h5 class="">Jumlah Koordinator</h5>
-                                </div>
-                            </div>
-                            <h2 class="mt-3 text-end"><strong>{{ $coordinators }}</strong></h2>
-                            <div class="row">
-                                <div class="col-12 align-self-center">
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 62%"
-                                            aria-valuenow="62" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-8">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title mb-4">Sales Report</h4>
-
-                            <div id="line-chart" class="apex-charts"></div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            @foreach (App\Models\District::all() as $district)
-                <h4>Kecamatan {{ $district->name }}</h4>
-                <div class="row">
-                    @foreach ($district->village as $village)
-                        <div class="col-4">
-                            <div class="card">
-                                <div class="card-body d-flex justify-content-between">
-                                    <span>{{ $village->name }}</span>
-                                    <span>{{$village->voters->whereNotNull('coordinator_id')->count()}}</span>
-                                </div>
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <p class="mb-2">Jumlah TPS</p>
+                                <h4 class="mb-0">{{ $voting_places->count() }}</h4>
                             </div>
                         </div>
-                    @endforeach
+                    </div>
                 </div>
-            @endforeach
-        @endif
+            </div>
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <p class="mb-2">Jumlah Pemilih</p>
+                                <h4 class="mb-0">{{ $voters->count() }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">
+                            <i class="fas fa-info-circle h6 text-primary"></i> Informasi
+                        </h4>
+                        <div id="reviewExampleControls" class="carousel slide review-carousel" data-ride="carousel">
+
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <div>
+                                        <p>Sistem ini dikembangkan oleh Kayong Developer Community. apabila terjadi
+                                            kendala
+                                            yang mengganggu berjalannya sistem atau memerlukan bantuan dalam penggunaan
+                                            sistem, harap hubungi kontak berikut melalui telepon ataupun whatsapp.</p>
+                                        <div class="d-flex align-items-start mt-4">
+                                            <div class="avatar-sm me-3">
+                                                <a href="https://wa.me/6285171121070" target="_blank"
+                                                    class="avatar-title bg-success text-white rounded-circle">
+                                                    <i class="fab fa-whatsapp"></i>
+                                                </a>
+                                            </div>
+                                            <div class="flex-1">
+                                                <h5 class="font-size-16 mb-1">Kayong Developer</h5>
+                                                <p class="mb-2">0851-7112-1070</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="carousel-item">
+                                    <div>
+                                        <p>The new common language will be more simple and regular than the
+                                            existing European languages. The new common language will be more simple and
+                                            regular than the
+                                            existing European languages.</p>
+                                    </div>
+                                </div>
+                                <div class="carousel-item">
+                                    <div>
+                                        <p>The new common language will be more simple and regular than the
+                                            existing European languages.</p>
+                                        <div class="d-flex align-items-start mt-4">
+                                            <div class="avatar-sm me-3">
+                                                <span class="avatar-title bg-soft-primary text-primary rounded-circle">
+                                                    S
+                                                </span>
+                                            </div>
+                                            <div class="flex-1">
+                                                <h5 class="font-size-16 mb-1">Simon Hawkins</h5>
+                                                <p class="mb-2">CEO of XYZ Company</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <a class="carousel-control-prev" href="#reviewExampleControls" role="button"
+                                data-bs-slide="prev">
+                                <i class="mdi mdi-chevron-left carousel-control-icon"></i>
+                            </a>
+                            <a class="carousel-control-next" href="#reviewExampleControls" role="button"
+                                data-bs-slide="next">
+                                <i class="mdi mdi-chevron-right carousel-control-icon"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 

@@ -13,7 +13,7 @@
 
             <div class="mt-2">
                 <a href="javacript:void(0)" class="text-reset fw-medium font-size-16">{{ Auth::user()->name }}</a>
-                <p class="text-muted mb-0 font-size-13">Administrator</p>
+                <p class="text-muted mb-0 font-size-13">{{Auth::user()->level == true ? 'Super Admin' : 'Administrator'}}</p>
 
             </div>
         </div>
@@ -45,31 +45,6 @@
                     </a>
                 </li>
 
-                @if (App\Models\WebConfig::first()->strict == false)
-                    {{-- <li class="menu-title">Pemetaan Suara</li>
-
-                    <li>
-                        <a href="districts" class=" waves-effect">
-                            <i class="mdi mdi-chart-bar-stacked"></i>
-                            <span>Data Kecamatan</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="villages" class=" waves-effect">
-                            <i class="bx bx-bar-chart-alt-2"></i>
-                            <span>Data Desa/Kelurahan</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="voting-places" class=" waves-effect">
-                            <i class="fas fa-chart-bar"></i>
-                            <span>Data TPS</span>
-                        </a>
-                    </li> --}}
-                @endif
-
                 <li class="menu-title">Data Pemilih</li>
 
                 @foreach (App\Models\District::all() as $district)
@@ -80,7 +55,7 @@
                         </a>
                         <ul class="sub-menu" aria-expanded="true">
                             @foreach (App\Models\Village::where('district_id', $district->id)->get() as $village)
-                                <li><a href="{{ url('voters') }}?vllg={{ $village->id }}">{{ $village->name }}</a></li>
+                                <li><a href="{{ url('voters/village', $village->id) }}">{{ $village->name }}</a></li>
                             @endforeach
                         </ul>
                     </li>

@@ -16,8 +16,6 @@
         <div class="row">
             <div class="col-7">
                 <div class="btn-group">
-                    <a href="#" class="btn btn-success disabled">Hasil Perhitungan Cepat</a>
-                    <a href="#" class="btn btn-primary disabled">Hasil Pemetaan Suara</a>
                     <div class="btn-group dropdown float-end">
                         <button id="btnGroupDropdown" type="button" class="btn btn-block btn-dark dropdown-toggle"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -26,8 +24,6 @@
                         <div class="dropdown-menu" aria-labelledby="btnGroupDropdown">
                             <button class="dropdown-item" disabled><i class="fa fa-file-csv"></i> Ekspor CSV</button>
                             <button class="dropdown-item" disabled><i class="fa fa-file-pdf"></i> Cetak PDF</button>
-                            <a href="{{ url('voters/import') }}" class="dropdown-item text-success"><i
-                                    class="fa fa-file-pdf"></i> Impor</a>
                         </div>
                     </div>
                 </div>
@@ -44,7 +40,7 @@
             @foreach ($districts as $district)
                 <div class="d-flex justify-content-between">
                     <h5 class="text-black mb-3">Koordinator Kecamatan {{ $district->name }}</h5>
-                    <span>{{ $district->voters->where('level', 1)->count() }} Koordinator</span>
+                    <span><strong>{{ $district->voters->where('level', 1)->count() }}</strong> Koordinator</span>
                 </div>
                 @foreach ($district->village as $village)
                     <div class="col-12 col-sm-6 col-md-3">

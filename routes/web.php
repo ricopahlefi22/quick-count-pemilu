@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthAdminController;
 use App\Http\Controllers\Auth\AuthOwnerController;
 use App\Http\Controllers\CoordinatorController;
@@ -10,7 +11,6 @@ use App\Http\Controllers\ImportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\VillageController;
-use App\Http\Controllers\VoterController;
 use App\Http\Controllers\VotingPlaceController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,48 +38,12 @@ Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
             Route::post('/', 'search');
         });
 
-        Route::prefix('districts')->controller(DistrictController::class)->group(function () {
-            Route::get('/', 'index');
-        });
-
-        Route::prefix('villages')->controller(VillageController::class)->group(function () {
-            Route::get('/', 'index');
-            Route::post('json', 'json');
-        });
-
-        Route::prefix('voting-places')->controller(VotingPlaceController::class)->group(function () {
-            Route::get('/', 'index');
-            Route::post('json', 'json');
-        });
-
         Route::prefix('coordinators')->controller(CoordinatorController::class)->group(function () {
             Route::get('/', 'index');
             Route::post('json', 'json');
         });
 
-        Route::prefix('voters')->controller(VoterController::class)->group(function () {
-            Route::get('/', 'index');
-            Route::post('validating', 'validating');
-            Route::post('check', 'check');
-            Route::post('store', 'store');
-            Route::delete('destroy', 'destroy');
-
-            Route::controller(CoordinatorController::class)->group(function () {
-                Route::post('coordinator', 'coordinator');
-                Route::post('check-coordinator', 'checkCoordinator');
-                Route::post('be-coordinator', 'beCoordinator');
-                Route::post('cancel-coordinator', 'cancelCoordinator');
-            });
-
-            Route::controller(ExportController::class)->group(function () {
-                Route::get('export', 'export');
-            });
-
-            Route::controller(ImportController::class)->group(function () {
-                Route::get('import', 'index');
-                Route::post('import', 'import');
-            });
-        });
+        include 'voter-route.php';
     });
 });
 
@@ -95,4 +59,13 @@ Route::middleware('auth:owner')->group(function () {
         Route::get('/', 'ownerDashboard');
         Route::get('dashboard', 'ownerDashboard');
     });
+
+    Route::prefix('administrators')->controller(AdminController::class)->group(function () {
+        Route::get('/', 'index');
+        Route::post('check', 'check');
+        Route::post('store', 'store');
+        Route::delete('destroy', 'destroy');
+    });
+
+    include 'voter-route.php';
 });

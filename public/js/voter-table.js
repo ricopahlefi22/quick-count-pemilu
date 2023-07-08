@@ -197,7 +197,7 @@ $(document).ready(function () {
                             '<option value="' +
                             value["id"] +
                             '">' +
-                            value["name"] +     
+                            value["name"] +
                             "</option>";
                     });
 
@@ -242,18 +242,18 @@ $(document).ready(function () {
                 photo.init();
 
                 var ktp = $("#ktp").dropify({
-                    defaultFile: data.e_ktp_image,
+                    defaultFile: data.ktp_image,
                 });
 
                 ktp = ktp.data("dropify");
                 ktp.resetPreview();
                 ktp.clearElement();
-                ktp.settings.defaultFile = data.e_ktp_image;
+                ktp.settings.defaultFile = data.ktp_image;
                 ktp.destroy();
                 ktp.init();
 
                 $("#hiddenPhoto").val(data.photo);
-                $("#hiddenKTP").val(data.e_ktp_image);
+                $("#hiddenKTP").val(data.ktp_image);
                 $("#id").val(data.id);
                 $("#name").val(data.name);
                 $("#idNumber").val(data.id_number).prop("readonly", true);
@@ -329,46 +329,6 @@ $(document).ready(function () {
                                             data.voting_place_id
                                         );
                                     }
-                                },
-                            });
-
-                            $.ajax({
-                                type: "POST",
-                                url: "coordinators/json",
-                                data: { village_id: data.village_id },
-                                success: function (response) {
-                                    var options = "";
-                                    if (response.length != 0) {
-                                        $.each(response, function (key, value) {
-                                            options +=
-                                                '<option value="' +
-                                                value["id"] +
-                                                '">' +
-                                                value["name"] +
-                                                " (TPS " +
-                                                value["voting_place"]["name"] +
-                                                ")" +
-                                                "</option>";
-                                        });
-
-                                        $("#coordinatorId").html(
-                                            '<option value="" selected>*PILIH KOORDINATOR</option>' +
-                                                options
-                                        );
-
-                                        if (data.coordinator_id) {
-                                            $("#coordinatorId").val(
-                                                data.coordinator_id
-                                            );
-                                        }
-                                    } else {
-                                        $("#coordinatorId").html(
-                                            "<option selected hidden disabled>*TIDAK ADA KOORDINATOR DI DESA INI</option>"
-                                        );
-                                    }
-                                },
-                                error: function (error) {
-                                    console.log(error);
                                 },
                             });
                         },

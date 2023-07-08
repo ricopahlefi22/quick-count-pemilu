@@ -16,14 +16,10 @@ class VoterController extends Controller
     function index(Request $request)
     {
         $data['title'] = 'Data Pemilih';
-
-        if ($request->vllg) {
-            $data['votingPlaces'] = VotingPlace::where('village_id', $request->vllg)->get();
-            $data['village'] = Village::findOrFail($request->vllg);
-            $data['voter_count'] = Voter::where('village_id', $request->vllg)->count();
-
-            return view('admin.voter.index', $data);
-        }
+        $data['votingPlaces'] = VotingPlace::where('village_id', $request->id)->get();
+        $data['village'] = Village::findOrFail($request->id);
+        $data['voting_places_count'] = $data['votingPlaces']->count();
+        $data['voters_count'] = Voter::where('village_id', $request->id)->count();
 
         if ($request->tps) {
             $data['voters'] = Voter::where('voting_place_id', $request->tps)->orderBy('name', 'asc')->get();
@@ -58,7 +54,7 @@ class VoterController extends Controller
                             $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-danger cancel-coordinator">Batalkan Koordinator</button>';
                         }
 
-                        if(Auth::user()->level == true){
+                        if (Auth::user()->level == true) {
                             $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-danger delete">Hapus Data</button>';
                         }
                         return '<div class="btn-group dropup"><button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></button>'
@@ -78,10 +74,19 @@ class VoterController extends Controller
                     })
                     ->make(true);
             }
+
+            if(Auth::guard('owner')->check()){
+                return view('owner.voter.table', $data);
+            }
+
             return view('admin.voter.table', $data);
         }
 
-        return abort(404);
+        if(Auth::guard('owner')->check()){
+            return view('owner.voter.index', $data);
+        }
+
+        return view('admin.voter.index', $data);
     }
 
     function store(Request $request)
@@ -126,7 +131,7 @@ class VoterController extends Controller
         if ($request->file('photo')) {
             $path = 'public/voter-photos/';
             $file = $request->file('photo');
-            $file_name = Str::random(5) . time() . '_' . $file->getClientOriginalName();
+            $file_name = $request->id_number . '-[' . time() . '].' . $file->getClientOriginalExtension();
 
             $file->storeAs($path, $file_name);
             $photo = "storage/voter-photos/" . $file_name;
@@ -137,7 +142,7 @@ class VoterController extends Controller
         if ($request->file('ktp')) {
             $path = 'public/voter-ktp/';
             $file = $request->file('ktp');
-            $file_name = Str::random(5) . time() . '_' . $file->getClientOriginalName();
+            $file_name = $request->id_number . '-[' . time() . '].' . $file->getClientOriginalExtension();
 
             $file->storeAs($path, $file_name);
             $ktp = "storage/voter-ktp/" . $file_name;
@@ -148,7 +153,7 @@ class VoterController extends Controller
         if ($request->file('evidence')) {
             $path = 'public/voter-evidence/';
             $file = $request->file('evidence');
-            $file_name = Str::random(5) . time() . '_' . $file->getClientOriginalName();
+            $file_name = $request->id_number . '-[' . time() . '].' . $file->getClientOriginalExtension();
 
             $file->storeAs($path, $file_name);
             $evidence = "storage/voter-evidence/" . $file_name;
@@ -200,7 +205,8 @@ class VoterController extends Controller
         return response()->json($data);
     }
 
-    function destroy(Request $request){
+    function destroy(Request $request)
+    {
         $data = Voter::findOrFail($request->id);
         foreach ($data->member as $member) {
             $member->coordinator_id = null;

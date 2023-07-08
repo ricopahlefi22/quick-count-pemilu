@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\District;
+use App\Models\Village;
 use App\Models\Voter;
+use App\Models\VotingPlace;
 use App\Models\WebConfig;
 use Illuminate\Http\Request;
 
@@ -20,6 +23,12 @@ class DashboardController extends Controller
     function adminDashboard()
     {
         $data['title'] = 'Beranda';
+        $data['districts'] = District::all();
+        $data['villages'] = Village::all();
+        $data['voting_places'] = VotingPlace::all();
+        $data['voters'] = Voter::all();
+
+
         if (WebConfig::first()->strict == false) {
             $data['coordinators'] = Voter::where('level', 1)->count();
             $data['voters'] = Voter::where('level', 0)->whereNotNull('coordinator_id')->count() + $data['coordinators'];

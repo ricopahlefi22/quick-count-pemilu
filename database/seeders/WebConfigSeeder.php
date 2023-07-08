@@ -15,8 +15,7 @@ class WebConfigSeeder extends Seeder
     {
         WebConfig::factory()->create([
             'token' => 'f=kR20D=?4i9WsGndN5dJo8MXkQO4K6JycsrVQlroG0mwmJovHX2bH//LFiciHFv',
-            'photo' => 'storage/init-images/rico.jpg',
-            'name' => 'Bakal Calon Legislatif',
+            'name' => 'Calon Legislatif',
             'password' => bcrypt('12341234'),
             'pin' => bcrypt('123123'),
             'phone_number' => '089528597031',

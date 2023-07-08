@@ -7,7 +7,7 @@
             <div class="position-relative">
                 <h5 class="text-white font-size-20">Hi Admin!</h5>
                 <p class="text-white-50 mb-0">Login dahulu untuk melanjutkan.</p>
-                <a href="http://app.{{ env('DOMAIN') }}:8000" class="logo logo-admin mt-4">
+                <a href="{{ url('/') }}" class="logo logo-admin mt-4">
                     <img src="{{ asset('assets/images/logo-sm-dark.png') }}" alt="" height="30">
                 </a>
             </div>

@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('web_config', function (Blueprint $table) {
             $table->id();
             $table->string('token');
-            $table->string('photo');
+            $table->string('photo')->nullable();
             $table->string('name');
             $table->string('password');
             $table->string('pin');
             $table->string('phone_number');
-            $table->boolean('strict')->default(false);
+            $table->boolean('strict')->default(true);
             $table->timestamps();
         });
     }

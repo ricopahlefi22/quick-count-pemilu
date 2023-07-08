@@ -14,7 +14,6 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         Admin::factory()->create([
-            'photo' => 'storage/init-images/rico.jpg',
             'name' => 'Rico Pahlefi',
             'email' => 'ricopahlefi22@gmail.com',
             'phone_number' => '089528597031',
