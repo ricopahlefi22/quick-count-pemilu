@@ -156,7 +156,7 @@ $(document).ready(function () {
     $("#districtId").change(function () {
         $.ajax({
             type: "POST",
-            url: "villages/json",
+            url: "/villages/json",
             data: {
                 district_id: $(this).val(),
             },
@@ -185,7 +185,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "voting-places/json",
+            url: "/voting-places/json",
             data: {
                 village_id: $(this).val(),
             },
@@ -217,7 +217,7 @@ $(document).ready(function () {
     $("body").on("click", ".edit", function () {
         $.ajax({
             type: "POST",
-            url: "voters/check",
+            url: "/voters/check",
             data: { id: $(this).data("id") },
             success: function (data) {
                 $("#name").removeClass("is-invalid");
@@ -268,24 +268,12 @@ $(document).ready(function () {
                 $("#note").val(data.note);
                 $('input[name="gender"]').val([data.gender]);
                 $('input[name="marital_status"]').val([data.marital_status]);
-                $('input[name="e_ktp_record_state"]').val([
-                    data.e_ktp_record_state,
-                ]);
-                $('input[name="disability_information"]').val([
-                    data.disability_information,
-                ]);
-
-                if (data.level == 1) {
-                    $("#coordinatorIdFormWrapper").addClass("d-none");
-                } else {
-                    $("#coordinatorIdFormWrapper").removeClass("d-none");
-                }
 
                 if (data.district_id != null) {
                     $("#districtId").val(data.district_id);
                     $.ajax({
                         type: "POST",
-                        url: "villages/json",
+                        url: "/villages/json",
                         data: { district_id: data.district_id },
                         success: function (response) {
                             var options = "";
@@ -306,7 +294,7 @@ $(document).ready(function () {
 
                             $.ajax({
                                 type: "POST",
-                                url: "voting-places/json",
+                                url: "/voting-places/json",
                                 data: { village_id: data.village_id },
                                 success: function (response) {
                                     var options = "";
@@ -358,7 +346,7 @@ $(document).ready(function () {
         const id = $(this).data("id");
         $.ajax({
             type: "POST",
-            url: "voters/check-coordinator",
+            url: "/check-coordinator",
             data: {
                 id: $(this).data("id"),
             },
@@ -401,7 +389,7 @@ $(document).ready(function () {
     $("body").on("click", ".be-coordinator", function () {
         $.ajax({
             type: "POST",
-            url: "voters/check",
+            url: "/voters/check",
             data: {
                 id: $(this).data("id"),
             },
@@ -423,7 +411,7 @@ $(document).ready(function () {
     $("body").on("click", ".cancel-coordinator", function () {
         $.ajax({
             type: "POST",
-            url: "voters/check",
+            url: "/voters/check",
             data: {
                 id: $(this).data("id"),
             },
@@ -450,7 +438,7 @@ $(document).ready(function () {
         ) {
             $.ajax({
                 type: "DELETE",
-                url: "voters/destroy",
+                url: "/voters/destroy",
                 data: { id: $(this).data("id") },
                 success: function (response) {
                     Swal.fire({
@@ -511,7 +499,6 @@ $(document).ready(function () {
                 table.ajax.reload(null, false);
             },
             error: function (error) {
-                console.log(error);
                 $("#button").html("Simpan");
                 if (error.status == 422) {
                     var rspError = error["responseJSON"]["errors"];
@@ -572,7 +559,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "voters/coordinator",
+            url: "/list-coordinator",
             data: {
                 id: $("#idCoordinator").val(),
                 coordinator_id: $("#select2insidemodal").val(),
@@ -605,7 +592,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "voters/be-coordinator",
+            url: "/be-coordinator",
             data: {
                 id: $("#idBeCoordinator").val(),
             },
@@ -636,7 +623,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "voters/cancel-coordinator",
+            url: "/cancel-coordinator",
             data: {
                 id: $("#idCancelCoordinator").val(),
             },

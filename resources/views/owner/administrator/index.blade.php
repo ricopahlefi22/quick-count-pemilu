@@ -3,7 +3,8 @@
 @push('style')
     <!-- SweetAlert2 -->
     <link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
-
+    <!-- Lightbox css -->
+    <link href="{{ asset('assets/libs/magnific-popup/magnific-popup.css') }}" rel="stylesheet" type="text/css" />
     <!-- DataTables -->
     <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet"
         type="text/css" />
@@ -24,14 +25,16 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title mb-0 font-size-18">Data Administrator</h4>
+                    <h4 class="page-title mb-0 font-size-18">Data Koordinator</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item">
-                                <a href="javascript: void(0);">Lainnya</a>
+                                <a href="javascript: void(0);">
+                                    Lainnya
+                                </a>
                             </li>
-                            <li class="breadcrumb-item active">Data Administrator</li>
+                            <li class="breadcrumb-item active">Data Koordinator</li>
                         </ol>
                     </div>
                 </div>
@@ -43,9 +46,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Tabel Administrator <button id="create" class="btn btn-sm btn-dark float-end">Tambah</button></h4>
+                        <h4 class="card-title">Tabel Administrator <button id="create"
+                                class="btn btn-sm btn-dark float-end">Tambah</button></h4>
                         <p class="card-title-desc">
-                            Administrator dengan level "Super Admin" memiliki hak akses penuh untuk mengelola data pemilih seperti mengedit dan menghapus data.
+                            Administrator dengan level "Super Admin" memiliki hak akses penuh untuk mengelola data pemilih
+                            seperti mengedit dan menghapus data.
                         </p>
 
                         <table id="table" class="table table-bordered dt-responsive nowrap"
@@ -77,6 +82,11 @@
 @push('script')
     <!-- SweetAlert2 -->
     <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
+
+    <!-- Magnific Popup-->
+    <script src="{{ asset('assets/libs/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
+    <!-- Tour init js-->
+    <script src="{{ asset('assets/js/pages/lightbox.init.js') }}"></script>
 
     <!-- Datatable -->
     <script src="{{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>

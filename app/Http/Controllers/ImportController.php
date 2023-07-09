@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Imports\VoterImport;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ImportController extends Controller
@@ -12,7 +13,11 @@ class ImportController extends Controller
     {
         $data['title'] = 'Impor Data';
 
-        return view('import', $data);
+        if (Auth::guard('owner')->check()) {
+            return view('owner.import', $data);
+        }
+
+        return view('admin.import', $data);
     }
 
     function import(Request $request)
@@ -35,7 +40,7 @@ class ImportController extends Controller
                 return response()->json([
                     'code' => 300,
                     'status' => 'Impor Berhasil!',
-                    'message' => 'Sebanyak ' . $import->getRowCount() . ' data telah ditambahkan ke data '.$import->getLocation().' dengan beberapa pengecualian.',
+                    'message' => 'Sebanyak ' . $import->getRowCount() . ' data telah ditambahkan ke data ' . $import->getLocation() . ' dengan beberapa pengecualian.',
                     'data' => $import->failures(),
                 ]);
             }
@@ -44,7 +49,7 @@ class ImportController extends Controller
         return response()->json([
             'code' => 200,
             'status' => 'Impor Berhasil!',
-            'message' => 'Sebanyak ' . $import->getRowCount() . ' data telah ditambahkan ke data '.$import->getLocation().'.',
+            'message' => 'Sebanyak ' . $import->getRowCount() . ' data telah ditambahkan ke data ' . $import->getLocation() . '.',
         ]);
     }
 }

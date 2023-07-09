@@ -13,13 +13,6 @@ Route::prefix('voters')->controller(VoterController::class)->group(function () {
     Route::post('store', 'store');
     Route::delete('destroy', 'destroy');
 
-    Route::controller(CoordinatorController::class)->group(function () {
-        Route::post('coordinator', 'coordinator');
-        Route::post('check-coordinator', 'checkCoordinator');
-        Route::post('be-coordinator', 'beCoordinator');
-        Route::post('cancel-coordinator', 'cancelCoordinator');
-    });
-
     Route::controller(ExportController::class)->group(function () {
         Route::get('export', 'export');
     });

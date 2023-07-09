@@ -44,7 +44,7 @@
                                 <label for="level" class="form-label">Level<strong class="text-danger">*</strong>
                                 </label>
                                 <select name="level" id="level" class="form-control">
-                                    <option value="">*PILIH LEVEL</option>
+                                    <option value="" disabled selected hidden>*PILIH LEVEL</option>
                                     <option value="0">Administrator</option>
                                     <option value="1">Super Admin</option>
                                 </select>

@@ -8,7 +8,6 @@ use App\Models\Voter;
 use App\Models\VotingPlace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use yajra\DataTables\DataTables;
 
 class VoterController extends Controller
@@ -20,6 +19,10 @@ class VoterController extends Controller
         $data['village'] = Village::findOrFail($request->id);
         $data['voting_places_count'] = $data['votingPlaces']->count();
         $data['voters_count'] = Voter::where('village_id', $request->id)->count();
+        if(Auth::guard('owner')->check()){
+            $data['coordinators_count'] = Voter::where('level', 1)->where('village_id', $request->id)->count();
+            $data['self_voters_count'] = Voter::whereNotNull('coordinator_id')->where('village_id', $request->id)->count();
+        }
 
         if ($request->tps) {
             $data['voters'] = Voter::where('voting_place_id', $request->tps)->orderBy('name', 'asc')->get();

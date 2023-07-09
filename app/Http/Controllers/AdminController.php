@@ -16,15 +16,24 @@ class AdminController extends Controller
         if ($request->ajax()) {
             return DataTables::of(Admin::all())
                 ->addIndexColumn()
-                ->addColumn('level', function (Admin $admin){
+                ->addColumn('name', function (Admin $admin) {
+                    if (empty($admin->photo)) {
+                        return '<strong>' . $admin->name . '</strong>';
+                    } else {
+                        return '<a class="image-popup-no-margins" href="' . $admin->photo . '">
+                            <img src="' . $admin->photo . '" class="avatar-sm img-thumbnail rounded-circle">
+                            </a> <strong>' . $admin->name . '</strong>';
+                    }
+                })
+                ->addColumn('level', function (Admin $admin) {
                     return $admin->level == true ? 'Super Admin' : 'Administrator';
                 })
                 ->addColumn('action', function (Admin $admin) {
                     $btn = '<button data-id="' . $admin->id . '"  class="btn btn-sm btn-warning edit" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button> ';
                     $btn .= '<button data-id="' . $admin->id . '"  class="btn btn-sm btn-danger delete" title="Hapus"><i class="fa fa-trash" aria-hidden="true"></i></button> ';
-                    return $btn;
+                    return '<div class="btn-group">' . $btn . '</div>';
                 })
-                ->rawColumns(['level', 'action'])
+                ->rawColumns(['name', 'level', 'action'])
                 ->make(true);
         }
 
@@ -65,7 +74,6 @@ class AdminController extends Controller
         ], [
             'name' => ucwords(strtolower($request->name)),
             'email' => $request->email,
-            'password' => bcrypt('12341234'),
             'photo' => $photo,
             'phone_number' => $request->phone_number,
             'level' => $request->level,

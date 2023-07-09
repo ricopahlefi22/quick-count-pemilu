@@ -72,6 +72,25 @@ var table = $("#table").DataTable({
     },
 });
 
+$("body").on("click", ".image-popup-no-margins", function (e) {
+    e.preventDefault();
+
+    $(".image-popup-no-margins").magnificPopup({
+        type: "image",
+        closeOnContentClick: !0,
+        closeBtnInside: !1,
+        fixedContentPos: !0,
+        mainClass: "mfp-no-margins mfp-with-zoom",
+        image: {
+            verticalFit: !0,
+        },
+        zoom: {
+            enabled: !0,
+            duration: 300,
+        },
+    });
+});
+
 $.ajaxSetup({
     headers: {
         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -177,6 +196,8 @@ $("body").on("click", ".edit", function () {
             $("#button").html("Simpan").addClass("btn-warning");
             $("#name").val("").removeClass("is-invalid");
             $("#email").val("").removeClass("is-invalid");
+            $("#phoneNumber").val("").removeClass("is-invalid");
+            $("#level").val("").removeClass("is-invalid");
 
             $("#id").val(response.id);
             $("#name").val(response.name);

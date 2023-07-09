@@ -38,12 +38,13 @@ Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
             Route::post('/', 'search');
         });
 
-        Route::prefix('coordinators')->controller(CoordinatorController::class)->group(function () {
-            Route::get('/', 'index');
-            Route::post('json', 'json');
-        });
+        include 'extra/village-route.php';
 
-        include 'voter-route.php';
+        include 'extra/voting-place-route.php';
+
+        include 'extra/coordinator-route.php';
+
+        include 'extra/voter-route.php';
     });
 });
 
@@ -67,5 +68,11 @@ Route::middleware('auth:owner')->group(function () {
         Route::delete('destroy', 'destroy');
     });
 
-    include 'voter-route.php';
+    include 'extra/village-route.php';
+
+    include 'extra/voting-place-route.php';
+
+    include 'extra/coordinator-route.php';
+
+    include 'extra/voter-route.php';
 });

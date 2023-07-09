@@ -17,7 +17,7 @@
             <div class="p-2">
                 <form id="form" class="form-horizontal">
                     <div class="user-thumb text-center mb-4">
-                        <img src="{{ asset($config->photo) }}" class="rounded-circle img-thumbnail avatar-md">
+                        <img src="{{ asset(empty($config->photo) ? 'images/default-photos.jpg' : $config->photo) }}" class="rounded-circle img-thumbnail avatar-md">
                         <h5 class="font-size-15 mt-3"><strong>{{ $config->name }}</strong></h5>
                     </div>
 

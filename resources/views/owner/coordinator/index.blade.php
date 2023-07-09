@@ -1,3 +1,3 @@
-@extends('admin.template.base')
+@extends('owner.template.base')
 
 @include('sections.coordinator.index')

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone_number');
             $table->boolean('level')->default(false);
-            $table->string('password');
+            $table->string('password')->default(bcrypt('12341234'));
             $table->timestamps();
         });
     }
