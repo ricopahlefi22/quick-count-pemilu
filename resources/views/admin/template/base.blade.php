@@ -12,7 +12,8 @@
 
     <!-- Custom Style -->
     @stack('style')
-
+    <!-- Lightbox css -->
+    <link href="{{ asset('assets/libs/magnific-popup/magnific-popup.css') }}" rel="stylesheet" type="text/css" />
     <!-- Bootstrap Css -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
     <!-- Icons Css -->
@@ -66,6 +67,11 @@
     <script src="{{ asset('assets/libs/metismenu/metisMenu.min.js') }}"></script>
     <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
     <script src="{{ asset('assets/libs/jquery-sparkline/jquery.sparkline.min.js') }}"></script>
+
+    <!-- Magnific Popup-->
+    <script src="{{ asset('assets/libs/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
+    <!-- Tour init js-->
+    <script src="{{ asset('assets/js/pages/lightbox.init.js') }}"></script>
 
     <script src="{{ asset('assets/js/app.js') }}"></script>
 

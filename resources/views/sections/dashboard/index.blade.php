@@ -25,11 +25,11 @@
                         </div>
                         <div class="col-3">
                             <button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="modal"
-                                data-bs-target="#district">
+                                data-bs-target="#districtDashboardModal">
                                 <i class="fa fa-eye"></i>
                             </button>
 
-                            <div class="modal fade" id="district" data-bs-backdrop="static" data-bs-keyboard="false"
+                            <div class="modal fade" id="districtDashboardModal" data-bs-backdrop="static" data-bs-keyboard="false"
                                 tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
@@ -87,9 +87,53 @@
                         <div class="col-9">
                             <h4 class="mb-0">{{ $villages->count() }}</h4>
                         </div>
-                        {{-- <div class="col-3">
-                            <button class="btn btn-sm btn-outline-dark"><i class="fa fa-eye"></i></button>
-                        </div> --}}
+                        <div class="col-3">
+                            <button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="modal"
+                                data-bs-target="#villageDashboardModal">
+                                <i class="fa fa-eye"></i>
+                            </button>
+
+                            <div class="modal fade" id="villageDashboardModal" data-bs-backdrop="static" data-bs-keyboard="false"
+                                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Data Kelurahan / Desa</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table class="table datatable table-bordered dt-responsive nowrap">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Kecamatan</th>
+                                                        <th>Jumlah TPS</th>
+                                                        <th>Jumlah Pemilih</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($villages as $village)
+                                                        <tr>
+                                                            <td>{{ $village->name }}</td>
+                                                            <td class="text-center">
+                                                                {{ $village->votingPlace->count() }}</td>
+                                                            <td class="text-center">{{ $village->voters->count() }}
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Tutup</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

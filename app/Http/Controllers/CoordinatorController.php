@@ -69,6 +69,7 @@ class CoordinatorController extends Controller
         if ($request->id) {
             $data['coordinator'] = Voter::findOrFail(Crypt::decrypt($request->id));
             $data['title'] = 'Detail Data ' . $data['coordinator']->name;
+            $data['members'] = Voter::where('coordinator_id', $data['coordinator']->id)->get();
 
             if (Auth::guard('owner')->check()) {
                 return view('owner.coordinator.detail', $data);

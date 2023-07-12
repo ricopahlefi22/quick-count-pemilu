@@ -231,24 +231,24 @@ $(document).ready(function () {
                 $("#villageId").removeClass("is-invalid");
 
                 var photo = $("#photo").dropify({
-                    defaultFile: data.photo,
+                    defaultFile: "/" + data.photo,
                 });
 
                 photo = photo.data("dropify");
                 photo.resetPreview();
                 photo.clearElement();
-                photo.settings.defaultFile = data.photo;
+                photo.settings.defaultFile = "/" + data.photo;
                 photo.destroy();
                 photo.init();
 
                 var ktp = $("#ktp").dropify({
-                    defaultFile: data.ktp_image,
+                    defaultFile: "/" + data.ktp_image,
                 });
 
                 ktp = ktp.data("dropify");
                 ktp.resetPreview();
                 ktp.clearElement();
-                ktp.settings.defaultFile = data.ktp_image;
+                ktp.settings.defaultFile = "/" + data.ktp_image;
                 ktp.destroy();
                 ktp.init();
 

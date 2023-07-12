@@ -1,13 +1,11 @@
 @extends('auth.auth-base')
 
 @section('content')
-    @include('modals.otp')
-
     <div class="card overflow-hidden">
         <div class="bg-login text-center">
             <div class="bg-login-overlay"></div>
             <div class="position-relative">
-                <h5 class="text-white font-size-20">Atur Ulang Kata Sandi</h5>
+                <h5 class="text-white font-size-20">Kirim One Time Password</h5>
                 <p class="text-white-50 mb-0">Kami akan kirim OTP ke nomor Whatsappmu</p>
 
                 <a href="{{ url('/') }}" class="logo logo-admin mt-4">
@@ -20,7 +18,6 @@
             <div class="p-2">
 
                 <form id="form" class="form-horizontal" method="POST">
-                    @csrf
                     <div class="mb-3">
                         <label class="form-label" for="phoneNumber">No. Handphone (Whatsapp)</label>
                         <input type="tel" name="phone_number" class="form-control" id="phoneNumber"
@@ -45,16 +42,17 @@
 
         </div>
     </div>
+
+    @include('modals.otp')
 @endsection
 
 @push('script')
+    <!-- form mask -->
+    <script src="{{ asset('assets/libs/inputmask/min/jquery.inputmask.bundle.min.js') }}"></script>
+
     <script>
         $(document).ready(function() {
-            $.ajaxSetup({
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-                },
-            });
+            $("[data-mask]").inputmask();
 
             $("#form").on('submit', function(e) {
                 e.preventDefault();
@@ -69,7 +67,9 @@
                     beforeSend: function() {
                         $("#phoneNumber").removeClass('is-invalid');
 
-                        $("#button").prop('disabled', true);
+                        $("#button").html(
+                            '<i class="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>'
+                        ).prop('disabled', true);
                     },
                     success: function(response) {
                         if (response.code == 200) {
@@ -99,7 +99,7 @@
                             });
                         }
 
-                        $("#button").prop('disabled', false);
+                        $("#button").html('Kirim').prop('disabled', false);
                     },
                     error: function(error) {
                         if (error.status == 422) {
@@ -111,18 +111,9 @@
                             }
                         }
 
-                        $("#button").prop('disabled', false);
+                        $("#button").html('Kirim').prop('disabled', false);
                     },
                 });
-            });
-
-            $("#otp").keyup(function() {
-                var val = $(this).val();
-                if(val.length == 6){
-                    $("#otpButton").prop('disabled', false);
-                } else {
-                    $("#otpButton").prop('disabled', true);
-                }
             });
 
             $("#otpForm").on('submit', function(e) {
@@ -136,7 +127,7 @@
                     dataType: "json",
                     contentType: false,
                     beforeSend: function() {
-                        $("#phoneNumber").removeClass('is-invalid');
+                        $("#otp").removeClass('is-invalid');
 
                         $("#otpButton").prop('disabled', true);
                     },
@@ -154,8 +145,7 @@
                                 },
                             }).then((result) => {
                                 if (result.value == true) {
-                                    $("#otpModal").modal('show');
-                                    $("#token").val(response.token);
+                                    location.href = response.route;
                                 }
                             });
                         } else {
@@ -171,12 +161,13 @@
                         $("#otpButton").prop('disabled', false);
                     },
                     error: function(error) {
+                        console.log(error);
                         if (error.status == 422) {
                             var errors = error["responseJSON"]["errors"];
-                            $("#phoneNumberError").html(errors["phone_number"]);
+                            $("#otpError").html(errors["otp"]);
 
-                            if (errors["phone_number"]) {
-                                $("#phoneNumber").addClass('is-invalid').focus();
+                            if (errors["otp"]) {
+                                $("#otp").addClass('is-invalid').focus();
                             }
                         }
 

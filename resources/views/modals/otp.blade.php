@@ -10,13 +10,13 @@
                 <input id="token" type="hidden" name="token">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <input type="number" name="otp" class="form-control" id="otp"
-                            placeholder="Masukkan Kode OTP">
+                        <input name="otp" class="form-control" id="otp"
+                            placeholder="Masukkan Kode OTP" data-inputmask='"mask": "999999"' data-mask>
                         <span id="otpError" class="invalid-feedback"></span>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="otpButton" type="submit" class="btn btn-primary" disabled>Lanjutkan</button>
+                    <button id="otpButton" type="submit" class="btn btn-primary">Lanjutkan</button>
                 </div>
             </form>
         </div>

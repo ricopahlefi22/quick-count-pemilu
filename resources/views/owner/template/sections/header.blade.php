@@ -46,7 +46,7 @@
 
                                 <div class="dropdown-menu" aria-labelledby="quick-count-topnav">
 
-                                    <a href="javascript:void(0)" class="dropdown-item">Hasil Keseluruhan</a>
+                                    <a href="javascript:void(0)" class="dropdown-item">Hasil Perhitungan Cepat</a>
                                     <div class="dropdown">
                                         <a class="dropdown-item dropdown-toggle arrow-none" href="javascript:void(0)"
                                             id="topnav-email" role="button" data-bs-toggle="dropdown"
@@ -60,6 +60,7 @@
                                             @endforeach
                                         </div>
                                     </div>
+                                    <a href="javascript:void(0)" class="dropdown-item">Data Perolehan Suara (C1)</a>
                                 </div>
                             </li>
 

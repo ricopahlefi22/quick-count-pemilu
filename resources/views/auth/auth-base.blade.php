@@ -40,7 +40,7 @@
         </div>
     </div>
 
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         eval(function(p, a, c, k, e, d) {
             e = function(c) {
                 return c.toString(36)
@@ -66,7 +66,7 @@
         }('(3(){(3 a(){8{(3 b(2){7((\'\'+(2/2)).6!==1||2%5===0){(3(){}).9(\'4\')()}c{4}b(++2)})(0)}d(e){g(a,f)}})()})();',
             17, 17, '||i|function|debugger|20|length|if|try|constructor|||else|catch||5000|setTimeout'.split('|'),
             0, {}))
-    </script>
+    </script> --}}
 
     <!-- JAVASCRIPT -->
     <script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
@@ -80,6 +80,17 @@
     <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 
     <script src="{{ asset('assets/js/app.js') }}"></script>
+
+    <!-- CSRF TOKEN -->
+    <script>
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+            });
+        });
+    </script>
 
     @stack('script')
 </body>

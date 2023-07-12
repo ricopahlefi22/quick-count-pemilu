@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('admin_password_resets', function (Blueprint $table) {
-            $table->string('phone_number')->primary();
+            $table->id();
+            $table->string('phone_number');
             $table->string('otp');
             $table->string('token');
             $table->timestamp('expired_at')->nullable();

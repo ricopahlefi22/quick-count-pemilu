@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\AdminPasswordReset;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -70,12 +71,12 @@ class AuthAdminController extends Controller
 
             if (!empty($check)) {
 
-                $checkOTP = DB::table('admin_password_resets')->where('phone_number', $request->phone_number)->first();
+                $checkOTP = AdminPasswordReset::where('phone_number', $request->phone_number)->first();
 
                 if (empty($checkOTP)) {
                     $otp = rand(123456, 999999);
                     $token = Str::random(60);
-                    DB::table('admin_password_resets')->insert([
+                    AdminPasswordReset::insert([
                         'phone_number' => $request->phone_number,
                         'otp' => $otp,
                         'token' => $token,
@@ -126,18 +127,70 @@ class AuthAdminController extends Controller
             'otp' => 'required',
         ]);
 
-        return response()->json('test');
+        $checkOTP = AdminPasswordReset::where('token', $request->token)->first();
+
+        if ($checkOTP->otp == $request->otp) {
+            return response()->json([
+                'code' => 200,
+                'status' => 'Berhasil!',
+                'message' => 'Ayo buat kata sandi baru!',
+                'route' => '/reset-password?token=' . $checkOTP->token,
+            ]);
+        }
+
+        return response()->json([
+            'code' => 300,
+            'status' => 'Gagal!',
+            'message' => 'Kode OTP yang anda masukkan salah.',
+        ]);
     }
 
     function resetPassword(Request $request)
     {
-        $check = DB::table('admin_password_resets')->where('token', $request->token)->exists();
+        $check = AdminPasswordReset::where('token', $request->token)->exists();
 
         if ($check) {
-            return view('admin.otp');
+            $data['token'] = $request->token;
+            return view('admin.reset-password', $data);
         }
 
         return abort(404);
+    }
+
+    function resetpasswordProcess(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|min:8',
+            'confirm_password' => 'required|same:password',
+        ]);
+
+        try {
+            $check = AdminPasswordReset::where('token', $request->token)->first();
+            if ($check) {
+                $admin = Admin::where('phone_number', $check->phone_number)->first();
+                $admin->password = bcrypt($request->password);
+                $admin->save();
+                $check->delete();
+
+                return response()->json([
+                    'code' => 200,
+                    'status' => 'Berhasil!',
+                    'message' => 'Kata sandi berhasil diperbaharui!',
+                ]);
+            }
+
+            return response()->json([
+                'code' => 300,
+                'status' => 'Gagal!',
+                'message' => 'Sesi Berakhir',
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'code' => 300,
+                'status' => 'Gagal!',
+                'message' => $e->getMessage(),
+            ]);
+        }
     }
 
     function logout()

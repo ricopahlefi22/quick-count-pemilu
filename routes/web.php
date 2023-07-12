@@ -3,15 +3,9 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthAdminController;
 use App\Http\Controllers\Auth\AuthOwnerController;
-use App\Http\Controllers\CoordinatorController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DistrictController;
-use App\Http\Controllers\ExportController;
-use App\Http\Controllers\ImportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
-use App\Http\Controllers\VillageController;
-use App\Http\Controllers\VotingPlaceController;
 use Illuminate\Support\Facades\Route;
 
 // ADMIN
@@ -21,6 +15,8 @@ Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
         Route::post('login', 'loginProcess');
         Route::get('forgot-password', 'forgotPassword');
         Route::post('forgot-password', 'forgotPasswordProcess');
+        Route::get('reset-password', 'resetPassword');
+        Route::post('reset-password', 'resetPasswordProcess');
         Route::post('otp', 'otp');
         Route::get('logout', 'logout');
     });
