@@ -25,6 +25,8 @@ class DashboardController extends Controller
 
     function adminDashboard()
     {
+        // $data['time'] = '2023/08/01';
+        // return view('errors.maintenance', $data);
         $data['title'] = 'Beranda';
         $data['districts'] = District::all();
         $data['villages'] = Village::all();
