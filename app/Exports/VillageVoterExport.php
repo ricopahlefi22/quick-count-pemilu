@@ -11,16 +11,16 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithTitle;
 
-class VotingPlaceDPTExport implements FromCollection, ShouldAutoSize, WithHeadings, WithTitle, WithMapping, WithColumnFormatting
+class VillageVoterExport implements FromCollection, ShouldAutoSize, WithHeadings, WithTitle, WithMapping, WithColumnFormatting
 {
-    public function __construct(int $votingPlaceId)
+    public function __construct(int $village)
     {
-        $this->votingPlaceId = $votingPlaceId;
+        $this->village = $village;
     }
 
     public function title(): string
     {
-        return 'Semua Data';
+        return 'Terdaftar';
     }
 
     public function columnFormats(): array
@@ -33,7 +33,7 @@ class VotingPlaceDPTExport implements FromCollection, ShouldAutoSize, WithHeadin
 
     public function collection()
     {
-        return Voter::where('voting_place_id', $this->votingPlaceId)->orderBy('name', 'asc')->get();
+        return Voter::where('village_id', $this->village)->whereNotNull('coordinator_id')->orderBy('coordinator_id', 'asc')->orderBy('name', 'asc')->get();
     }
 
     public function map($voter): array
@@ -52,6 +52,7 @@ class VotingPlaceDPTExport implements FromCollection, ShouldAutoSize, WithHeadin
             $voter->district->name,
             $voter->village->name,
             empty($voter->voting_place_id) ? '-' : $voter->votingPlace->name,
+            $voter->coordinator->name,
         ];
     }
 
@@ -71,6 +72,7 @@ class VotingPlaceDPTExport implements FromCollection, ShouldAutoSize, WithHeadin
             'KECAMATAN',
             'KELURAHAN',
             'TPS',
+            'KOORDINATOR'
         ];
     }
 }

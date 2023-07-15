@@ -11,16 +11,16 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithTitle;
 
-class VotingPlaceDPTExport implements FromCollection, ShouldAutoSize, WithHeadings, WithTitle, WithMapping, WithColumnFormatting
+class VillageNotVoterExport implements FromCollection, ShouldAutoSize, WithHeadings, WithTitle, WithMapping, WithColumnFormatting
 {
-    public function __construct(int $votingPlaceId)
+    public function __construct(int $village)
     {
-        $this->votingPlaceId = $votingPlaceId;
+        $this->village = $village;
     }
 
     public function title(): string
     {
-        return 'Semua Data';
+        return 'Tidak Terdaftar';
     }
 
     public function columnFormats(): array
@@ -33,7 +33,7 @@ class VotingPlaceDPTExport implements FromCollection, ShouldAutoSize, WithHeadin
 
     public function collection()
     {
-        return Voter::where('voting_place_id', $this->votingPlaceId)->orderBy('name', 'asc')->get();
+        return Voter::where('village_id', $this->village)->whereNull('coordinator_id')->orderBy('name', 'asc')->get();
     }
 
     public function map($voter): array

@@ -20,23 +20,5 @@ class AdminSeeder extends Seeder
             'level' => true,
             'password' => bcrypt('MudahDitebak123!'),
         ]);
-
-        // Admin::factory()->create([
-        //     'photo' => 'storage/init-images/sherin.jpg',
-        //     'name' => 'Sherin',
-        //     'email' => 'sherinpramestirc@gmail.com',
-        //     'phone_number' => '081258785644',
-        //     'level' => false,
-        //     'password' => bcrypt('12341234'),
-        // ]);
-
-        // Admin::factory()->create([
-        //     'photo' => 'storage/init-images/sherly.jpg',
-        //     'name' => 'Serly',
-        //     'email' => 'serlyaura92@gmail.com',
-        //     'phone_number' => '081348741607',
-        //     'level' => false,
-        //     'password' => bcrypt('12341234'),
-        // ]);
     }
 }

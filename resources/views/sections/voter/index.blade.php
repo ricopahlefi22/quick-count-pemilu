@@ -19,69 +19,98 @@
         <!-- end page title -->
 
 
-        <div class="row">
-            <div class="col-3">
-                <div class="btn-group">
-                    <div class="btn-group dropdown float-end">
-                        <button id="btnGroupDropdown" type="button" class="btn btn-block btn-dark dropdown-toggle"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Aksi Lainnya <i class="mdi mdi-chevron-down"></i>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="btnGroupDropdown">
-                            <button class="dropdown-item" disabled><i class="fa fa-file-csv"></i> Ekspor CSV</button>
-                            <button class="dropdown-item" disabled><i class="fa fa-file-pdf"></i> Cetak PDF</button>
-                            @if (Auth::user()->level == true || Auth::guard('owner')->check())
+        @if (Auth::user()->level == true || Auth::guard('owner')->check())
+            <div class="row">
+                <div class="col-3">
+                    <div class="btn-group">
+                        <div class="btn-group dropdown float-end">
+                            <button id="btnGroupDropdown" type="button" class="btn btn-block btn-dark dropdown-toggle"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Aksi Lainnya <i class="mdi mdi-chevron-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="btnGroupDropdown">
+                                <a href="{{ url('voters/export') }}?vllg={{ $village->id }}" class="dropdown-item">
+                                    <i class="fa fa-file-csv"></i> Ekspor CSV
+                                </a>
                                 <a href="{{ url('voters/import') }}" class="dropdown-item text-success">
                                     <i class="fa fa-file-pdf"></i> Impor
                                 </a>
-                            @endif
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-9">
-                <div class="row justify-content-end">
-                    <div class="col-1 text-end">
-                        <span>Jumlah:</span>
-                    </div>
-                    @if (Auth::guard('owner')->check())
-                        <div class="col-3">
+                <div class="col-9">
+                    <div class="row justify-content-end">
+                        <div class="col-1 text-end">
+                            <span>Jumlah:</span>
+                        </div>
+                        @if (Auth::guard('owner')->check())
+                            <div class="col-3">
+                                <div class="card bg-soft-primary" title="Sumber: DPT Pemilu 2024">
+                                    <div class="card-header text-end">
+                                        <span><strong>{{ $coordinators_count }}</strong></span>
+                                        <span>Koordinator</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="card bg-soft-primary" title="Sumber: DPT Pemilu 2024">
+                                    <div class="card-header text-end">
+                                        <span><strong>{{ $self_voters_count }}</strong></span>
+                                        <span>Pendukung</span>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
+                        <div class="col-2">
                             <div class="card bg-soft-primary" title="Sumber: DPT Pemilu 2024">
                                 <div class="card-header text-end">
-                                    <span><strong>{{ $coordinators_count }}</strong></span>
-                                    <span>Koordinator</span>
+                                    <span><strong>{{ $voting_places_count }}</strong></span>
+                                    <span>TPS</span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-2">
                             <div class="card bg-soft-primary" title="Sumber: DPT Pemilu 2024">
                                 <div class="card-header text-end">
-                                    <span><strong>{{ $self_voters_count }}</strong></span>
-                                    <span>Pendukung</span>
+                                    <span><strong>{{ $voters_count }}</strong></span>
+                                    <span>Pemilih</span>
                                 </div>
-                            </div>
-                        </div>
-                    @endif
-
-                    <div class="col-2">
-                        <div class="card bg-soft-primary" title="Sumber: DPT Pemilu 2024">
-                            <div class="card-header text-end">
-                                <span><strong>{{ $voting_places_count }}</strong></span>
-                                <span>TPS</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="card bg-soft-primary" title="Sumber: DPT Pemilu 2024">
-                            <div class="card-header text-end">
-                                <span><strong>{{ $voters_count }}</strong></span>
-                                <span>Pemilih</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        @else
+            <div class="row">
+                <div class="col-12">
+                    <div class="row justify-content-end">
+                        <div class="col-2 text-end">
+                            <span>Jumlah:</span>
+                        </div>
+                        <div class="col-5">
+                            <div class="card bg-soft-primary" title="Sumber: DPT Pemilu 2024">
+                                <div class="card-header text-end">
+                                    <span><strong>{{ $voting_places_count }}</strong></span>
+                                    <span>TPS</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <div class="card bg-soft-primary" title="Sumber: DPT Pemilu 2024">
+                                <div class="card-header text-end">
+                                    <span><strong>{{ $voters_count }}</strong></span>
+                                    <span>Pemilih</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
 
+        <div class="row">
             @foreach ($votingPlaces as $votingPlace)
                 <div class="col-12 col-sm-6 col-md-3">
                     <a href="?tps={{ $votingPlace->id }}">
@@ -102,8 +131,6 @@
                     </a>
                 </div>
             @endforeach
-            <!-- end col -->
         </div>
-        <!-- end row -->
     </div>
 @endsection

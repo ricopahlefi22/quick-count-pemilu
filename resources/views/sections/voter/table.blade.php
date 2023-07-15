@@ -67,13 +67,15 @@
                                 Aksi Lainnya <i class="mdi mdi-chevron-down"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="btnGroupDropdown">
-                                <button id="createButton" class="dropdown-item"><i class="fa fa-plus-circle"></i> Tambah
-                                    Data</button>
-                                <a href="{{ url('voters/export') }}?tps={{ $tps->id }}" class="dropdown-item"><i
-                                        class="fa fa-file-csv"></i> Ekspor CSV</a>
-                                <button class="dropdown-item" disabled><i class="fa fa-file-pdf"></i> Cetak PDF</button>
-                                <a href="{{ url('voters/import') }}" class="dropdown-item text-success"><i
-                                        class="fa fa-file-pdf"></i> Impor</a>
+                                <button id="createButton" class="dropdown-item">
+                                    <i class="fa fa-plus-circle"></i> Tambah Data
+                                </button>
+                                <a href="{{ url('voters/export') }}?tps={{ $tps->id }}" class="dropdown-item">
+                                    <i class="fa fa-file-csv"></i> Ekspor CSV
+                                </a>
+                                <a href="{{ url('voters/import') }}" class="dropdown-item text-success">
+                                    <i class="fa fa-file-pdf"></i> Impor
+                                </a>
                             </div>
                         </div>
 
