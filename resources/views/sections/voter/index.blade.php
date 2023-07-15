@@ -46,7 +46,7 @@
                         </div>
                         @if (Auth::guard('owner')->check())
                             <div class="col-3">
-                                <div class="card bg-soft-primary" title="Sumber: DPT Pemilu 2024">
+                                <div class="card bg-soft-primary">
                                     <div class="card-header text-end">
                                         <span><strong>{{ $coordinators_count }}</strong></span>
                                         <span>Koordinator</span>
@@ -54,31 +54,47 @@
                                 </div>
                             </div>
                             <div class="col-2">
-                                <div class="card bg-soft-primary" title="Sumber: DPT Pemilu 2024">
+                                <div class="card bg-soft-primary">
                                     <div class="card-header text-end">
                                         <span><strong>{{ $self_voters_count }}</strong></span>
                                         <span>Pendukung</span>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-2">
+                                <div class="card bg-soft-primary" title="Sumber: DPT Pemilu 2024">
+                                    <div class="card-header text-end">
+                                        <span><strong>{{ $voting_places_count }}</strong></span>
+                                        <span>TPS</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="card bg-soft-primary" title="Sumber: DPT Pemilu 2024">
+                                    <div class="card-header text-end">
+                                        <span><strong>{{ $voters_count }}</strong></span>
+                                        <span>Pemilih</span>
+                                    </div>
+                                </div>
+                            </div>
+                        @else
+                            <div class="col-5">
+                                <div class="card bg-soft-primary" title="Sumber: DPT Pemilu 2024">
+                                    <div class="card-header text-end">
+                                        <span><strong>{{ $voting_places_count }}</strong></span>
+                                        <span>TPS</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="card bg-soft-primary" title="Sumber: DPT Pemilu 2024">
+                                    <div class="card-header text-end">
+                                        <span><strong>{{ $voters_count }}</strong></span>
+                                        <span>Pemilih</span>
+                                    </div>
+                                </div>
+                            </div>
                         @endif
-
-                        <div class="col-2">
-                            <div class="card bg-soft-primary" title="Sumber: DPT Pemilu 2024">
-                                <div class="card-header text-end">
-                                    <span><strong>{{ $voting_places_count }}</strong></span>
-                                    <span>TPS</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-2">
-                            <div class="card bg-soft-primary" title="Sumber: DPT Pemilu 2024">
-                                <div class="card-header text-end">
-                                    <span><strong>{{ $voters_count }}</strong></span>
-                                    <span>Pemilih</span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

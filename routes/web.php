@@ -48,6 +48,11 @@ Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
 Route::controller(AuthOwnerController::class)->group(function () {
     Route::get('login', 'login')->name('login');
     Route::post('login', 'loginProcess');
+    Route::get('forgot-password', 'forgotPassword');
+    Route::post('forgot-password', 'forgotPasswordProcess');
+    Route::get('reset-password', 'resetPassword');
+    Route::post('reset-password', 'resetPasswordProcess');
+    Route::post('otp', 'otp');
     Route::get('logout', 'logout');
 });
 

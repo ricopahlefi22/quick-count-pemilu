@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\AdminPasswordReset;
-use Carbon\Carbon;
-use Exception;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
+use Exception;
 
 class AuthAdminController extends Controller
 {
@@ -57,13 +56,15 @@ class AuthAdminController extends Controller
 
     function forgotPassword()
     {
-        return view('admin.forgot-password');
+        return view('auth.forgot-password');
     }
 
     function forgotPasswordProcess(Request $request)
     {
         $request->validate([
             'phone_number' => 'required',
+        ], [
+            'phone_number.required' => 'Nomor handphone tidak boleh kosong',
         ]);
 
         try {
@@ -125,6 +126,8 @@ class AuthAdminController extends Controller
     {
         $request->validate([
             'otp' => 'required',
+        ], [
+            'otp.required' => 'OTP tidak boleh kosong',
         ]);
 
         $checkOTP = AdminPasswordReset::where('token', $request->token)->first();
@@ -151,7 +154,7 @@ class AuthAdminController extends Controller
 
         if ($check) {
             $data['token'] = $request->token;
-            return view('admin.reset-password', $data);
+            return view('auth.reset-password', $data);
         }
 
         return abort(404);
@@ -162,6 +165,11 @@ class AuthAdminController extends Controller
         $request->validate([
             'password' => 'required|min:8',
             'confirm_password' => 'required|same:password',
+        ], [
+            'password.required' => 'Kata sandi tidak boleh kosong',
+            'password.min' => 'Panjang kata sandi minimal 8 karakter',
+            'confirm_password.required' => 'Konfirmasi tidak boleh kosong',
+            'confirm_password.same' => 'Konfirmasi kata sandi tidak sesuai',
         ]);
 
         try {
