@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\CoordinatorController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\VoterController;

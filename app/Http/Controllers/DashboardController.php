@@ -19,14 +19,13 @@ class DashboardController extends Controller
         $data['voting_places'] = VotingPlace::all();
         $data['voters_count'] = Voter::count();
         $data['self_voters_count'] = Voter::whereNotNull('coordinator_id')->count();
+        $data['coordinators_count'] = Voter::where('level', 1)->count();
 
         return view('owner.dashboard', $data);
     }
 
     function adminDashboard()
     {
-        // $data['time'] = '2023/08/01';
-        // return view('errors.maintenance', $data);
         $data['title'] = 'Beranda';
         $data['districts'] = District::all();
         $data['villages'] = Village::all();

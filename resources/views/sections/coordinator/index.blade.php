@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title mb-0 font-size-18">Data Administrator</h4>
+                    <h4 class="page-title mb-0 font-size-18">Data Koordinator</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
@@ -17,7 +17,7 @@
                                     @endif
                                 </a>
                             </li>
-                            <li class="breadcrumb-item active">Data Administrator</li>
+                            <li class="breadcrumb-item active">Data Koordinator</li>
                         </ol>
                     </div>
                 </div>
@@ -35,8 +35,12 @@
                             Aksi Lainnya <i class="mdi mdi-chevron-down"></i>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="btnGroupDropdown">
-                            <button class="dropdown-item" disabled><i class="fa fa-file-csv"></i> Ekspor CSV</button>
-                            <button class="dropdown-item" disabled><i class="fa fa-file-pdf"></i> Cetak PDF</button>
+                            <a href="{{ url('coordinators/export') }}" class="dropdown-item">
+                                <i class="fa fa-file-csv"></i> Ekspor CSV
+                            </a>
+                            <a href="{{ url('coordinators/import') }}" class="dropdown-item text-success">
+                                <i class="fa fa-file-pdf"></i> Impor
+                            </a>
                         </div>
                     </div>
                 </div>

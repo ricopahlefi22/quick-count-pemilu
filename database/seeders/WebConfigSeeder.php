@@ -15,10 +15,10 @@ class WebConfigSeeder extends Seeder
     {
         WebConfig::factory()->create([
             'token' => 'f=kR20D=?4i9WsGndN5dJo8MXkQO4K6JycsrVQlroG0mwmJovHX2bH//LFiciHFv',
-            'name' => 'Calon Legislatif',
+            'name' => 'Apolonius Salim',
             'password' => bcrypt('12341234'),
             'pin' => bcrypt('123123'),
-            'phone_number' => '089528597031',
+            'phone_number' => '08119126661',
             'strict' => true,
         ]);
     }

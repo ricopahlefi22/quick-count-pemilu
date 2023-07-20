@@ -13,8 +13,9 @@
 
             <div class="mt-2">
                 <a href="javacript:void(0)" class="text-reset fw-medium font-size-16">{{ Auth::user()->name }}</a>
-                <p class="text-muted mb-0 font-size-13">{{Auth::user()->level == true ? 'Super Admin' : 'Administrator'}}</p>
-
+                <p class="text-muted mb-0 font-size-13">
+                    {{ Auth::user()->level == true ? 'Super Admin' : 'Administrator' }}
+                </p>
             </div>
         </div>
 
@@ -42,6 +43,15 @@
                     <a href="{{ url('coordinators') }}" class="waves-effect">
                         <i class="fa fa-user-tie"></i>
                         <span>Data Koordinator</span>
+                    </a>
+                </li>
+
+                <li class="menu-title">Perhitungan Cepat</li>
+
+                <li>
+                    <a href="{{ url('input-voting-result') }}" class="waves-effect">
+                        <i class="fa fa-calculator"></i>
+                        <span>Input Perolehan Suara</span>
                     </a>
                 </li>
 

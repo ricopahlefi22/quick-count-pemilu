@@ -12,7 +12,6 @@
         type="text/css" />
     <link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet"
         type="text/css" />
-
     <!-- Dropify -->
     <link href="{{ asset('assets/libs/dropify/css/dropify.min.css') }}" rel="stylesheet" type="text/css" />
 @endpush
@@ -25,7 +24,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title mb-0 font-size-18">Data Koordinator</h4>
+                    <h4 class="page-title mb-0 font-size-18">Data Administrator</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
@@ -34,7 +33,7 @@
                                     Lainnya
                                 </a>
                             </li>
-                            <li class="breadcrumb-item active">Data Koordinator</li>
+                            <li class="breadcrumb-item active">Data Administrator</li>
                         </ol>
                     </div>
                 </div>

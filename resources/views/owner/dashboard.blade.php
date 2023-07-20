@@ -42,6 +42,18 @@
                     </div>
                 </div>
             </div>
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <p class="mb-2">Jumlah Koordinator</p>
+                                <h4 class="mb-0">{{ $coordinators_count }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>

@@ -230,27 +230,53 @@ $(document).ready(function () {
                 $("#districtId").removeClass("is-invalid");
                 $("#villageId").removeClass("is-invalid");
 
-                var photo = $("#photo").dropify({
-                    defaultFile: "/" + data.photo,
-                });
+                if (data.photo != null) {
+                    var photo = $("#photo").dropify({
+                        defaultFile: "/" + data.photo,
+                    });
 
-                photo = photo.data("dropify");
-                photo.resetPreview();
-                photo.clearElement();
-                photo.settings.defaultFile = "/" + data.photo;
-                photo.destroy();
-                photo.init();
+                    photo = photo.data("dropify");
+                    photo.resetPreview();
+                    photo.clearElement();
+                    photo.settings.defaultFile = "/" + data.photo;
+                    photo.destroy();
+                    photo.init();
+                } else {
+                    var photo = $("#photo").dropify({
+                        defaultFile: null,
+                    });
 
-                var ktp = $("#ktp").dropify({
-                    defaultFile: "/" + data.ktp_image,
-                });
+                    photo = photo.data("dropify");
+                    photo.resetPreview();
+                    photo.clearElement();
+                    photo.settings.defaultFile = null;
+                    photo.destroy();
+                    photo.init();
+                }
 
-                ktp = ktp.data("dropify");
-                ktp.resetPreview();
-                ktp.clearElement();
-                ktp.settings.defaultFile = "/" + data.ktp_image;
-                ktp.destroy();
-                ktp.init();
+                if (data.ktp_image != null) {
+                    var ktp = $("#ktp").dropify({
+                        defaultFile: "/" + data.ktp_image,
+                    });
+
+                    ktp = ktp.data("dropify");
+                    ktp.resetPreview();
+                    ktp.clearElement();
+                    ktp.settings.defaultFile = "/" + data.ktp_image;
+                    ktp.destroy();
+                    ktp.init();
+                } else {
+                    var ktp = $("#ktp").dropify({
+                        defaultFile: null,
+                    });
+
+                    ktp = ktp.data("dropify");
+                    ktp.resetPreview();
+                    ktp.clearElement();
+                    ktp.settings.defaultFile = null;
+                    ktp.destroy();
+                    ktp.init();
+                }
 
                 $("#hiddenPhoto").val(data.photo);
                 $("#hiddenKTP").val(data.ktp_image);

@@ -46,7 +46,8 @@
 
                                 <div class="dropdown-menu" aria-labelledby="quick-count-topnav">
 
-                                    <a href="javascript:void(0)" class="dropdown-item">Hasil Perhitungan Cepat</a>
+                                    <a href="{{ url('voting-result') }}" class="dropdown-item">Hasil Perhitungan
+                                        Cepat</a>
                                     <div class="dropdown">
                                         <a class="dropdown-item dropdown-toggle arrow-none" href="javascript:void(0)"
                                             id="topnav-email" role="button" data-bs-toggle="dropdown"
@@ -55,12 +56,13 @@
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="topnav-email">
                                             @foreach (App\Models\District::all() as $district)
-                                                <a href="javascript:void(0)"
+                                                <a href="{{ url('voting-result/district', $district->id) }}"
                                                     class="dropdown-item">{{ $district->name }}</a>
                                             @endforeach
                                         </div>
                                     </div>
-                                    <a href="javascript:void(0)" class="dropdown-item">Data Perolehan Suara (C1)</a>
+                                    <a href="{{ url('input-voting-result') }}" class="dropdown-item">Data Perolehan
+                                        Suara (C1)</a>
                                 </div>
                             </li>
 
@@ -71,7 +73,7 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="mapping-topnav">
 
-                                    <a href="javascript:void(0)" class="dropdown-item">Hasil Keseluruhan</a>
+                                    <a href="{{ url('mapping-result') }}" class="dropdown-item">Hasil Keseluruhan</a>
                                     <div class="dropdown">
                                         <a class="dropdown-item dropdown-toggle arrow-none" href="javascript:void(0)"
                                             id="topnav-email" role="button" data-bs-toggle="dropdown"
@@ -80,7 +82,7 @@
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="topnav-email">
                                             @foreach (App\Models\District::all() as $district)
-                                                <a href="javascript:void(0)"
+                                                <a href="{{ url('mapping-result/district', $district->id) }}"
                                                     class="dropdown-item">{{ $district->name }}</a>
                                             @endforeach
                                         </div>

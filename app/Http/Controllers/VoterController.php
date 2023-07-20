@@ -57,7 +57,7 @@ class VoterController extends Controller
                             $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-danger cancel-coordinator">Batalkan Koordinator</button>';
                         }
 
-                        if (Auth::user()->level == true) {
+                        if (Auth::user()->level == true || Auth::guard('owner')->check()) {
                             $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-danger delete">Hapus Data</button>';
                         }
                         return '<div class="btn-group dropup"><button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></button>'

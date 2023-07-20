@@ -9,7 +9,7 @@ use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 // ADMIN
-Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
+Route::group(['domain' => 'admin.localhost'], function () {
     Route::controller(AuthAdminController::class)->group(function () {
         Route::get('login', 'login')->name('login')->middleware('guest:admin');
         Route::post('login', 'loginProcess');
@@ -27,7 +27,11 @@ Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
             Route::get('dashboard', 'adminDashboard');
         });
 
-        Route::get('profile', [ProfileController::class, 'admin']);
+        Route::controller(ProfileController::class)->group(function () {
+            Route::get('profile', 'indexAdmin');
+            Route::post('edit-profile', 'editProfileAdmin');
+            Route::post('change-password', 'changePasswordAdmin');
+        });
 
         Route::prefix('search')->controller(SearchController::class)->group(function () {
             Route::get('/', 'index');
@@ -41,6 +45,10 @@ Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
         include 'extra/coordinator-route.php';
 
         include 'extra/voter-route.php';
+
+        include 'extra/mapping-result-route.php';
+
+        include 'extra/voting-result-route.php';
     });
 });
 
@@ -62,6 +70,12 @@ Route::middleware('auth:owner')->group(function () {
         Route::get('dashboard', 'ownerDashboard');
     });
 
+    Route::controller(ProfileController::class)->group(function () {
+        Route::get('profile', 'indexOwner');
+        Route::post('edit-profile', 'editProfileOwner');
+        Route::post('change-password', 'changePasswordOwner');
+    });
+
     Route::prefix('administrators')->controller(AdminController::class)->group(function () {
         Route::get('/', 'index');
         Route::post('check', 'check');
@@ -76,4 +90,8 @@ Route::middleware('auth:owner')->group(function () {
     include 'extra/coordinator-route.php';
 
     include 'extra/voter-route.php';
+
+    include 'extra/mapping-result-route.php';
+
+    include 'extra/voting-result-route.php';
 });

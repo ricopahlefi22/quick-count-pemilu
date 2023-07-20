@@ -9,8 +9,10 @@ class SearchController extends Controller
 {
     function index()
     {
-        $data['title'] = 'Pencarian';
-        return view('admin.search.index', $data);
+        // $data['title'] = 'Pencarian';
+        // return view('admin.search.index', $data);
+        $data['time'] = '2023/08/01';
+        return view('errors.maintenance', $data);
     }
 
     function search(Request $request)
@@ -25,7 +27,7 @@ class SearchController extends Controller
 
         $data = Voter::where('id_number', $request->id_number)->with(['votingPlace', 'village', 'district'])->first();
 
-        if($data){
+        if ($data) {
             return response()->json([
                 'status' => 'success',
                 'message' => 'Data ditemukan',

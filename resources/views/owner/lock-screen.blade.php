@@ -36,7 +36,7 @@
                         </div>
                         <div class="col-7 text-end">
                             <button id="submit" class="btn btn-primary w-md waves-effect waves-light"
-                                type="submit">Login</button>
+                                type="submit">Masuk</button>
                         </div>
                     </div>
                 </form>
