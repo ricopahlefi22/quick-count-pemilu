@@ -183,7 +183,6 @@ class VoterController extends Controller
             'district_id' => $request->district_id,
             'village_id' => $request->village_id,
             'voting_place_id' => $request->voting_place_id,
-            'coordinator_id' => $request->coordinator_id,
         ]);
 
         if ($request->id != $data->id) {

@@ -9,10 +9,10 @@ class SearchController extends Controller
 {
     function index()
     {
-        // $data['title'] = 'Pencarian';
-        // return view('admin.search.index', $data);
-        $data['time'] = '2023/08/01';
-        return view('errors.maintenance', $data);
+        $data['title'] = 'Pencarian';
+        return view('admin.search.index', $data);
+        // $data['time'] = '2023/08/01';
+        // return view('errors.maintenance', $data);
     }
 
     function search(Request $request)
