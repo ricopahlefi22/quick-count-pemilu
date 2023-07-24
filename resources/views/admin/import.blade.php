@@ -1,6 +1,8 @@
 @extends('admin.template.base')
 
 @push('style')
+    <!-- SweetAlert2 -->
+    <link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Dropify -->
     <link href="{{ asset('assets/libs/dropify/css/dropify.min.css') }}" rel="stylesheet" type="text/css" />
 @endpush
@@ -57,6 +59,8 @@
 @endsection
 
 @push('script')
+    <!-- SweetAlert2 -->
+    <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
     <!-- Dropify -->
     <script src="{{ asset('assets/libs/dropify/js/dropify.min.js') }}"></script>
     <!-- Script -->

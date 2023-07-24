@@ -63,6 +63,14 @@ $(document).ready(function () {
                         showConfirmButton: !1,
                         timer: 1500,
                     });
+                } else {
+                    Swal.fire({
+                        type: "error",
+                        title: "Impor Gagal!",
+                        text: "Sepertinya terdapat kesalahan dalam file yang di impor",
+                        showConfirmButton: !1,
+                        timer: 1500,
+                    });
                 }
                 $("#submit").html("Kirim");
             },

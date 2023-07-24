@@ -95,9 +95,9 @@ $("#changePasswordForm").on("submit", function (e) {
         dataType: "json",
         contentType: false,
         beforeSend: function () {
-            $("#name").removeClass("is-invalid");
-            $("#email").removeClass("is-invalid");
-            $("#phoneNumber").removeClass("is-invalid");
+            $("#oldPassword").removeClass("is-invalid");
+            $("#newPassword").removeClass("is-invalid");
+            $("#confirmPassword").removeClass("is-invalid");
 
             $("#changePasswordButton").html(
                 '<div class="text-center"><div class="spinner-border spinner-border-sm text-white"></div> Memproses...</div>'
@@ -121,24 +121,25 @@ $("#changePasswordForm").on("submit", function (e) {
             });
         },
         error: function (error) {
+            console.log(error);
             $("#changePasswordButton").html("Simpan");
 
             if (error.status == 422) {
                 var responseError = error["responseJSON"]["errors"];
-                $("#nameError").html(responseError["name"]);
-                $("#emailError").html(responseError["email"]);
-                $("#phoneNumberError").html(responseError["phone_number"]);
+                $("#oldPasswordError").html(responseError["old_password"]);
+                $("#newPasswordError").html(responseError["new_password"]);
+                $("#confirmPasswordError").html(responseError["confirm_password"]);
 
-                if (responseError["phone_number"]) {
-                    $("#phoneNumber").addClass("is-invalid").focus();
+                if (responseError["confirm_password"]) {
+                    $("#confirmPassword").addClass("is-invalid").focus();
                 }
 
-                if (responseError["email"]) {
-                    $("#email").addClass("is-invalid").focus();
+                if (responseError["new_password"]) {
+                    $("#newPassword").addClass("is-invalid").focus();
                 }
 
-                if (responseError["name"]) {
-                    $("#name").addClass("is-invalid").focus();
+                if (responseError["old_password"]) {
+                    $("#oldPassword").addClass("is-invalid").focus();
                 }
             } else {
                 Toast.fire({

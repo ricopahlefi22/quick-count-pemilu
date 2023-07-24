@@ -31,8 +31,8 @@ class VoterImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnFai
         $date_normalize = str_replace('|', '-', $row['tanggal_lahir']);
         $create_date = date_create($date_normalize);
 
-        $district = District::where('name', 'LIKE', '%' . $row['kecamatan'] . '%')->first();
-        $village = Village::where('name', 'LIKE', '%' . $row['kelurahan'] . '%')->first();
+        $district = District::where('name', $row['kecamatan'])->first();
+        $village = Village::where('name', $row['kelurahan'])->first();
 
         $voting_place = VotingPlace::where('village_id', $village->id)->where('name', $row['tps'])->first();
 
