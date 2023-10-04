@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('partai', function (Blueprint $table) {
+        Schema::create('parties', function (Blueprint $table) {
             $table->id();
-            $table->string('nama')->nullable();
+            $table->string('logo')->nullable();
+            $table->string('name')->unique();
+            $table->integer('serial_number')->unique();
             $table->timestamps();
         });
     }
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('partai');
+        Schema::dropIfExists('parties');
     }
 };

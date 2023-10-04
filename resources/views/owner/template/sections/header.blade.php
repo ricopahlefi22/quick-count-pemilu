@@ -82,7 +82,7 @@
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="topnav-email">
                                             @foreach (App\Models\District::all() as $district)
-                                                <a href="{{ url('mapping-result/district', $district->id) }}"
+                                                <a href="{{ url('mapping-result/district', Crypt::encrypt($district->id)) }}"
                                                     class="dropdown-item">{{ $district->name }}</a>
                                             @endforeach
                                         </div>
@@ -105,7 +105,7 @@
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="topnav-form">
                                                 @foreach (App\Models\Village::where('district_id', $district->id)->get() as $village)
-                                                    <a href="{{ url('voters/village', $village->id) }}"
+                                                    <a href="{{ url('voters/village', Crypt::encrypt($village->id)) }}"
                                                         class="dropdown-item">
                                                         {{ $village->name }}
                                                     </a>
@@ -128,6 +128,9 @@
                                     </a>
                                     <a href="{{ url('coordinators') }}" class="dropdown-item">
                                         Data Koordinator
+                                    </a>
+                                    <a href="{{ url('witnesses') }}" class="dropdown-item">
+                                        Data Saksi
                                     </a>
                                 </div>
                             </li>

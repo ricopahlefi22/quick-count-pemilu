@@ -1,5 +1,9 @@
 @extends('owner.template.base')
 
+@php
+    $web = App\Models\WebConfig::first();
+@endphp
+
 @push('style')
     <!-- DataTables -->
     <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet"
@@ -21,7 +25,9 @@
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <a href="">Lebih Lengkap <i class="fa fa-arrow-right"></i></a>
+                            <a href="{{ url('mapping-result') }}" class="text-primary">
+                                Lebih Lengkap <i class="fa fa-chevron-right"></i>
+                            </a>
                         </ol>
                     </div>
 
@@ -36,19 +42,39 @@
                         <div class="row align-items-center">
                             <div class="col-12">
                                 <p class="mb-2">Jumlah Pendukung</p>
-                                <h4 class="mb-0">{{ $self_voters_count }}</h4>
+                                <h4 class="mb-0"><strong>{{ $self_voters_count }}</strong></h4>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-3">
                 <div class="card">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-12">
                                 <p class="mb-2">Jumlah Koordinator</p>
-                                <h4 class="mb-0">{{ $coordinators_count }}</h4>
+                                <h4 class="mb-0"><strong>{{ $coordinators_count }}</strong></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <p class="mb-2">Jumlah Saksi</p>
+                                <h4 class="mb-0"><strong>0</strong></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-9">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <p class="mb-2">Grafik Pendukung <b>{{ $web->name }}</b> per Kecamatan</p>
+                                <div id="pieChart" class="apex-charts" dir="ltr"></div>
                             </div>
                         </div>
                     </div>
@@ -65,6 +91,9 @@
     <script src="{{ asset('assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+
+    <!-- Apex Charts -->
+    <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -87,6 +116,47 @@
                     },
                 }
             });
+
+            options = {
+                chart: {
+                    height: 320,
+                    type: "pie"
+                },
+                series: [
+                    @foreach ($districts as $district)
+                        {{ $district->voters->whereNotNull('coordinator_id')->count() }},
+                    @endforeach
+                ],
+                labels: [
+                    @foreach ($districts as $district)
+                        "{{ $district->name }}",
+                    @endforeach
+                ],
+                legend: {
+                    show: true,
+                    position: "bottom",
+                    horizontalAlign: "center",
+                    verticalAlign: "middle",
+                    floating: false,
+                    fontSize: "14px",
+                    offsetX: 0,
+                },
+                responsive: [{
+                    breakpoint: 600,
+                    options: {
+                        chart: {
+                            height: 230
+                        },
+                        legend: {
+                            show: false
+                        }
+                    },
+                }, ],
+            };
+            (chart = new ApexCharts(
+                document.querySelector("#pieChart"),
+                options
+            )).render();
         });
     </script>
 @endpush

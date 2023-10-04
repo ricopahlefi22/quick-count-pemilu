@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('candidates', function (Blueprint $table) {
             $table->id();
             $table->string('nama')->nullable();
-            $table->foreignId('partai_id')->nullable();
-            $table->foreign('partai_id')->references('id')->on('partai');
+            $table->foreignId('party_id')->nullable();
+            $table->foreign('party_id')->references('id')->on('parties');
             $table->timestamps();
         });
     }

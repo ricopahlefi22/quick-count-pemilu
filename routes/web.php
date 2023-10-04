@@ -9,7 +9,7 @@ use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 // ADMIN
-Route::group(['domain' => 'admin.localhost'], function () {
+Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
     Route::controller(AuthAdminController::class)->group(function () {
         Route::get('login', 'login')->name('login')->middleware('guest:admin');
         Route::post('login', 'loginProcess');

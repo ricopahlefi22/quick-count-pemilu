@@ -55,6 +55,7 @@ $(document).ready(function () {
                 $("#submit").html("Kirim");
             },
             error: function (error) {
+                console.log(error);
                 if (error.status == 422) {
                     Swal.fire({
                         type: "error",

@@ -7,7 +7,6 @@ use App\Models\Village;
 use App\Models\Voter;
 use App\Models\VotingPlace;
 use App\Models\WebConfig;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class Dapil1Seeder extends Seeder
@@ -249,7 +248,7 @@ class Dapil1Seeder extends Seeder
 
         Voter::truncate();
 
-        $csvFile = fopen(base_path("database/data/delta-pawan/kantor.csv"), "r");
+        $csvFile = fopen(base_path("database/data/delta-pawan/kelurahan-kantor.csv"), "r");
 
         $firstline = true;
         while (($data = fgetcsv($csvFile, 20000, ",")) !== FALSE) {
@@ -257,8 +256,8 @@ class Dapil1Seeder extends Seeder
                 $date_normalize = str_replace('|', '-', $data['4']);
                 $create_date = date_create($date_normalize);
 
-                $district = District::where('name', 'LIKE', '%' . $data['14'] . '%')->first();
-                $village = Village::where('name', 'LIKE', '%' . $data['15'] . '%')->first();
+                $district = District::where('name', $data['14'])->first();
+                $village = Village::where('name', $data['15'])->first();
 
                 $voting_place = VotingPlace::where('village_id', $village->id)->where('name', $data['13'])->first();
 
@@ -273,7 +272,6 @@ class Dapil1Seeder extends Seeder
                     'address' => ucwords(strtolower($data['7'])),
                     'rt' => $data['8'],
                     'rw' => $data['9'],
-
                     'district_id' => $district->id,
                     'village_id' => $village->id,
                     'voting_place_id' => $voting_place->id,
@@ -285,7 +283,7 @@ class Dapil1Seeder extends Seeder
 
         fclose($csvFile);
 
-        $csvFile = fopen(base_path("database/data/delta-pawan/mulia-baru.csv"), "r");
+        $csvFile = fopen(base_path("database/data/delta-pawan/kelurahan-mulia-baru.csv"), "r");
 
         $firstline = true;
         while (($data = fgetcsv($csvFile, 20000, ",")) !== FALSE) {
@@ -293,8 +291,8 @@ class Dapil1Seeder extends Seeder
                 $date_normalize = str_replace('|', '-', $data['4']);
                 $create_date = date_create($date_normalize);
 
-                $district = District::where('name', 'LIKE', '%' . $data['14'] . '%')->first();
-                $village = Village::where('name', 'LIKE', '%' . $data['15'] . '%')->first();
+                $district = District::where('name', $data['14'])->first();
+                $village = Village::where('name', $data['15'])->first();
 
                 $voting_place = VotingPlace::where('village_id', $village->id)->where('name', $data['13'])->first();
 
@@ -309,7 +307,6 @@ class Dapil1Seeder extends Seeder
                     'address' => ucwords(strtolower($data['7'])),
                     'rt' => $data['8'],
                     'rw' => $data['9'],
-
                     'district_id' => $district->id,
                     'village_id' => $village->id,
                     'voting_place_id' => $voting_place->id,
@@ -321,7 +318,7 @@ class Dapil1Seeder extends Seeder
 
         fclose($csvFile);
 
-        // $csvFile = fopen(base_path("database/data/delta-pawan/sampit.csv"), "r");
+        // $csvFile = fopen(base_path("database/data/delta-pawan/kelurahan-sampit.csv"), "r");
 
         // $firstline = true;
         // while (($data = fgetcsv($csvFile, 20000, ",")) !== FALSE) {
@@ -329,8 +326,8 @@ class Dapil1Seeder extends Seeder
         //         $date_normalize = str_replace('|', '-', $data['4']);
         //         $create_date = date_create($date_normalize);
 
-        //         $district = District::where('name', 'LIKE', '%' . $data['14'] . '%')->first();
-        //         $village = Village::where('name', 'LIKE', '%' . $data['15'] . '%')->first();
+        //         $district = District::where('name', $data['14'])->first();
+        //         $village = Village::where('name', $data['15'])->first();
 
         //         $voting_place = VotingPlace::where('village_id', $village->id)->where('name', $data['13'])->first();
 
@@ -345,8 +342,6 @@ class Dapil1Seeder extends Seeder
         //             'address' => ucwords(strtolower($data['7'])),
         //             'rt' => $data['8'],
         //             'rw' => $data['9'],
-        //             'disability_information' => $data['10'],
-        //             'e_ktp_record_state' => $data['11'],
         //             'district_id' => $district->id,
         //             'village_id' => $village->id,
         //             'voting_place_id' => $voting_place->id,
@@ -358,7 +353,7 @@ class Dapil1Seeder extends Seeder
 
         // fclose($csvFile);
 
-        // $csvFile = fopen(base_path("database/data/delta-pawan/sukaharja.csv"), "r");
+        // $csvFile = fopen(base_path("database/data/delta-pawan/kelurahan-sukaharja.csv"), "r");
 
         // $firstline = true;
         // while (($data = fgetcsv($csvFile, 20000, ",")) !== FALSE) {
@@ -366,8 +361,8 @@ class Dapil1Seeder extends Seeder
         //         $date_normalize = str_replace('|', '-', $data['4']);
         //         $create_date = date_create($date_normalize);
 
-        //         $district = District::where('name', 'LIKE', '%' . $data['14'] . '%')->first();
-        //         $village = Village::where('name', 'LIKE', '%' . $data['15'] . '%')->first();
+        //         $district = District::where('name', $data['14'])->first();
+        //         $village = Village::where('name', $data['15'])->first();
 
         //         $voting_place = VotingPlace::where('village_id', $village->id)->where('name', $data['13'])->first();
 
@@ -382,8 +377,6 @@ class Dapil1Seeder extends Seeder
         //             'address' => ucwords(strtolower($data['7'])),
         //             'rt' => $data['8'],
         //             'rw' => $data['9'],
-        //             'disability_information' => $data['10'],
-        //             'e_ktp_record_state' => $data['11'],
         //             'district_id' => $district->id,
         //             'village_id' => $village->id,
         //             'voting_place_id' => $voting_place->id,
@@ -395,7 +388,7 @@ class Dapil1Seeder extends Seeder
 
         // fclose($csvFile);
 
-        // $csvFile = fopen(base_path("database/data/delta-pawan/tengah.csv"), "r");
+        // $csvFile = fopen(base_path("database/data/delta-pawan/kelurahan-tengah.csv"), "r");
 
         // $firstline = true;
         // while (($data = fgetcsv($csvFile, 20000, ",")) !== FALSE) {
@@ -403,8 +396,8 @@ class Dapil1Seeder extends Seeder
         //         $date_normalize = str_replace('|', '-', $data['4']);
         //         $create_date = date_create($date_normalize);
 
-        //         $district = District::where('name', 'LIKE', '%' . $data['14'] . '%')->first();
-        //         $village = Village::where('name', 'LIKE', '%' . $data['15'] . '%')->first();
+        //         $district = District::where('name', $data['14'])->first();
+        //         $village = Village::where('name', $data['15'])->first();
 
         //         $voting_place = VotingPlace::where('village_id', $village->id)->where('name', $data['13'])->first();
 
@@ -419,8 +412,6 @@ class Dapil1Seeder extends Seeder
         //             'address' => ucwords(strtolower($data['7'])),
         //             'rt' => $data['8'],
         //             'rw' => $data['9'],
-        //             'disability_information' => $data['10'],
-        //             'e_ktp_record_state' => $data['11'],
         //             'district_id' => $district->id,
         //             'village_id' => $village->id,
         //             'voting_place_id' => $voting_place->id,
@@ -432,7 +423,7 @@ class Dapil1Seeder extends Seeder
 
         // fclose($csvFile);
 
-        // $csvFile = fopen(base_path("database/data/delta-pawan/kalinilam.csv"), "r");
+        // $csvFile = fopen(base_path("database/data/delta-pawan/desa-kalinilam.csv"), "r");
 
         // $firstline = true;
         // while (($data = fgetcsv($csvFile, 20000, ",")) !== FALSE) {
@@ -440,8 +431,8 @@ class Dapil1Seeder extends Seeder
         //         $date_normalize = str_replace('|', '-', $data['4']);
         //         $create_date = date_create($date_normalize);
 
-        //         $district = District::where('name', 'LIKE', '%' . $data['14'] . '%')->first();
-        //         $village = Village::where('name', 'LIKE', '%' . $data['15'] . '%')->first();
+        //         $district = District::where('name', $data['14'])->first();
+        //         $village = Village::where('name', $data['15'])->first();
 
         //         $voting_place = VotingPlace::where('village_id', $village->id)->where('name', $data['13'])->first();
 
@@ -456,8 +447,6 @@ class Dapil1Seeder extends Seeder
         //             'address' => ucwords(strtolower($data['7'])),
         //             'rt' => $data['8'],
         //             'rw' => $data['9'],
-        //             'disability_information' => $data['10'],
-        //             'e_ktp_record_state' => $data['11'],
         //             'district_id' => $district->id,
         //             'village_id' => $village->id,
         //             'voting_place_id' => $voting_place->id,
@@ -469,7 +458,7 @@ class Dapil1Seeder extends Seeder
 
         // fclose($csvFile);
 
-        // $csvFile = fopen(base_path("database/data/delta-pawan/paya-kumang.csv"), "r");
+        // $csvFile = fopen(base_path("database/data/delta-pawan/desa-paya-kumang.csv"), "r");
 
         // $firstline = true;
         // while (($data = fgetcsv($csvFile, 20000, ",")) !== FALSE) {
@@ -477,8 +466,8 @@ class Dapil1Seeder extends Seeder
         //         $date_normalize = str_replace('|', '-', $data['4']);
         //         $create_date = date_create($date_normalize);
 
-        //         $district = District::where('name', 'LIKE', '%' . $data['14'] . '%')->first();
-        //         $village = Village::where('name', 'LIKE', '%' . $data['15'] . '%')->first();
+        //         $district = District::where('name', $data['14'])->first();
+        //         $village = Village::where('name', $data['15'])->first();
 
         //         $voting_place = VotingPlace::where('village_id', $village->id)->where('name', $data['13'])->first();
 
@@ -493,8 +482,6 @@ class Dapil1Seeder extends Seeder
         //             'address' => ucwords(strtolower($data['7'])),
         //             'rt' => $data['8'],
         //             'rw' => $data['9'],
-        //             'disability_information' => $data['10'],
-        //             'e_ktp_record_state' => $data['11'],
         //             'district_id' => $district->id,
         //             'village_id' => $village->id,
         //             'voting_place_id' => $voting_place->id,
@@ -506,7 +493,7 @@ class Dapil1Seeder extends Seeder
 
         // fclose($csvFile);
 
-        // $csvFile = fopen(base_path("database/data/delta-pawan/sukabangun.csv"), "r");
+        // $csvFile = fopen(base_path("database/data/delta-pawan/desa-sukabangun.csv"), "r");
 
         // $firstline = true;
         // while (($data = fgetcsv($csvFile, 20000, ",")) !== FALSE) {
@@ -514,8 +501,8 @@ class Dapil1Seeder extends Seeder
         //         $date_normalize = str_replace('|', '-', $data['4']);
         //         $create_date = date_create($date_normalize);
 
-        //         $district = District::where('name', 'LIKE', '%' . $data['14'] . '%')->first();
-        //         $village = Village::where('name', 'LIKE', '%' . $data['15'] . '%')->first();
+        //         $district = District::where('name', $data['14'])->first();
+        //         $village = Village::where('name', $data['15'])->first();
 
         //         $voting_place = VotingPlace::where('village_id', $village->id)->where('name', $data['13'])->first();
 
@@ -530,8 +517,6 @@ class Dapil1Seeder extends Seeder
         //             'address' => ucwords(strtolower($data['7'])),
         //             'rt' => $data['8'],
         //             'rw' => $data['9'],
-        //             'disability_information' => $data['10'],
-        //             'e_ktp_record_state' => $data['11'],
         //             'district_id' => $district->id,
         //             'village_id' => $village->id,
         //             'voting_place_id' => $voting_place->id,
@@ -543,7 +528,7 @@ class Dapil1Seeder extends Seeder
 
         // fclose($csvFile);
 
-        // $csvFile = fopen(base_path("database/data/delta-pawan/sukabangun-dalam.csv"), "r");
+        // $csvFile = fopen(base_path("database/data/delta-pawan/desa-sukabangun-dalam.csv"), "r");
 
         // $firstline = true;
         // while (($data = fgetcsv($csvFile, 20000, ",")) !== FALSE) {
@@ -551,8 +536,8 @@ class Dapil1Seeder extends Seeder
         //         $date_normalize = str_replace('|', '-', $data['4']);
         //         $create_date = date_create($date_normalize);
 
-        //         $district = District::where('name', 'LIKE', '%' . $data['14'] . '%')->first();
-        //         $village = Village::where('name', 'LIKE', '%' . $data['15'] . '%')->first();
+        //         $district = District::where('name', $data['14'])->first();
+        //         $village = Village::where('name', $data['15'])->first();
 
         //         $voting_place = VotingPlace::where('village_id', $village->id)->where('name', $data['13'])->first();
 
@@ -567,8 +552,6 @@ class Dapil1Seeder extends Seeder
         //             'address' => ucwords(strtolower($data['7'])),
         //             'rt' => $data['8'],
         //             'rw' => $data['9'],
-        //             'disability_information' => $data['10'],
-        //             'e_ktp_record_state' => $data['11'],
         //             'district_id' => $district->id,
         //             'village_id' => $village->id,
         //             'voting_place_id' => $voting_place->id,

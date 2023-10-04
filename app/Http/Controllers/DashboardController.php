@@ -7,7 +7,6 @@ use App\Models\Village;
 use App\Models\Voter;
 use App\Models\VotingPlace;
 use App\Models\WebConfig;
-use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
