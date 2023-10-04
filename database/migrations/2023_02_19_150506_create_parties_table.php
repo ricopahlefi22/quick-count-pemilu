@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('parties', function (Blueprint $table) {
             $table->id();
+            $table->integer('number');
+            $table->string('name');
             $table->string('logo')->nullable();
-            $table->string('name')->unique();
-            $table->integer('serial_number')->unique();
             $table->timestamps();
         });
     }

@@ -15,8 +15,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             WebConfigSeeder::class,
             AdminSeeder::class,
-            Dapil1Seeder::class,
             PartySeeder::class,
+            Dapil1Seeder::class,
         ]);
     }
 }

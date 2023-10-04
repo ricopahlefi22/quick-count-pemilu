@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('photo')->nullable();
             $table->string('name');
             $table->string('password');
-            $table->string('pin');
             $table->string('email')->nullable();
             $table->string('phone_number');
             $table->boolean('strict')->default(true);
