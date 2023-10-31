@@ -27,6 +27,19 @@ $(document).ready(function () {
         $("#hiddenKTP").val("");
     });
 
+    var evidence = $("#evidence").dropify({
+        messages: {
+            default: "Klik atau seret gambar ke sini",
+            replace: "Klik atau seret untuk mengubah gambar",
+            remove: "Hapus",
+            error: "Oops, Terjadi Kesalahan",
+        },
+    });
+
+    evidence.on("dropify.afterClear", function (event, element) {
+        $("#hiddenKTP").val("");
+    });
+
     $("#select2insidemodal").select2({
         dropdownParent: $("#coordinatorModal"),
     });

@@ -14,10 +14,13 @@ return new class extends Migration
         Schema::create('candidates', function (Blueprint $table) {
             $table->id();
             $table->integer('number');
-            $table->string('name');
+            $table->string('name')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('city')->nullable();
             $table->foreignId('party_id')->nullable();
             $table->foreign('party_id')->references('id')->on('parties');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

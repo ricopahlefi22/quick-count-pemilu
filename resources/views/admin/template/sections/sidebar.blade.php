@@ -65,7 +65,7 @@
                         </a>
                         <ul class="sub-menu" aria-expanded="true">
                             @foreach (App\Models\Village::where('district_id', $district->id)->get() as $village)
-                                <li><a href="{{ url('voters/village', $village->id) }}">{{ $village->name }}</a></li>
+                                <li><a href="{{ url('voters/village', Crypt::encrypt($village->id)) }}">{{ $village->name }}</a></li>
                             @endforeach
                         </ul>
                     </li>

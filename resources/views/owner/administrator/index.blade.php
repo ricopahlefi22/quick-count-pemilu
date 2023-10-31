@@ -45,19 +45,18 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Tabel Administrator <button id="create"
-                                class="btn btn-sm btn-dark float-end">Tambah</button></h4>
+                        <h4 class="card-title">
+                            Tabel Administrator
+                            <button id="create" class="btn btn-sm btn-dark float-end">
+                                <i class="fa fa-plus"></i> Tambah
+                            </button>
+                        </h4>
                         <p class="card-title-desc">
                             Administrator dengan level "Super Admin" memiliki hak akses penuh untuk mengelola data pemilih
                             seperti mengedit dan menghapus data.
                         </p>
 
-                        <table id="table" class="table table-bordered dt-responsive nowrap"
-                            style="
-                border-collapse: collapse;
-                border-spacing: 0;
-                width: 100%;
-              ">
+                        <table id="table" class="table table-bordered dt-responsive nowrap">
                             <thead>
                                 <tr>
                                     <th>No</th>

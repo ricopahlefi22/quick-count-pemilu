@@ -20,6 +20,7 @@ return new class extends Migration
             $table->boolean('level')->default(false);
             $table->string('password')->default(bcrypt('12341234'));
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

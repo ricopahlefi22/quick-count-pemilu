@@ -17,11 +17,12 @@ return new class extends Migration
             $table->string('evidence_image')->nullable();
             $table->string('ktp_image')->nullable();
             $table->string('name');
-            $table->string('id_number');
+            $table->string('id_number')->nullable();
             $table->string('family_card_number')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('birthplace')->nullable();
             $table->date('birthday')->nullable();
+            $table->string('age')->nullable();
             $table->string('gender', 5)->nullable();
             $table->string('marital_status', 5)->nullable();
             $table->string('address')->nullable();

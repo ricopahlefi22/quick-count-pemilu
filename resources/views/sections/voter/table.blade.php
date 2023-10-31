@@ -23,7 +23,7 @@
         <div class="row mt-4 mt-sm-2 mt-md-1">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title mb-5 mb-md-0">
+                    <h4 class="page-title mb-5 mb-md-0 ">
                         Pemilih di {{ $tps->village->name }} TPS {{ $tps->name }}
                     </h4>
 

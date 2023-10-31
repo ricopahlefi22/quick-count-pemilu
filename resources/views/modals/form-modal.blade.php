@@ -22,6 +22,11 @@
                                 <label for="ktp" class="form-label">Gambar KTP</label>
                                 <input id="ktp" type="file" name="ktp">
                             </div>
+                            <div class="mb-2">
+                                <input id="hiddenEvidence" type="hidden" name="hidden_evidence">
+                                <label for="evidence" class="form-label">Bukti Coblos</label>
+                                <input id="evidence" type="file" name="evidence">
+                            </div>
                         </div>
                         <div class="col-12 col-lg-8 mb-2">
                             <div class="row">
@@ -35,7 +40,7 @@
                                 </div>
                                 <div class="col-12 col-lg-6 mb-2">
                                     <label for="idNumber" class="form-label">
-                                        NIK<span class="text-danger">*</span>
+                                        NIK
                                     </label>
                                     <input id="idNumber" name="id_number" class="form-control"
                                         placeholder="Nomor Induk Kependudukan"
@@ -69,7 +74,7 @@
                                         </div>
                                         <div class="col-2">
                                             <label title="Wajib Diisi" for="rt" class="form-label">
-                                                RT<span class="text-danger">*</span>
+                                                RT
                                             </label>
                                             <input id="rt" name="rt" type="text" class="form-control"
                                                 placeholder="RT" data-inputmask='"mask": "999"' data-mask>
@@ -77,7 +82,7 @@
                                         </div>
                                         <div class="col-2">
                                             <label title="Wajib Diisi" for="rw" class="form-label">
-                                                RW<span class="text-danger">*</span>
+                                                RW
                                             </label>
                                             <input id="rw" name="rw" type="text" class="form-control"
                                                 placeholder="RW" data-inputmask='"mask": "999"' data-mask>

@@ -54,7 +54,7 @@ Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
 
 // OWNER
 Route::controller(AuthOwnerController::class)->group(function () {
-    Route::get('login', 'login')->name('login');
+    Route::get('login', 'login')->name('login')->middleware('guest:owner');
     Route::post('login', 'loginProcess');
     Route::get('forgot-password', 'forgotPassword');
     Route::post('forgot-password', 'forgotPasswordProcess');
@@ -94,4 +94,6 @@ Route::middleware('auth:owner')->group(function () {
     include 'extra/mapping-result-route.php';
 
     include 'extra/voting-result-route.php';
+
+    include 'extra/party-route.php';
 });

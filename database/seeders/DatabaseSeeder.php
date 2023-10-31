@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             PartySeeder::class,
             Dapil1Seeder::class,
+            CalegDapil1Seeder::class,
         ]);
     }
 }

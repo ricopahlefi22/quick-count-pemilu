@@ -8,6 +8,7 @@ use App\Models\Voter;
 use App\Models\VotingPlace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use yajra\DataTables\DataTables;
 
 class VoterController extends Controller
@@ -15,13 +16,13 @@ class VoterController extends Controller
     function index(Request $request)
     {
         $data['title'] = 'Data Pemilih';
-        $data['votingPlaces'] = VotingPlace::where('village_id', $request->id)->get();
-        $data['village'] = Village::findOrFail($request->id);
+        $data['votingPlaces'] = VotingPlace::where('village_id', Crypt::decrypt($request->id))->get();
+        $data['village'] = Village::findOrFail(Crypt::decrypt($request->id));
         $data['voting_places_count'] = $data['votingPlaces']->count();
-        $data['voters_count'] = Voter::where('village_id', $request->id)->count();
-        if(Auth::guard('owner')->check()){
-            $data['coordinators_count'] = Voter::where('level', 1)->where('village_id', $request->id)->count();
-            $data['self_voters_count'] = Voter::whereNotNull('coordinator_id')->where('village_id', $request->id)->count();
+        $data['voters_count'] = Voter::where('village_id', Crypt::decrypt($request->id))->count();
+        if (Auth::guard('owner')->check()) {
+            $data['coordinators_count'] = Voter::where('level', 1)->where('village_id', Crypt::decrypt($request->id))->count();
+            $data['self_voters_count'] = Voter::whereNotNull('coordinator_id')->where('village_id', Crypt::decrypt($request->id))->count();
         }
 
         if ($request->tps) {
@@ -78,14 +79,14 @@ class VoterController extends Controller
                     ->make(true);
             }
 
-            if(Auth::guard('owner')->check()){
+            if (Auth::guard('owner')->check()) {
                 return view('owner.voter.table', $data);
             }
 
             return view('admin.voter.table', $data);
         }
 
-        if(Auth::guard('owner')->check()){
+        if (Auth::guard('owner')->check()) {
             return view('owner.voter.index', $data);
         }
 
@@ -103,12 +104,12 @@ class VoterController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'id_number' => empty($request->id) ? 'required|unique:voters,id_number,NULL,id,deleted_at,NULL|min:16' : 'required|min:16',
+            empty($request->id_number) ? null : 'id_number' => 'required|unique:voters,id_number,NULL,id,deleted_at,NULL|min:16',
             empty($request->family_card_number) ? null : 'family_card_number' => 'min:16',
             empty($request->phone_number) ? null : 'phone_number' => 'min:10|max:14|regex:/^(08[0-9\s\-\+\(\)]*)$/',
             'address' => 'required',
-            'rt' => 'required|min:3',
-            'rw' => 'required|min:3',
+            'rt' => 'min:3',
+            'rw' => 'min:3',
             'district_id' => 'required',
             'village_id' => 'required',
         ], [

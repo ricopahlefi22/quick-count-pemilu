@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('district_id')->nullable();
             $table->foreign('district_id')->references('id')->on('districts');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
