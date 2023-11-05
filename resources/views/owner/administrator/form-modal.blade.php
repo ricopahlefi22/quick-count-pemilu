@@ -26,11 +26,11 @@
                                 <span id="nameError" class="invalid-feedback"></span>
                             </div>
                             <div class="mb-2">
-                                <label for="email" class="form-label">Email<strong class="text-danger">*</strong>
+                                <label for="username" class="form-label">Username<strong class="text-danger">*</strong>
                                 </label>
-                                <input type="text" class="form-control" id="email" name="email"
-                                    placeholder="Email">
-                                <span id="emailError" class="invalid-feedback"></span>
+                                <input type="text" class="form-control" id="username" name="username"
+                                    placeholder="Username">
+                                <span id="usernameError" class="invalid-feedback"></span>
                             </div>
                             <div class="mb-2">
                                 <label for="phoneNumber" class="form-label">No. Handphone<strong

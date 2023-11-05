@@ -20,6 +20,8 @@ class VoterController extends Controller
         $data['village'] = Village::findOrFail(Crypt::decrypt($request->id));
         $data['voting_places_count'] = $data['votingPlaces']->count();
         $data['voters_count'] = Voter::where('village_id', Crypt::decrypt($request->id))->count();
+        $data['districts'] = District::all();
+
         if (Auth::guard('owner')->check()) {
             $data['coordinators_count'] = Voter::where('level', 1)->where('village_id', Crypt::decrypt($request->id))->count();
             $data['self_voters_count'] = Voter::whereNotNull('coordinator_id')->where('village_id', Crypt::decrypt($request->id))->count();
@@ -28,7 +30,6 @@ class VoterController extends Controller
         if ($request->tps) {
             $data['voters'] = Voter::where('voting_place_id', $request->tps)->orderBy('name', 'asc')->get();
             $data['tps'] = VotingPlace::findOrFail($request->tps);
-            $data['districts'] = District::all();
 
             if ($request->ajax()) {
                 return DataTables::of($data['voters'])
@@ -37,13 +38,23 @@ class VoterController extends Controller
                         return empty($voter->family_card_number) ? '-' : $voter->family_card_number;
                     })
                     ->addColumn('address', function (Voter $voter) {
-                        return $voter->address . ', RT ' . $voter->rt . '/RW ' . $voter->rw;
+                        if ($voter->rt && $voter->rw) {
+                            return $voter->address . ', RT ' . $voter->rt . '/RW ' . $voter->rw;
+                        } else if ($voter->rt) {
+                            return $voter->address . ', RT ' . $voter->rt;
+                        } else {
+                            return $voter->address;
+                        }
                     })
                     ->addColumn('phone_number', function (Voter $voter) {
                         return empty($voter->phone_number) ? '-' : $voter->phone_number;
                     })
                     ->addColumn('coordinator_id', function (Voter $voter) {
-                        return empty($voter->coordinator_id) ? '-' : $voter->coordinator->name;
+                        if ($voter->coordinator_id == $voter->id) {
+                            return 'Koordinator';
+                        } else {
+                            return empty($voter->coordinator_id) ? '-' : $voter->coordinator->name;
+                        }
                     })
                     ->addColumn('voting_place_id', function (Voter $voter) {
                         return empty($voter->voting_place_id) ? '-' : $voter->votingPlace->name;

@@ -45,6 +45,7 @@ class VoterImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnFai
             'address' => ucwords(strtolower($row['alamat'])),
             'rt' => $row['rt'],
             'rw' => $row['rw'],
+            'age' => $row['umur'],
             'birthplace' => ucwords(strtolower($row['tempat_lahir'])),
             'birthday' => date_format($create_date, 'Y-m-d'),
             'marital_status' => $row['status'],
@@ -59,7 +60,7 @@ class VoterImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnFai
     {
         return [
             'nama_lengkap' => 'required',
-            'nik' => 'required|unique:voters,id_number,NULL,id,deleted_at,NULL|min:16',
+            'nik' => 'unique:voters,id_number,NULL,id,deleted_at,NULL|min:16',
         ];
     }
 

@@ -6,7 +6,7 @@
                 <h5 class="modal-title mt-0" id="modalTitle"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="form" action="/voters/store" method="POST" enctype="multipart/form-data">
+            <form id="form" action="{{ url('voters/store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input id="id" type="hidden" name="id">
                 <div class="modal-body">
@@ -17,11 +17,13 @@
                                 <label for="photo" class="form-label">Foto</label>
                                 <input id="photo" type="file" name="photo">
                             </div>
+
                             <div class="mb-2">
                                 <input id="hiddenKTP" type="hidden" name="hidden_ktp">
                                 <label for="ktp" class="form-label">Gambar KTP</label>
                                 <input id="ktp" type="file" name="ktp">
                             </div>
+
                             <div class="mb-2">
                                 <input id="hiddenEvidence" type="hidden" name="hidden_evidence">
                                 <label for="evidence" class="form-label">Bukti Coblos</label>
@@ -38,6 +40,7 @@
                                         placeholder="Nama Lengkap">
                                     <span id="nameError" class="invalid-feedback"></span>
                                 </div>
+
                                 <div class="col-12 col-lg-6 mb-2">
                                     <label for="idNumber" class="form-label">
                                         NIK
@@ -47,6 +50,7 @@
                                         data-inputmask='"mask": "9999 9999 9999 9999"' data-mask>
                                     <span id="idNumberError" class="invalid-feedback"></span>
                                 </div>
+
                                 <div class="col-12 col-lg-6 mb-2">
                                     <label for="familyCardNumber" class="form-label">No. KK</label>
                                     <input id="familyCardNumber" name="family_card_number" class="form-control"
@@ -54,6 +58,7 @@
                                         data-inputmask='"mask": "9999 9999 9999 9999"' data-mask>
                                     <span id="familyCardNumberError" class="invalid-feedback"></span>
                                 </div>
+
                                 <div class="col-12 col-lg-6 mb-2">
                                     <label for="phoneNumber" class="form-label">No. Handphone</label>
                                     <input id="phoneNumber" type="tel"
@@ -62,6 +67,7 @@
                                         placeholder="Nomor Handphone (Format : 08xxxxxxxxx)">
                                     <span id="phoneNumberError" class="invalid-feedback"></span>
                                 </div>
+
                                 <div class="col-12 col-lg-12 mb-2">
                                     <div class="row">
                                         <div class="col-8">
@@ -90,38 +96,18 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-12 col-lg-6 mb-2">
                                     <label for="birthplace" class="form-label">Tempat Lahir</label>
                                     <input id="birthplace" name="birthplace" type="text" class="form-control"
                                         placeholder="Tempat Lahir (Nama Kota)">
                                 </div>
+
                                 <div class="col-12 col-lg-6 mb-2">
                                     <label for="birthday" class="form-label">Tanggal Lahir</label>
                                     <input id="birthday" name="birthday" type="date" class="form-control">
                                 </div>
-                                <div class="col-12 col-lg-6 mb-2">
-                                    <label for="districtId" class="form-label">Kecamatan<span
-                                            class="text-danger">*</span> <span id="districtError"
-                                            class="text-danger"></span></label>
-                                    <select name="district_id" id="districtId" class="form-control">
-                                        <option value="" selected hidden disabled>*PILIH KECAMATAN</option>
-                                        @foreach ($districts as $district)
-                                            <option value="{{ $district->id }}">{{ $district->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <span id="districtIdError" class="invalid-feedback"></span>
-                                </div>
-                                <div class="col-12 col-lg-6 mb-2">
-                                    <label for="villageId" class="form-label">Kelurahan / Desa<span
-                                            class="text-danger">*</span> <span id="villageError"
-                                            class="text-danger"></span></label>
-                                    <select name="village_id" id="villageId" class="form-control">
-                                        <option value="" selected hidden disabled>
-                                            *PILIH KECAMATAN DAHULU
-                                        </option>
-                                    </select>
-                                    <span id="villageIdError" class="invalid-feedback"></span>
-                                </div>
+
                                 <div class="col-12 col-lg-6 mb-2">
                                     <label title="Wajib Diisi" for="gender" class="form-label">Jenis
                                         Kelamin</label>
@@ -142,15 +128,20 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-12 col-lg-6 mb-2">
-                                    <label for="votingPlaceId" class="form-label">TPS
-                                        <span id="votingPlaceError" class="text-danger"></span></label>
-                                    <select name="voting_place_id" id="votingPlaceId" class="form-control">
-                                        <option id="votingPlaceOption" value="" selected hidden disabled>
-                                            *PILIH KELURAHAN/DESA DAHULU
-                                        </option>
+                                    <label for="districtId" class="form-label">Kecamatan<span
+                                            class="text-danger">*</span> <span id="districtError"
+                                            class="text-danger"></span></label>
+                                    <select name="district_id" id="districtId" class="form-control">
+                                        <option value="" selected hidden disabled>*PILIH KECAMATAN</option>
+                                        @foreach ($districts as $district)
+                                            <option value="{{ $district->id }}">{{ $district->name }}</option>
+                                        @endforeach
                                     </select>
+                                    <span id="districtIdError" class="invalid-feedback"></span>
                                 </div>
+
                                 <div class="col-12 col-lg-6 mb-2">
                                     <label title="Wajib Diisi" for="marital_status" class="form-label">Status
                                         Perkawinan</label>
@@ -181,10 +172,33 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-12 col-lg-6 mb-2">
+                                    <label for="villageId" class="form-label">Kelurahan / Desa<span
+                                            class="text-danger">*</span> <span id="villageError"
+                                            class="text-danger"></span></label>
+                                    <select name="village_id" id="villageId" class="form-control" disabled>
+                                        <option value="" selected hidden disabled>
+                                            *PILIH KECAMATAN DAHULU
+                                        </option>
+                                    </select>
+                                    <span id="villageIdError" class="invalid-feedback"></span>
+                                </div>
+
                                 <div class="col-12 col-lg-6 mb-2">
                                     <label for="note" class="form-label">Catatan
                                         <span id="noteError" class="text-danger"></span></label>
                                     <textarea name="note" id="note" rows="5" class="form-control"></textarea>
+                                </div>
+
+                                <div class="col-12 col-lg-6 mb-2">
+                                    <label for="votingPlaceId" class="form-label">TPS
+                                        <span id="votingPlaceError" class="text-danger"></span></label>
+                                    <select name="voting_place_id" id="votingPlaceId" class="form-control" disabled>
+                                        <option id="votingPlaceOption" value="" selected hidden disabled>
+                                            *PILIH KELURAHAN/DESA DAHULU
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

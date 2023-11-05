@@ -5,12 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class VotingPlace extends Model
+class Witness extends Model
 {
     use HasFactory;
 
-    public function witness(){
-        return $this->hasOne(Witness::class);
+    protected $fillable = [
+        'district_id',
+        'village_id',
+        'voting_place_id',
+        'voter_id',
+    ];
+
+    public function voter()
+    {
+        return $this->belongsTo(Voter::class, 'voter_id');
     }
 
     public function district()
@@ -23,8 +31,8 @@ class VotingPlace extends Model
         return $this->belongsTo(Village::class, 'village_id');
     }
 
-    public function voters()
+    public function votingPlace()
     {
-        return $this->hasMany(Voter::class, 'voting_place_id');
+        return $this->belongsTo(VotingPlace::class, 'voting_place_id');
     }
 }

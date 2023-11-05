@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
-class AdminController extends Controller
+class MonitorController extends Controller
 {
     function index(Request $request)
     {

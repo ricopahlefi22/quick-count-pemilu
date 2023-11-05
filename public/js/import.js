@@ -24,7 +24,7 @@ $(document).ready(function () {
             contentType: false,
             beforeSend: function () {
                 $("#submit").html(
-                    '<i class="bx bx-loader bx-spin font-size-16 align-middle me-2"></i> Mengirim'
+                    '<i class="bx bx-loader bx-spin font-size-16 align-middle me-2"></i> Mengimpor'
                 );
             },
             success: function (response) {
@@ -52,7 +52,7 @@ $(document).ready(function () {
                         text: response.message,
                     });
                 }
-                $("#submit").html("Kirim");
+                $("#submit").html("Impor");
             },
             error: function (error) {
                 console.log(error);
@@ -73,7 +73,7 @@ $(document).ready(function () {
                         timer: 1500,
                     });
                 }
-                $("#submit").html("Kirim");
+                $("#submit").html("Impor");
             },
         });
     });

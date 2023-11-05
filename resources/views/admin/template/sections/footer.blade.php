@@ -5,7 +5,7 @@
         </div>
         <div class="col-sm-6">
             <div class="text-sm-end d-none d-sm-block">
-                Dikembangkan oleh <a href="https://kayong-developer.com">Kayong Developer</a>
+                Dikembangkan oleh <a href="https://kayongdeveloper.com">Kayong Developer</a>
             </div>
         </div>
     </div>

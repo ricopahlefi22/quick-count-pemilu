@@ -36,8 +36,8 @@ var table = $("#table").DataTable({
             name: "name",
         },
         {
-            data: "email",
-            name: "email",
+            data: "username",
+            name: "username",
         },
         {
             data: "phone_number",
@@ -103,7 +103,7 @@ $("#create").click(function () {
     $("#button").html("Tambah").removeClass("btn-warning");
     $("#id").val("");
     $("#name").val("").removeClass("is-invalid");
-    $("#email").val("").removeClass("is-invalid");
+    $("#username").val("").removeClass("is-invalid");
     $("#phoneNumber").val("").removeClass("is-invalid");
     $("#level").val("").removeClass("is-invalid");
 
@@ -131,7 +131,7 @@ $("#form").on("submit", function (e) {
         contentType: false,
         beforeSend: function () {
             $("#name").removeClass("is-invalid");
-            $("#email").removeClass("is-invalid");
+            $("#username").removeClass("is-invalid");
             $("#phoneNumber").removeClass("is-invalid");
             $("#level").removeClass("is-invalid");
 
@@ -154,7 +154,7 @@ $("#form").on("submit", function (e) {
             if (error.status == 422) {
                 var responseError = error["responseJSON"]["errors"];
                 $("#nameError").html(responseError["name"]);
-                $("#emailError").html(responseError["email"]);
+                $("#usernameError").html(responseError["username"]);
                 $("#phoneNumberError").html(responseError["phone_number"]);
                 $("#levelError").html(responseError["level"]);
 
@@ -166,8 +166,8 @@ $("#form").on("submit", function (e) {
                     $("#phoneNumber").addClass("is-invalid").focus();
                 }
 
-                if (responseError["email"]) {
-                    $("#email").addClass("is-invalid").focus();
+                if (responseError["username"]) {
+                    $("#username").addClass("is-invalid").focus();
                 }
 
                 if (responseError["name"]) {
@@ -195,13 +195,13 @@ $("body").on("click", ".edit", function () {
             $("#modalTitle").html("Sunting Data");
             $("#button").html("Simpan").addClass("btn-warning");
             $("#name").val("").removeClass("is-invalid");
-            $("#email").val("").removeClass("is-invalid");
+            $("#username").val("").removeClass("is-invalid");
             $("#phoneNumber").val("").removeClass("is-invalid");
             $("#level").val("").removeClass("is-invalid");
 
             $("#id").val(response.id);
             $("#name").val(response.name);
-            $("#email").val(response.email);
+            $("#username").val(response.username);
             $("#phoneNumber").val(response.phone_number);
             $("#level").val(response.level);
             $("#hiddenPhoto").val(response.photo);

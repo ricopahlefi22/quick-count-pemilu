@@ -11,17 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('voting_results', function (Blueprint $table) {
+        Schema::create('monitors', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('result')->nullable();
-            $table->string('photo_result')->nullable();
-            $table->foreignId('voting_place_id')->nullable();
-            $table->foreign('voting_place_id')->references('id')->on('voting_places');
-            $table->foreignId('village_id')->nullable();
-            $table->foreign('village_id')->references('id')->on('villages');
             $table->foreignId('district_id')->nullable();
             $table->foreign('district_id')->references('id')->on('districts');
+            $table->foreignId('village_id')->nullable();
+            $table->foreign('village_id')->references('id')->on('villages');
+            $table->foreignId('voting_place_id')->nullable();
+            $table->foreign('voting_place_id')->references('id')->on('voting_places');
+            $table->foreignId('voters_id')->nullable();
+            $table->foreign('voters_id')->references('id')->on('voters');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('voting_results');
+        Schema::dropIfExists('monitors');
     }
 };

@@ -170,13 +170,34 @@ class Dapil1Seeder extends Seeder
         }
         // DESA TANJUNG PURA
         Village::factory()->create(['name' => 'Desa Tanjung Pura', 'district_id' => 2]);
-        for ($i = 1; $i <= 3; $i++) {
-            VotingPlace::factory()->create([
-                'name' => (strlen($i) != 2) ? '00' . $i : '0' . $i,
-                'village_id' => 15,
-                'district_id' => 2,
-            ]);
-        }
+
+        VotingPlace::factory()->create([
+            'name' => '001',
+            'address' => 'SDN 5 MUARA PAWAN',
+            'latitude' => -1.7390683,
+            'longitude' => 110.210654,
+            'village_id' => 15,
+            'district_id' => 2,
+        ]);
+
+        VotingPlace::factory()->create([
+            'name' => '002',
+            'address' => 'SDN 5 MUARA PAWAN',
+            'latitude' => -1.73906,
+            'longitude' => 110.2106167,
+            'village_id' => 15,
+            'district_id' => 2,
+        ]);
+
+        VotingPlace::factory()->create([
+            'name' => '003',
+            'address' => 'SDN 5 MUARA PAWAN',
+            'latitude' => -1.7390895,
+            'longitude' => 110.2105901,
+            'village_id' => 15,
+            'district_id' => 2,
+        ]);
+
         // DESA ULAK MEDANG
         Village::factory()->create(['name' => 'Desa Ulak Medang', 'district_id' => 2]);
         for ($i = 1; $i <= 3; $i++) {

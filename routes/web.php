@@ -44,6 +44,10 @@ Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
 
         include 'extra/coordinator-route.php';
 
+        include 'extra/witness-route.php';
+
+        include 'extra/monitor-route.php';
+
         include 'extra/voter-route.php';
 
         include 'extra/mapping-result-route.php';
@@ -88,6 +92,10 @@ Route::middleware('auth:owner')->group(function () {
     include 'extra/voting-place-route.php';
 
     include 'extra/coordinator-route.php';
+
+    include 'extra/witness-route.php';
+
+    include 'extra/monitor-route.php';
 
     include 'extra/voter-route.php';
 

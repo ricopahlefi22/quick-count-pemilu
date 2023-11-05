@@ -14,23 +14,24 @@
 </div>
 
 <div class="row">
-    <div class="col-3">
+    <div class="col-12 col-sm-6 col-md-3">
         <div class="card">
             <div class="card-body">
                 <div class="align-items-center">
                     <p class="mb-2">Jumlah Kecamatan</p>
                     <div class="row">
-                        <div class="col-9">
+                        <div class="col-6">
                             <h4 class="mb-0">{{ $districts->count() }}</h4>
                         </div>
-                        <div class="col-3">
-                            <button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="modal"
+                        <div class="col-6">
+                            <button type="button" class="btn btn-sm btn-outline-dark float-end" data-bs-toggle="modal"
                                 data-bs-target="#districtDashboardModal">
-                                <i class="fa fa-eye"></i>
+                                <i class="fa fa-eye"></i> <span class="d-md-none">Lihat</span>
                             </button>
 
-                            <div class="modal fade" id="districtDashboardModal" data-bs-backdrop="static" data-bs-keyboard="false"
-                                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal fade" id="districtDashboardModal" data-bs-backdrop="static"
+                                data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -78,23 +79,24 @@
             </div>
         </div>
     </div>
-    <div class="col-3">
+    <div class="col-12 col-sm-6 col-md-3">
         <div class="card">
             <div class="card-body">
                 <div class="align-items-center">
                     <p class="mb-2">Jumlah Desa</p>
                     <div class="row">
-                        <div class="col-9">
+                        <div class="col-6">
                             <h4 class="mb-0">{{ $villages->count() }}</h4>
                         </div>
-                        <div class="col-3">
-                            <button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="modal"
+                        <div class="col-6">
+                            <button type="button" class="btn btn-sm btn-outline-dark float-end" data-bs-toggle="modal"
                                 data-bs-target="#villageDashboardModal">
-                                <i class="fa fa-eye"></i>
+                                <i class="fa fa-eye"></i> <span class="d-md-none">Lihat</span>
                             </button>
 
-                            <div class="modal fade" id="villageDashboardModal" data-bs-backdrop="static" data-bs-keyboard="false"
-                                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal fade" id="villageDashboardModal" data-bs-backdrop="static"
+                                data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                aria-hidden="true">
                                 <div class="modal-dialog modal-lg modal-dialog-centered">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -139,7 +141,7 @@
             </div>
         </div>
     </div>
-    <div class="col-3">
+    <div class="col-12 col-sm-6 col-md-3">
         <div class="card">
             <div class="card-body">
                 <div class="row align-items-center">
@@ -151,7 +153,7 @@
             </div>
         </div>
     </div>
-    <div class="col-3">
+    <div class="col-12 col-sm-6 col-md-3">
         <div class="card">
             <div class="card-body">
                 <div class="row align-items-center">

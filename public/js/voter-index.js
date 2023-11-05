@@ -44,66 +44,6 @@ $(document).ready(function () {
         dropdownParent: $("#coordinatorModal"),
     });
 
-    var columns = [
-        {
-            data: "DT_RowIndex",
-            name: "DT_RowIndex",
-        },
-        {
-            data: "action",
-            name: "action",
-            orderable: false,
-            searchable: false,
-            class: "text-center",
-        },
-        {
-            data: "name",
-            name: "name",
-            class: "font-weight-bold",
-        },
-        {
-            data: "address",
-            name: "address",
-        },
-        {
-            data: "phone_number",
-            name: "phone_number",
-        },
-        {
-            data: "coordinator_id",
-            name: "coordinator_id",
-        },
-    ];
-
-    var oLanguage = {
-        sSearch: "Pencarian",
-        sInfoEmpty: "Data Belum Tersedia",
-        sInfo: "Menampilkan _PAGE_ dari _PAGES_ halaman",
-        sEmptyTable: "Data Belum Tersedia",
-        sLengthMenu: "Tampilkan _MENU_ Baris",
-        sZeroRecords: "Data Tidak Ditemukan",
-        sProcessing: "Sedang Memproses...",
-        oPaginate: {
-            sFirst: "Pertama",
-            sPrevious: "Sebelumnya",
-            sNext: "Selanjutnya",
-            sLast: "Terakhir",
-        },
-    };
-
-    var table = $("#table").DataTable({
-        stateSave: true,
-        serverSide: true,
-        processing: true,
-        deferRender: true,
-        select: true,
-        autoWidth: false,
-        responsive: true,
-        ajax: document.URL,
-        columns: columns,
-        oLanguage: oLanguage,
-    });
-
     $("#createButton").click(function () {
         $("#formModal").modal("show");
         $("#modalTitle").html("Tambah Data Pemilih");
@@ -215,9 +155,6 @@ $(document).ready(function () {
                         '<option value="" selected>--- PILIH TPS ---</option>' +
                             options
                     );
-
-                    $("#votingPlaceId").prop('disabled', false);
-
                 } else {
                     $("#votingPlaceId").html(
                         "<option selected hidden disabled>--- TIDAK ADA TPS ---</option>"
@@ -330,8 +267,6 @@ $(document).ready(function () {
                                     options
                             );
                             $("#villageId").val(data.village_id);
-                            $("#villageId").prop('disabled', false);
-
 
                             $.ajax({
                                 type: "POST",
@@ -357,8 +292,6 @@ $(document).ready(function () {
                                         $("#votingPlaceId").val(
                                             data.voting_place_id
                                         );
-
-                                        $("#votingPlaceId").prop('disabled', false);
                                     }
                                 },
                             });

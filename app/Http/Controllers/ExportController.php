@@ -17,7 +17,7 @@ class ExportController extends Controller
         if($request->tps){
             $tps = VotingPlace::findOrFail($request->tps);
 
-            return Excel::download(new VotingPlaceExport($request->tps), '['.Str::random(8) . '] ' . $tps->village->name . '-TPS' . $tps->name . '.xlsx');
+            return Excel::download(new VotingPlaceExport($request->tps), '['.Str::random(8) . '] ' . $tps->village->name . ' - TPS ' . $tps->name . '.xlsx');
         }
 
         if($request->vllg){

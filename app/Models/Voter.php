@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Voter extends Model
 {
-    use HasFactory;
+    use SoftDeletes, HasFactory;
 
     protected $fillable = [
         'id',
@@ -18,6 +19,7 @@ class Voter extends Model
         'id_number',
         'family_card_number',
         'phone_number',
+        'age',
         'birthplace',
         'birthday',
         'gender',

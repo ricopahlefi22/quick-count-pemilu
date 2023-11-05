@@ -44,7 +44,7 @@
                             <div class="text-center mt-4">
                                 <button id="submit" type="submit" class="btn btn-primary waves-effect waves-light"
                                     disabled>
-                                    Kirim
+                                    Impor
                                 </button>
                             </div>
                         </form>

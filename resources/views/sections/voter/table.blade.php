@@ -23,8 +23,8 @@
         <div class="row mt-4 mt-sm-2 mt-md-1">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title mb-5 mb-md-0 ">
-                        Pemilih di {{ $tps->village->name }} TPS {{ $tps->name }}
+                    <h4 class="page-title my-4 lh-1">
+                        DPT {{ $tps->village->name }} TPS {{ $tps->name }}
                     </h4>
 
                     <div class="page-title-right d-none d-xl-block">
@@ -49,15 +49,16 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between flex-column flex-sm-row">
                         <div class="d-flex align-items-center">
-                            <span style="height: 10px;width:10px;margin-right:5px;" class="bg-primary"></span> = Koordinator
+                            <span style="height: 10px;width:10px;margin-right:5px;" class="bg-primary"></span> =
+                            Koordinator ({{ $voters->where('level', 1)->count() }} Orang)
                         </div>
                         <div class="d-flex align-items-center">
                             <span style="height: 10px;width:10px;margin-right:5px;" class="bg-primary-subtle"></span> =
-                            Terdaftar
+                            Terdaftar ({{ $voters->whereNotNull('coordinator_id')->count() }} Orang)
                         </div>
                         <div class="d-flex align-items-center">
                             <span style="height: 10px;width:10px;margin-right:5px;" class="bg-secondary-subtle"></span> =
-                            Tidak Terdaftar
+                            Tidak Terdaftar ({{ $voters->whereNull('coordinator_id')->count() }} Orang)
                         </div>
                     </div>
                     <div class="card-body">
@@ -66,7 +67,7 @@
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Aksi Lainnya <i class="mdi mdi-chevron-down"></i>
                             </button>
-                            <div class="dropdown-menu" aria-labelledby="btnGroupDropdown">
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="btnGroupDropdown">
                                 <button id="createButton" class="dropdown-item">
                                     <i class="fa fa-plus-circle"></i> Tambah Data
                                 </button>
@@ -79,14 +80,12 @@
                             </div>
                         </div>
 
-                        <table id="table" class="table table-bordered dt-responsive nowrap"
-                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <table id="table" class="table table-bordered dt-responsive nowrap">
                             <thead>
                                 <tr>
                                     <th>No</th>
                                     <th>Aksi</th>
                                     <th>Nama</th>
-                                    <th title="Nomor Induk Kependudukan">NIK</th>
                                     <th>Alamat</th>
                                     <th>Nomor Ponsel</th>
                                     <th>Koordinator</th>
@@ -97,7 +96,6 @@
                                     <th>No</th>
                                     <th>Aksi</th>
                                     <th>Nama</th>
-                                    <th title="Nomor Induk Kependudukan">NIK</th>
                                     <th>Alamat</th>
                                     <th>Nomor Ponsel</th>
                                     <th>Koordinator</th>
@@ -112,7 +110,7 @@
         <!-- end row -->
     </div>
 
-    @include('modals.form-modal')
+    @include('modals.voter')
     @include('modals.coordinator')
     @include('modals.be-coordinator')
     @include('modals.cancel-coordinator')
