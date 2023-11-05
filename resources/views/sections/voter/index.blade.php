@@ -146,11 +146,21 @@
                             </div>
                         </a>
                         <div class="card-body">
-                            <p class="my-0 lh-1">Saksi : <a
-                                    href="witness">{{ empty($votingPlace->witness) ? '-' : $votingPlace->witness->voter->name }}</a>
+                            <p class="my-0 lh-1">
+                                Saksi :
+                                {{ empty($votingPlace->witness) ? '-' : $votingPlace->witness->voter->name }}
                             </p>
-                            <p class="mt-2 mb-4 lh-1">Pemantau : <a
-                                    href="monitor">{{ empty($votingPlace->monitor) ? '-' : $votingPlace->monitor }}</a></p>
+                            <p class="mt-2 mb-4 lh-base">
+                                Pemantau :
+                                @if ($votingPlace->monitor->count() == 0)
+                                    -
+                                @else
+                                    @foreach ($votingPlace->monitor as $monitor)
+                                        <br>
+                                        {{ $loop->iteration }}. {{ $monitor->voter->name }}
+                                    @endforeach
+                                @endif
+                            </p>
                             <div class="row">
                                 <div class="col-6 text-dark text-center">
                                     <span class="font-sm">Jumlah Pemilih</span><br>

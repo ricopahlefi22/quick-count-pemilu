@@ -2,81 +2,54 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin;
+use App\Models\Monitor;
+use App\Models\Voter;
+use App\Models\VotingPlace;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
 class MonitorController extends Controller
 {
     function index(Request $request)
     {
-        $data['title'] = 'Data Administrator';
+        $data['title'] = 'Data Pemantau';
+        $data['votingPlaces'] = VotingPlace::all();
 
         if ($request->ajax()) {
-            return DataTables::of(Admin::all())
+            return DataTables::of(Monitor::all())
                 ->addIndexColumn()
-                ->addColumn('name', function (Admin $admin) {
-                    if (empty($admin->photo)) {
-                        return '<strong>' . $admin->name . '</strong>';
-                    } else {
-                        return '<a class="image-popup-no-margins" href="' . $admin->photo . '">
-                            <img src="' . $admin->photo . '" class="avatar-sm img-thumbnail rounded-circle">
-                            </a> <strong>' . $admin->name . '</strong>';
-                    }
+                ->addColumn('voter', function (Monitor $witness) {
+                    return $witness->voter->name;
                 })
-                ->addColumn('level', function (Admin $admin) {
-                    return $admin->level == true ? 'Super Admin' : 'Administrator';
+                ->addColumn('voting_place', function (Monitor $witness) {
+                    return $witness->village->name . ' (TPS ' . $witness->votingPlace->name . ')';
                 })
-                ->addColumn('action', function (Admin $admin) {
-                    $btn = '<button data-id="' . $admin->id . '"  class="btn btn-sm btn-warning edit" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button> ';
-                    $btn .= '<button data-id="' . $admin->id . '"  class="btn btn-sm btn-danger delete" title="Hapus"><i class="fa fa-trash" aria-hidden="true"></i></button> ';
+                ->addColumn('district', function (Monitor $witness) {
+                    return $witness->district->name;
+                })
+                ->addColumn('action', function (Monitor $witness) {
+                    $btn = '<button data-id="' . $witness->id . '"  class="btn btn-sm btn-warning edit" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button> ';
+                    $btn .= '<button data-id="' . $witness->id . '"  class="btn btn-sm btn-danger delete" title="Hapus"><i class="fa fa-trash" aria-hidden="true"></i></button> ';
                     return '<div class="btn-group">' . $btn . '</div>';
                 })
-                ->rawColumns(['name', 'level', 'action'])
+                ->rawColumns(['name', 'action'])
                 ->make(true);
         }
 
-        return view('owner.administrator.index', $data);
+        return view('owner.monitor.index', $data);
     }
 
     function store(Request $request)
     {
-        $request->validate(
-            [
-                'name' => 'required',
-                'username' => empty($request->id) ? 'required|unique:admins,username' : 'required',
-                'phone_number' => 'required',
-                'level' => 'required',
-            ],
-            [
-                'name.required' => 'Mohon isi kolom nama',
-                'username.required' => 'Mohon isi kolom username',
-                'username.unique' => 'Username ini sudah ada',
-                'phone_number.required' => 'Mohon isi kolom nomor handphone',
-                'level.required' => 'Mohon pilih level admin',
-            ]
-        );
+        $votingPlace = VotingPlace::findOrFail($request->voting_place_id);
 
-        $photo = $request->hidden_photo;
-
-        if ($request->file('photo')) {
-            $path = 'public/admin-photos/';
-            $file = $request->file('photo');
-            $file_name = Str::random(2) . time() . '.' . $file->getClientOriginalExtension();
-
-            $file->storeAs($path, $file_name);
-            $photo = "storage/admin-photos/" . $file_name;
-        }
-
-        $data = Admin::updateOrCreate([
+        $data = Monitor::updateOrCreate([
             'id' => $request->id,
         ], [
-            'name' => ucwords(strtolower($request->name)),
-            'username' => $request->username,
-            'photo' => $photo,
-            'phone_number' => $request->phone_number,
-            'level' => $request->level,
+            'district_id' => $votingPlace->district_id,
+            'village_id' => $votingPlace->village_id,
+            'voting_place_id' => $votingPlace->id,
+            'voter_id' => $request->voter_id,
         ]);
 
         if ($request->id != $data->id) {
@@ -96,14 +69,34 @@ class MonitorController extends Controller
 
     function check(Request $request)
     {
-        $data = Admin::findOrFail($request->id);
+        $data = Monitor::findOrFail($request->id);
+
+        return response()->json($data);
+    }
+
+    function votingPlaces()
+    {
+        $data = VotingPlace::with('village')->get();
+
+        return response()->json($data);
+    }
+
+    function voters(Request $request)
+    {
+        if ($request->monitor_id) {
+            $dataDoesntHaveMonitor = Voter::where('voting_place_id', $request->id)->doesntHave('monitor')->get();
+
+            $data = $dataDoesntHaveMonitor->merge(Voter::where('id', $request->monitor_id)->get());
+        } else {
+            $data = Voter::where('voting_place_id', $request->id)->doesntHave('monitor')->get();
+        }
 
         return response()->json($data);
     }
 
     function destroy(Request $request)
     {
-        $data = Admin::findOrFail($request->id);
+        $data = Monitor::findOrFail($request->id);
         $data->delete();
 
         return response()->json([

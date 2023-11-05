@@ -19,10 +19,9 @@ return new class extends Migration
             $table->foreign('village_id')->references('id')->on('villages');
             $table->foreignId('voting_place_id')->nullable();
             $table->foreign('voting_place_id')->references('id')->on('voting_places');
-            $table->foreignId('voters_id')->nullable();
-            $table->foreign('voters_id')->references('id')->on('voters');
+            $table->foreignId('voter_id')->nullable();
+            $table->foreign('voter_id')->references('id')->on('voters');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

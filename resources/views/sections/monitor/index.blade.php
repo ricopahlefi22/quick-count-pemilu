@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title my-4 font-size-18 lh-1">Data Saksi</h4>
+                    <h4 class="page-title my-4 font-size-18 lh-1">Data Pemantau</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
@@ -29,7 +29,7 @@
                                     Lainnya
                                 </a>
                             </li>
-                            <li class="breadcrumb-item active">Data Saksi</li>
+                            <li class="breadcrumb-item active">Data Pemantau</li>
                         </ol>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">
-                            Tabel Saksi
+                            Tabel Pemantau
                             <button id="createButton" class="btn btn-sm btn-dark float-end">
                                 <i class="fa fa-plus"></i> Tambah
                             </button>
@@ -53,7 +53,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Saksi</th>
+                                    <th>Nama Pemantau</th>
                                     <th>TPS</th>
                                     <th>Kecamatan</th>
                                     <th>Aksi</th>
@@ -62,7 +62,7 @@
                             <tfoot>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Saksi</th>
+                                    <th>Nama Pemantau</th>
                                     <th>TPS</th>
                                     <th>Kecamatan</th>
                                     <th>Aksi</th>
@@ -77,7 +77,7 @@
         <!-- end row -->
     </div>
 
-    @include('modals.witness')
+    @include('modals.monitor')
 @endsection
 
 @push('script')
@@ -94,5 +94,5 @@
     <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
 
     <!-- Script -->
-    <script src="{{ asset('js/witness-table.js') }}"></script>
+    <script src="{{ asset('js/monitor-table.js') }}"></script>
 @endpush

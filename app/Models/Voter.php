@@ -35,6 +35,10 @@ class Voter extends Model
         'coordinator_id',
     ];
 
+    public function monitor(){
+        return $this->hasOne(Monitor::class);
+    }
+
     public function coordinator()
     {
         return $this->belongsTo(Voter::class, 'coordinator_id');

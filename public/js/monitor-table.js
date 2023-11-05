@@ -1,10 +1,10 @@
 $(document).ready(function () {
     $("#votingPlaceId").select2({
-        dropdownParent: $("#witnessModal"),
+        dropdownParent: $("#monitorModal"),
     });
 
     $("#voterId").select2({
-        dropdownParent: $("#witnessModal"),
+        dropdownParent: $("#monitorModal"),
     });
 
     var columns = [
@@ -67,10 +67,10 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "/witnesses/voting-places",
+            url: "/monitors/voting-places",
             success: function (response) {
-                $("#witnessModal").modal("show");
-                $("#modalTitle").html("Tambah Data Saksi");
+                $("#monitorModal").modal("show");
+                $("#modalTitle").html("Tambah Data Pemantau");
                 $("#button")
                     .html("Simpan")
                     .removeClass("btn-warning")
@@ -118,7 +118,7 @@ $(document).ready(function () {
         var votingPlaceId = this.value;
         $.ajax({
             type: "POST",
-            url: "/witnesses/voters",
+            url: "/monitors/voters",
             data: {
                 id: votingPlaceId,
             },
@@ -166,11 +166,11 @@ $(document).ready(function () {
     $("body").on("click", ".edit", function () {
         $.ajax({
             type: "POST",
-            url: "/witnesses/check",
+            url: "/monitors/check",
             data: { id: $(this).data("id") },
             success: function (data) {
-                $("#witnessModal").modal("show");
-                $("#modalTitle").html("Edit Data Saksi");
+                $("#monitorModal").modal("show");
+                $("#modalTitle").html("Edit Data Pemantau");
                 $("#button")
                     .html("Simpan Perubahan")
                     .removeClass("btn-primary")
@@ -193,7 +193,7 @@ $(document).ready(function () {
 
                 $.ajax({
                     type: "POST",
-                    url: "/witnesses/voting-places",
+                    url: "/monitors/voting-places",
                     data: {
                         id: data.id,
                     },
@@ -225,8 +225,9 @@ $(document).ready(function () {
 
                         $.ajax({
                             type: "POST",
-                            url: "/witnesses/voters",
+                            url: "/monitors/voters",
                             data: {
+                                monitor_id: data.voter_id,
                                 id: data.voting_place_id,
                             },
                             success: function (response) {
@@ -258,6 +259,8 @@ $(document).ready(function () {
                                 }
                             },
                             error: function (error) {
+                                console.error(error);
+
                                 Swal.fire({
                                     type: "error",
                                     title: error.status,
@@ -293,7 +296,7 @@ $(document).ready(function () {
         ) {
             $.ajax({
                 type: "DELETE",
-                url: "/witnesses/destroy",
+                url: "/monitors/destroy",
                 data: { id: $(this).data("id") },
                 success: function (response) {
                     Swal.fire({
@@ -341,12 +344,13 @@ $(document).ready(function () {
                     showConfirmButton: !1,
                     timer: 1500,
                 });
-                $("#witnessModal").modal("hide");
+                $("#monitorModal").modal("hide");
                 table.ajax.reload(null, false);
                 $("#button").html("Simpan");
             },
             error: function (error) {
                 $("#button").html("Simpan");
+
                 Swal.fire({
                     type: "error",
                     title: error.status,
