@@ -24,11 +24,17 @@ class CoordinatorController extends Controller
             if ($request->ajax()) {
                 return DataTables::of($data['coordinators'])
                     ->addIndexColumn()
-                    ->addColumn('name', function (Voter $coordinator) {
-                        return $coordinator->name . '<br> <strong>(TPS ' . $coordinator->votingPlace->name . ')</strong>';
+                    ->addColumn('voting_place', function (Voter $coordinator) {
+                        return $coordinator->village->name . ' (TPS ' . $coordinator->votingPlace->name . ')';
                     })
                     ->addColumn('address', function (Voter $coordinator) {
-                        return $coordinator->address . ', RT ' . $coordinator->rt . '/RW ' . $coordinator->rw;
+                        if ($coordinator->rt && $coordinator->rw) {
+                            return $coordinator->address . ', RT ' . $coordinator->rt . '/RW ' . $coordinator->rw;
+                        } else if ($coordinator->rt) {
+                            return $coordinator->address . ', RT ' . $coordinator->rt;
+                        } else {
+                            return $coordinator->address;
+                        }
                     })
                     ->addColumn('phone_number', function (Voter $coordinator) {
                         return empty($coordinator->phone_number) ? '-' : $coordinator->phone_number;
@@ -53,7 +59,7 @@ class CoordinatorController extends Controller
                             . $btn
                             . '</div></div>';
                     })
-                    ->rawColumns(['name', 'address', 'phone_number', 'member_total', 'action'])
+                    ->rawColumns([ 'address', 'phone_number', 'member_total', 'action'])
                     ->make(true);
             }
 
@@ -68,7 +74,7 @@ class CoordinatorController extends Controller
             if (Auth::guard('owner')->check()) {
                 $data['coordinator'] = Voter::findOrFail(Crypt::decrypt($request->id));
 
-                if($data['coordinator']->level != 1){
+                if ($data['coordinator']->level != 1) {
                     return abort(404);
                 }
 

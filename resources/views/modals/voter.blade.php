@@ -1,4 +1,4 @@
-<div id="formModal" class="modal fade" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+<div id="voterModal" class="modal fade" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
     aria-labelledby="myModalLabel1" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">

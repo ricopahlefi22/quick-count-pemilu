@@ -1,4 +1,4 @@
-<div class="modal fade" id="coordinatorModal" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div id="coordinatorModal" class="modal fade" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

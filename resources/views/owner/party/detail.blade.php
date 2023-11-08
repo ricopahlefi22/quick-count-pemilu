@@ -1,5 +1,4 @@
 @extends('owner.template.base')
 
-@section('content')
+@include('sections.party.detail')
 
-@endsection

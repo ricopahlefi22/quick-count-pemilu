@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('voting_results', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('result')->nullable();
             $table->string('photo_result')->nullable();
             $table->foreignId('voting_place_id')->nullable();
             $table->foreign('voting_place_id')->references('id')->on('voting_places');

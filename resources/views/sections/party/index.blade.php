@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title mb-0 font-size-18">Data Partai</h4>
+                    <h4 class="page-title my-4 font-size-18 lh-1">Data Partai</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
@@ -27,46 +27,26 @@
 
         <div class="row">
             @foreach ($parties as $party)
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="col-12 col-lg-6">
                     <div class="card">
-                        <div class="card-header text-bg-dark">
-                            <h3>
-                                <div class="btn-group dropdown float-start">
-                                    <button id="btnGroupDropdown" type="button"
-                                        class="btn btn-block btn-dark dropdown-toggle" data-bs-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                        <i class="fa fa-ellipsis-v"></i>
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="btnGroupDropdown">
-                                        <a href="{{ url('parties/detail', Crypt::encrypt($party->id)) }}" class="dropdown-item">
-                                            <i class="fa fa-file-csv"></i> Detail
-                                        </a>
-                                        <a href="{{ url('voters/import') }}" class="dropdown-item text-success">
-                                            <i class="fa fa-file-pdf"></i> Edit
-                                        </a>
-                                        <a href="{{ url('voters/import') }}" class="dropdown-item text-success">
-                                            <i class="fa fa-file-pdf"></i> Hapus
-                                        </a>
-                                    </div>
-                                </div>
-                                <strong class="float-end">
-                                    {{ $party->number }}
-                                </strong>
-                            </h3>
+                        <div class="card-header d-flex justify-content-between">
+                            <strong class="fs-2 float-end">
+                                {{ $party->number }}.
+                            </strong>
+
+                            <img src="{{ asset($party->logo) }}" height="50" alt="Logo {{ $party->name }}">
                         </div>
                         <div class="card-body">
-                            <div class="row">
-                                <h5 class="text-center mb-4">
+                            <div class="lh-1">
+                                <h5 class="mb-4">
                                     <strong>{{ $party->name }}</strong>
                                 </h5>
-                                <div class="col-4">
-                                    <img src="{{ asset($party->logo) }}" class="img-fluid" alt="Logo {{ $party->name }}">
-                                </div>
-                                <div class="col-8">
-                                    <p>Laki: {{ $party->candidates->where('gender', 'Laki-Laki')->count() }}</p>
-                                    <p>Perempuan: {{ $party->candidates->where('gender', 'Perempuan')->count() }}</p>
-                                </div>
+                                <p>Jumlah Calon Legislatif: <strong>{{ $party->candidates->count() }} Orang</strong></p>
+                                <p>Jumlah Suara: <strong>0 Suara</strong></p>
                             </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ url('parties/detail', Crypt::encrypt($party->id)) }}" class="float-end text-dark">Lebih Lengkap <i class="fa fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>

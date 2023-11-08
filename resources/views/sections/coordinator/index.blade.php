@@ -38,9 +38,6 @@
                             <a href="{{ url('coordinators/export') }}" class="dropdown-item">
                                 <i class="fa fa-file-csv"></i> Ekspor CSV
                             </a>
-                            <a href="{{ url('coordinators/import') }}" class="dropdown-item text-success">
-                                <i class="fa fa-file-pdf"></i> Impor
-                            </a>
                         </div>
                     </div>
                 </div>

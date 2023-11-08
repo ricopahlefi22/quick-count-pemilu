@@ -104,4 +104,7 @@ Route::middleware('auth:owner')->group(function () {
     include 'extra/voting-result-route.php';
 
     include 'extra/party-route.php';
+
+    include 'extra/candidate-route.php';
+
 });

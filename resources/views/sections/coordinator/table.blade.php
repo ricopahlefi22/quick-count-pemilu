@@ -23,7 +23,7 @@
         <div class="row mt-4 mt-sm-2 mt-md-1">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title mb-5 mb-md-0">
+                    <h4 class="page-title my-4 font-size-18 lh-1">
                         Koordinator di {{ $village->name }}
                     </h4>
 
@@ -69,7 +69,7 @@
                                     <th>No</th>
                                     <th>Aksi</th>
                                     <th>Nama</th>
-                                    <th title="Nomor Induk Kependudukan">NIK</th>
+                                    <th title="Tempat Pemilihan Suara">TPS</th>
                                     <th>Alamat</th>
                                     <th>Nomor Ponsel</th>
                                     @if (Auth::guard('owner')->check())
@@ -82,7 +82,7 @@
                                     <th>No</th>
                                     <th>Aksi</th>
                                     <th>Nama</th>
-                                    <th title="Nomor Induk Kependudukan">NIK</th>
+                                    <th title="Tempat Pemilihan Suara">TPS</th>
                                     <th>Alamat</th>
                                     <th>Nomor Ponsel</th>
                                     @if (Auth::guard('owner')->check())
@@ -99,8 +99,7 @@
         <!-- end row -->
     </div>
 
-    @include('modals.form-modal')
-    @include('modals.coordinator')
+    @include('modals.voter')
     @include('modals.cancel-coordinator')
 @endsection
 
@@ -173,12 +172,10 @@
                 {
                     data: "name",
                     name: "name",
-                    class: "font-weight-bold",
                 },
                 {
-                    data: "id_number",
-                    name: "id_number",
-                    class: "font-weight-bold",
+                    data: "voting_place",
+                    name: "voting_place",
                 },
                 {
                     data: "address",
@@ -442,7 +439,7 @@
                                                     '">' +
                                                     value[
                                                         "name"
-                                                        ] +
+                                                    ] +
                                                     "</option>";
                                             });
 

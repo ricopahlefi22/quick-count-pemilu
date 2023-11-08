@@ -46,12 +46,10 @@ $(document).ready(function () {
         {
             data: "name",
             name: "name",
-            class: "font-weight-bold",
         },
         {
-            data: "id_number",
-            name: "id_number",
-            class: "font-weight-bold",
+            data: "voting_place",
+            name: "voting_place",
         },
         {
             data: "address",

@@ -24,7 +24,9 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title my-4 font-size-18 lh-1">Data Administrator</h4>
+                    <h4 class="page-title my-4 font-size-18 lh-1">
+                        Data Administrator
+                    </h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
@@ -96,5 +98,5 @@
     <script src="{{ asset('assets/libs/dropify/js/dropify.min.js') }}"></script>
 
     <!-- Custom -->
-    <script type="text/javascript" src="{{ asset('js/admin-table.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/administrator.js') }}"></script>
 @endpush

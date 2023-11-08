@@ -91,12 +91,6 @@ $("body").on("click", ".image-popup-no-margins", function (e) {
     });
 });
 
-$.ajaxSetup({
-    headers: {
-        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-    },
-});
-
 $("#create").click(function () {
     $("#formModal").modal("show");
     $("#modalTitle").html("Tambah Data");

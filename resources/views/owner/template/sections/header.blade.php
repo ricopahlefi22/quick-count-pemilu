@@ -5,19 +5,19 @@
             <div class="navbar-brand-box">
                 <a href="{{ url('/') }}" class="logo logo-dark">
                     <span class="logo-sm">
-                        <img src="{{ asset('assets/images/logo-sm-dark.png') }}" alt="" height="20">
+                        <img src="{{ asset('assets/images/logo-sm-dark.png') }}" height="20">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ asset('assets/images/logo-dark.png') }}" alt="" height="17">
+                        <img src="{{ asset('assets/images/logo-dark.png') }}" height="17">
                     </span>
                 </a>
 
                 <a href="{{ url('/') }}" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="{{ asset('assets/images/logo-sm.png') }}" alt="" height="20">
+                        <img src="{{ asset('assets/images/logo-sm.png') }}" height="20">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ asset('assets/images/logo-light.png') }}" alt="" height="19">
+                        <img src="{{ asset('assets/images/logo-light.png') }}" height="19">
                     </span>
                 </a>
             </div>
@@ -136,6 +136,9 @@
                                     </a>
                                     <a href="{{ url('parties') }}" class="dropdown-item">
                                         Data Partai
+                                    </a>
+                                    <a href="{{ url('candidates') }}" class="dropdown-item">
+                                        Data Calon Legislatif
                                     </a>
                                     <a href="{{ url('voting-places') }}" class="dropdown-item">
                                         Peta TPS
