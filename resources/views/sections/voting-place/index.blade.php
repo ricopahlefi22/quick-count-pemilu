@@ -12,6 +12,9 @@
         type="text/css" />
     <!-- Dropify -->
     <link href="{{ asset('assets/libs/dropify/css/dropify.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <!-- Select2 -->
+    <link href="{{ asset('assets/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
 @endpush
 
 @section('content')
@@ -20,7 +23,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="page-title my-4 font-size-18 lh-1">{{ $party->name }}</h4>
+                    <h4 class="page-title my-4 font-size-18 lh-1">Data Tempat Pemungutan Suara (TPS)</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
@@ -33,7 +36,7 @@
                                     @endif
                                 </a>
                             </li>
-                            <li class="breadcrumb-item active">Detail {{ $party->name }}</li>
+                            <li class="breadcrumb-item active">Data Tempat Pemungutan Suara (TPS)</li>
                         </ol>
                     </div>
                 </div>
@@ -46,30 +49,29 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">
-                            <img src="{{ asset($party->logo) }}" height="30" alt="Logo {{ $party->name }}">
-                            Tabel Calon Legislatif {{ $party->name }}
-                            {{-- <button id="createButton" class="btn btn-sm btn-dark float-end">
+                            Tabel Tempat Pemungutan Suara (TPS)
+                            <button id="createButton" class="btn btn-sm btn-dark float-end">
                                 <i class="fa fa-plus"></i> Tambah
-                            </button> --}}
+                            </button>
                         </h4>
                     </div>
                     <div class="card-body">
                         <table id="table" class="table table-bordered dt-responsive nowrap">
                             <thead>
                                 <tr>
-                                    <th>No. Urut</th>
-                                    <th>Nama</th>
-                                    <th>Jenis Kelamin</th>
-                                    <th>Kota</th>
+                                    <th>TPS</th>
+                                    <th>Kecamatan</th>
+                                    <th>Alamat</th>
+                                    <th>Koordinat</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th>No. Urut</th>
-                                    <th>Nama</th>
-                                    <th>Jenis Kelamin</th>
-                                    <th>Kota</th>
+                                    <th>TPS</th>
+                                    <th>Kecamatan</th>
+                                    <th>Alamat</th>
+                                    <th>Koordinat</th>
                                     <th>Aksi</th>
                                 </tr>
                             </tfoot>
@@ -82,7 +84,7 @@
         <!-- end row -->
     </div>
 
-    @include('modals.candidate')
+    @include('modals.voting-place')
 @endsection
 
 @push('script')
@@ -99,6 +101,10 @@
     <script src="{{ asset('assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     <!-- Dropify -->
     <script src="{{ asset('assets/libs/dropify/js/dropify.min.js') }}"></script>
+    <!-- Select2 -->
+    <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
+    <!-- Jquery Input Mask -->
+    <script src="{{ asset('assets/libs/inputmask/min/jquery.inputmask.bundle.min.js') }}"></script>
     <!-- Script -->
-    <script src="{{ asset('js/party-detail.js') }}"></script>
+    <script src="{{ asset('js/voting-place.js') }}"></script>
 @endpush

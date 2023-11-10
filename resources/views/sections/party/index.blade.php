@@ -46,7 +46,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a href="{{ url('parties/detail', Crypt::encrypt($party->id)) }}" class="float-end text-dark">Lebih Lengkap <i class="fa fa-arrow-right"></i></a>
+                            <a href="{{ url('parties/detail', Crypt::encrypt($party->id)) }}" class="float-end text-dark font-size-12">Lebih Lengkap <i class="fa fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>

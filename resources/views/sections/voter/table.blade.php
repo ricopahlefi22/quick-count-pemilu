@@ -119,22 +119,17 @@
 @push('script')
     <!-- SweetAlert2 -->
     <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
-
     <!-- Datatable -->
     <script src="{{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-
     <!-- Select2 -->
     <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
-
-    <!-- form mask -->
+    <!-- Jquery Input Mask -->
     <script src="{{ asset('assets/libs/inputmask/min/jquery.inputmask.bundle.min.js') }}"></script>
-
     <!-- Dropify -->
     <script src="{{ asset('assets/libs/dropify/js/dropify.min.js') }}"></script>
-
     <!-- Script -->
     <script src="{{ asset('js/voter-table.js') }}"></script>
 @endpush

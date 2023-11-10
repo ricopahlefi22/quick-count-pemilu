@@ -56,12 +56,12 @@ class CandidateController extends Controller
         $photo = $request->hidden_photo;
 
         if ($request->file('photo')) {
-            $path = 'public/voter-photos/';
+            $path = 'public/candidate-photos/';
             $file = $request->file('photo');
             $file_name = $request->id_number . '-[' . time() . '].' . $file->getClientOriginalExtension();
 
             $file->storeAs($path, $file_name);
-            $photo = "storage/voter-photos/" . $file_name;
+            $photo = "storage/candidate-photos/" . $file_name;
         }
 
         $data = Candidate::updateOrCreate([

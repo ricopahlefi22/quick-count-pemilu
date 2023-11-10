@@ -162,7 +162,7 @@ $("body").on("click", ".edit", function () {
             $("#partyId").val(data.party_id).trigger("change");
 
             $("#candidateModal").modal("show");
-            $("#modalTitle").html("Sunting Data Calon Legislatif");
+            $("#modalTitle").html("Edit Data Calon Legislatif");
             $("#button")
                 .html("Simpan Perubahan")
                 .removeClass("btn-dark")

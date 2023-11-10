@@ -10,16 +10,21 @@
                 @csrf
                 <input id="id" type="hidden" name="id">
                 <div class="modal-body">
-                    <label for="voterId" class="mb-0">TPS<span class="text-danger">*</span></label>
-                    <select id="votingPlaceId" name="voting_place_id" class="form-control" style="width: 100%;"></select>
-                    <br>
-                    <label for="voterId" class="mt-2 mb-0">Pemantau<span class="text-danger">*</span></label>
-                    <select id="voterId" name="voter_id" class="form-control" style="width: 100%;" disabled></select>
+                    <div class="mb-2">
+                        <label for="voterId" class="form-label">TPS<span class="text-danger">*</span></label>
+                        <select id="votingPlaceId" name="voting_place_id" class="form-control"
+                            style="width: 100%;"></select>
+                    </div>
+                    <div class="mb-2">
+                        <label for="voterId" class="form-label">Pemantau<span class="text-danger">*</span></label>
+                        <select id="voterId" name="voter_id" class="form-control" style="width: 100%;"
+                            disabled></select>
+                    </div>
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Tutup</button>
-                    <button id="button" type="submit"
-                        class="btn btn-primary waves-effect waves-light" disabled>Simpan</button>
+                    <button id="button" type="submit" class="btn btn-primary waves-effect waves-light"
+                        disabled>Simpan</button>
                 </div>
             </form>
         </div>
