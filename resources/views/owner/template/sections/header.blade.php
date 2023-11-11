@@ -46,7 +46,7 @@
 
                                 <div class="dropdown-menu" aria-labelledby="quick-count-topnav">
 
-                                    <a href="{{ url('voting-result') }}" class="dropdown-item">
+                                    <a href="{{ url('voting-results') }}" class="dropdown-item">
                                         Hasil Perhitungan Cepat
                                     </a>
                                     <div class="dropdown">
@@ -56,12 +56,12 @@
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="topnav-result-district">
                                             @foreach (App\Models\District::all() as $district)
-                                                <a href="{{ url('voting-result/district', $district->id) }}"
+                                                <a href="{{ url('voting-results/district', $district->id) }}"
                                                     class="dropdown-item">{{ $district->name }}</a>
                                             @endforeach
                                         </div>
                                     </div>
-                                    <a href="{{ url('input-voting-result') }}" class="dropdown-item">
+                                    <a href="{{ url('input-voting-results') }}" class="dropdown-item">
                                         Data Perolehan Suara (C1)
                                     </a>
                                 </div>

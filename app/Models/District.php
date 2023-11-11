@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class District extends Model
 {
-    use HasFactory;
+    use SoftDeletes, HasFactory;
 
     protected $fillable = [
         'id',
@@ -24,7 +25,8 @@ class District extends Model
         return $this->hasMany(VotingPlace::class, 'district_id');
     }
 
-    public function voters(){
+    public function voters()
+    {
         return $this->hasMany(Voter::class, 'district_id');
     }
 }

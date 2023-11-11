@@ -11,11 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('voting_result_numbers', function (Blueprint $table) {
+        Schema::create('web_config', function (Blueprint $table) {
             $table->id();
-            $table->string('number');
-            $table->foreignId('voting_result_id')->nullable();
-            $table->foreign('voting_result_id')->references('id')->on('voting_results');
+            $table->string('token');
+            $table->string('photo')->nullable();
+            $table->string('name');
+            $table->string('password');
+            $table->string('email')->nullable();
+            $table->string('phone_number');
+            $table->boolean('strict')->default(true);
+            $table->foreignId('party_id')->nullable();
+            $table->foreign('party_id')->references('id')->on('parties');
             $table->foreignId('candidate_id')->nullable();
             $table->foreign('candidate_id')->references('id')->on('candidates');
             $table->timestamps();
@@ -27,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('voting_result_numbers');
+        Schema::dropIfExists('web_config');
     }
 };

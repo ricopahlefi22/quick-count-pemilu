@@ -13,16 +13,14 @@ return new class extends Migration
     {
         Schema::create('voting_results', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('photo_result')->nullable();
+            $table->string('number')->nullable();
             $table->foreignId('voting_place_id')->nullable();
             $table->foreign('voting_place_id')->references('id')->on('voting_places');
-            $table->foreignId('village_id')->nullable();
-            $table->foreign('village_id')->references('id')->on('villages');
-            $table->foreignId('district_id')->nullable();
-            $table->foreign('district_id')->references('id')->on('districts');
+            $table->foreignId('party_id')->nullable();
+            $table->foreign('party_id')->references('id')->on('parties');
+            $table->foreignId('candidate_id')->nullable();
+            $table->foreign('candidate_id')->references('id')->on('candidates');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

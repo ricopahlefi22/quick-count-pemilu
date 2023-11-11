@@ -2314,7 +2314,6 @@ body {
 }
 .swal2-container .swal2-popup {
   background-color: var(--bs-secondary-bg);
-  background: url("//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/geometry.png") var(--bs-secondary-bg) !important;
 }
 
 .swal2-icon.swal2-question {

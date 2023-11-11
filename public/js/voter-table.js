@@ -59,7 +59,12 @@ $(document).ready(function () {
         {
             data: "name",
             name: "name",
-            class: "font-weight-bold",
+            class: "fw-bolder",
+        },
+        {
+            data: "age",
+            name: "age",
+            class: "text-center",
         },
         {
             data: "address",

@@ -27,6 +27,11 @@ class Candidate extends Model
         'party_id.required' => 'pilih partai terlebih dahulu',
     ];
 
+    public function votingResult()
+    {
+        return $this->hasMany(VotingResult::class);
+    }
+
     public function party()
     {
         return $this->belongsTo(Party::class);

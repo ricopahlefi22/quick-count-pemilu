@@ -13,11 +13,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            WebConfigSeeder::class,
             AdminSeeder::class,
             PartySeeder::class,
             Dapil1Seeder::class,
             CalegDapil1Seeder::class,
+            WebConfigSeeder::class,
         ]);
     }
 }

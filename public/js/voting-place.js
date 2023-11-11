@@ -117,6 +117,7 @@ $("body").on("click", ".edit", function () {
             $("#latitude").removeClass("is-invalid");
             $("#longitude").removeClass("is-invalid");
             $("#villageId").removeClass("is-invalid");
+            $("#villageId").removeClass("is-invalid");
             $("#districtId").removeClass("is-invalid");
 
             $("#id").val(data.id);

@@ -38,10 +38,12 @@ class VoterController extends Controller
                         return empty($voter->family_card_number) ? '-' : $voter->family_card_number;
                     })
                     ->addColumn('address', function (Voter $voter) {
-                        if ($voter->rt && $voter->rw) {
+                        if ($voter->address && $voter->rt && $voter->rw) {
                             return $voter->address . ', RT ' . $voter->rt . '/RW ' . $voter->rw;
-                        } else if ($voter->rt) {
+                        } else if ($voter->address && $voter->rt) {
                             return $voter->address . ', RT ' . $voter->rt;
+                        } else if ($voter->rt && $voter->rw) {
+                            return 'RT ' . $voter->rt . '/RW ' . $voter->rw;
                         } else {
                             return $voter->address;
                         }

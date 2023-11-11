@@ -86,7 +86,8 @@
                                     <th>No</th>
                                     <th>Aksi</th>
                                     <th>Nama</th>
-                                    <th>Alamat</th>
+                                    <th>Usia</th>
+                                    <th>Alamat, RT/RW</th>
                                     <th>Nomor Ponsel</th>
                                     <th>Koordinator</th>
                                 </tr>
@@ -96,7 +97,8 @@
                                     <th>No</th>
                                     <th>Aksi</th>
                                     <th>Nama</th>
-                                    <th>Alamat</th>
+                                    <th>Usia</th>
+                                    <th>Alamat, RT/RW</th>
                                     <th>Nomor Ponsel</th>
                                     <th>Koordinator</th>
                                 </tr>

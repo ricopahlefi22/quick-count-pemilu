@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('voting_places', function (Blueprint $table) {
             $table->id();
+            $table->string('voting_result_file')->nullable();
             $table->string('name');
             $table->string('address')->nullable();
             $table->string('latitude')->nullable();

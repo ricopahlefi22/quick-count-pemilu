@@ -10,6 +10,11 @@ class Party extends Model
 {
     use SoftDeletes, HasFactory;
 
+    public function votingResult()
+    {
+        return $this->hasMany(VotingResult::class);
+    }
+
     public function candidates()
     {
         return $this->hasMany(Candidate::class);

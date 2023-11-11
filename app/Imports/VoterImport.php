@@ -28,27 +28,27 @@ class VoterImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnFai
     public function model(array $row)
     {
         ++$this->rows;
-        $date_normalize = str_replace('|', '-', $row['tanggal_lahir']);
-        $create_date = date_create($date_normalize);
+        // $date_normalize = str_replace('|', '-', $row['tanggal_lahir']);
+        // $create_date = date_create($date_normalize);
 
         $district = District::where('name', $row['kecamatan'])->first();
         $village = Village::where('name', $row['kelurahan'])->first();
 
         $voting_place = VotingPlace::where('village_id', $village->id)->where('name', $row['tps'])->first();
 
-        $this->location = $village->name. ' TPS '.$voting_place->name;
+        $this->location = $village->name . ' TPS ' . $voting_place->name;
 
         return new Voter([
-            'name' => ucwords(strtolower($row['nama_lengkap'])),
-            'id_number' => $row['nik'],
-            'family_card_number' => $row['no_kk'],
-            'address' => ucwords(strtolower($row['alamat'])),
-            'rt' => $row['rt'],
-            'rw' => $row['rw'],
-            'age' => $row['umur'],
-            'birthplace' => ucwords(strtolower($row['tempat_lahir'])),
-            'birthday' => date_format($create_date, 'Y-m-d'),
-            'marital_status' => $row['status'],
+            'name' => ucwords(strtolower($row['nama'])),
+            // 'id_number' => $row['nik'],
+            // 'family_card_number' => $row['no_kk'],
+            // 'address' => ucwords(strtolower($row['alamat'])),
+            'rt' => (strlen($row['rt']) != 2) ? '00' . $row['rt'] : '0' . $row['rt'],
+            'rw' => (strlen($row['rw']) != 2) ? '00' . $row['rw'] : '0' . $row['rw'],
+            'age' => $row['usia'],
+            // 'birthplace' => ucwords(strtolower($row['tempat_lahir'])),
+            // 'birthday' => date_format($create_date, 'Y-m-d'),
+            // 'marital_status' => $row['status'],
             'gender' => $row['jenis_kelamin'],
             'district_id' => $district->id,
             'village_id' => $village->id,
@@ -59,8 +59,14 @@ class VoterImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnFai
     public function rules(): array
     {
         return [
-            'nama_lengkap' => 'required',
-            'nik' => 'unique:voters,id_number,NULL,id,deleted_at,NULL|min:16',
+            'nama' => 'required',
+            'jenis_kelamin' => 'required',
+            'usia' => 'required',
+            'rt' => 'required',
+            'rw' => 'required',
+            'kecamatan' => 'required',
+            'kelurahan' => 'required',
+            'tps' => 'required',
         ];
     }
 

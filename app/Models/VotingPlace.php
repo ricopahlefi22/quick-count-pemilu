@@ -11,6 +11,7 @@ class VotingPlace extends Model
     use SoftDeletes, HasFactory;
 
     protected $fillable = [
+        'voting_result_file',
         'district_id',
         'village_id',
         'name',
@@ -27,6 +28,11 @@ class VotingPlace extends Model
         'latitude.required' => 'mohon isi kolom latitude',
         'longitude.required' => 'mohon isi kolom longitude',
     ];
+
+    public function votingResult()
+    {
+        return $this->hasMany(VotingResult::class);
+    }
 
     public function witness()
     {

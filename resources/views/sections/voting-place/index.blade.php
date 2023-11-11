@@ -21,6 +21,7 @@
     <div class="page-content">
         <!-- start page title -->
         <div class="row">
+            <div id="map-canvas" class="card" style="height: 350px;"></div>
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
                     <h4 class="page-title my-4 font-size-18 lh-1">Data Tempat Pemungutan Suara (TPS)</h4>
@@ -88,6 +89,8 @@
 @endsection
 
 @push('script')
+    <!-- Gmaps -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k" async defer></script>
     <!-- SweetAlert2 -->
     <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
     <!-- Magnific Popup-->
@@ -107,4 +110,47 @@
     <script src="{{ asset('assets/libs/inputmask/min/jquery.inputmask.bundle.min.js') }}"></script>
     <!-- Script -->
     <script src="{{ asset('js/voting-place.js') }}"></script>
+    <!-- Maps Script -->
+    <script>
+        $(document).ready(function() {
+            initMap();
+        });
+
+        function initMap() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(success, fail);
+            } else {
+                alert("Browser anda tidak mendukung untuk menampilkan peta kami.");
+            }
+        }
+
+        function success(position) {
+            var latitude = -1.5841595;
+            var longitude = 110.060837;
+            myLatLng = new google.maps.LatLng(latitude, longitude);
+            createMap(myLatLng);
+        }
+
+        function fail() {
+            alert("Gagal menampilkan peta, cobalah periksa koneksi internetmu");
+        }
+
+        function createMap(myLatLng) {
+            map = new google.maps.Map(document.getElementById("map-canvas"), {
+                center: myLatLng,
+                zoom: 9.5,
+            });
+
+            @foreach ($votingPlaces as $votingPlace)
+                @if ($votingPlace->latitude && $votingPlace->longitude)
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng({{ $votingPlace->latitude }},
+                            {{ $votingPlace->longitude }}),
+                        map: map,
+                        title: '{{$votingPlace->village->name}} ({{$votingPlace->name}})',
+                    });
+                @endif
+            @endforeach
+        }
+    </script>
 @endpush

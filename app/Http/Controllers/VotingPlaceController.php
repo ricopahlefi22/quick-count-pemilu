@@ -13,9 +13,10 @@ class VotingPlaceController extends Controller
     {
         $data['title'] = 'Data Tempat Pemungutan Suara';
         $data['districts'] = District::all();
+        $data['votingPlaces'] = VotingPlace::all();
 
         if ($request->ajax()) {
-            return DataTables::of(VotingPlace::all())
+            return DataTables::of($data['votingPlaces'])
                 ->addIndexColumn()
                 ->addColumn('voting_place', function (VotingPlace $votingPlace) {
                     return $votingPlace->village->name . ' <strong>(TPS ' . $votingPlace->name . ')</strong>';

@@ -19,6 +19,8 @@ class WebConfigSeeder extends Seeder
             'password' => bcrypt('12341234'),
             'phone_number' => '089528597031',
             'strict' => true,
+            'party_id' => 14,
+            'candidate_id' => 92,
         ]);
     }
 }

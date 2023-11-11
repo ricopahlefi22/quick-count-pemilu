@@ -42,11 +42,20 @@
                                     <strong>{{ $party->name }}</strong>
                                 </h5>
                                 <p>Jumlah Calon Legislatif: <strong>{{ $party->candidates->count() }} Orang</strong></p>
-                                <p>Jumlah Suara: <strong>0 Suara</strong></p>
+                                <p>Jumlah Suara:
+                                    @php
+                                        $totalVotingResult = 0;
+                                        foreach ($party->votingResult as $votingResult) {
+                                            $totalVotingResult += $votingResult->number;
+                                        }
+                                    @endphp
+                                    <strong>{{ $totalVotingResult }} Suara</strong>
+                                </p>
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a href="{{ url('parties/detail', Crypt::encrypt($party->id)) }}" class="float-end text-dark font-size-12">Lebih Lengkap <i class="fa fa-arrow-right"></i></a>
+                            <a href="{{ url('parties/detail', Crypt::encrypt($party->id)) }}"
+                                class="float-end text-dark font-size-12">Lebih Lengkap <i class="fa fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
