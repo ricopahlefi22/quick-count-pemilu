@@ -24,4 +24,9 @@ class WebConfig extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    public function candidate()
+    {
+        return $this->belongsTo(Candidate::class);
+    }
 }

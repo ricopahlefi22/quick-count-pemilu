@@ -81,14 +81,14 @@ class VotingResultController extends Controller
         foreach ($candidates as $candidate) {
             $votingResult = VotingResult::where('candidate_id', $candidate->id)->where('voting_place_id', $request->voting_place_id)->first();
             if ($votingResult) {
-                $votingResult->number = $request->{"number_voters_candidate_" . $candidate->id};
+                $votingResult->number = is_null($request->{"number_voters_candidate_" . $candidate->id}) ? 0 : $request->{"number_voters_candidate_" . $candidate->id};
                 $votingResult->save();
             } else {
                 $data = new VotingResult;
                 $data->voting_place_id = $request->voting_place_id;
                 $data->party_id = $candidate->party->id;
                 $data->candidate_id = $candidate->id;
-                $data->number = $request->{"number_voters_candidate_" . $candidate->id};
+                $data->number = is_null($request->{"number_voters_candidate_" . $candidate->id}) ? 0 : $request->{"number_voters_candidate_" . $candidate->id};
                 $data->save();
             }
         }

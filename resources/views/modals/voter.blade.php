@@ -108,98 +108,109 @@
                                     <input id="birthday" name="birthday" type="date" class="form-control">
                                 </div>
 
-                                <div class="col-12 col-lg-6 mb-2">
-                                    <label title="Wajib Diisi" for="gender" class="form-label">Jenis
-                                        Kelamin</label>
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <div class="form-check">
-                                                <input id="male" class="form-check-input" value="L"
-                                                    type="radio" name="gender">
-                                                <label for="male" class="form-check-label">Laki-Laki</label>
+                                <div class="row">
+                                    <div class="col-12 col-lg-6">
+                                        <div class="col-12 mb-2">
+                                            <label title="Wajib Diisi" for="gender" class="form-label">Jenis
+                                                Kelamin</label>
+                                            <div class="form-group row">
+                                                <div class="col-12">
+                                                    <div class="form-check">
+                                                        <input id="male" class="form-check-input" value="L"
+                                                            type="radio" name="gender">
+                                                        <label for="male"
+                                                            class="form-check-label">Laki-Laki</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="form-check">
+                                                        <input id="female" class="form-check-input" value="P"
+                                                            type="radio" name="gender">
+                                                        <label for="female"
+                                                            class="form-check-label">Perempuan</label>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-12">
-                                            <div class="form-check">
-                                                <input id="female" class="form-check-input" value="P"
-                                                    type="radio" name="gender">
-                                                <label for="female" class="form-check-label">Perempuan</label>
+
+                                        <div class="col-12 mb-2">
+                                            <label for="marital_status" class="form-label">Status
+                                                Perkawinan
+                                            </label>
+                                            <div class="form-group row">
+                                                <div class="col-12">
+                                                    <div class="form-check">
+                                                        <input id="bMaritalStatus" class="form-check-input"
+                                                            value="B" type="radio" name="marital_status">
+                                                        <label for="bMaritalStatus" class="form-check-label">Belum
+                                                            Kawin</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="form-check">
+                                                        <input id="sMaritalStatus" class="form-check-input"
+                                                            value="S" type="radio" name="marital_status">
+                                                        <label for="sMaritalStatus" class="form-check-label">Sudah
+                                                            Kawin</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="form-check">
+                                                        <input id="pMaritalStatus" class="form-check-input"
+                                                            value="P" type="radio" name="marital_status">
+                                                        <label for="pMaritalStatus" class="form-check-label">Pernah
+                                                            Kawin</label>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+
+                                        <div class="col-12 mb-2">
+                                            <label for="note" class="form-label">
+                                                Catatan
+                                            </label>
+                                            <textarea name="note" id="note" rows="5" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6 order-first order-lg-last">
+                                        <div class="mb-2">
+                                            <label for="districtId" class="form-label">
+                                                Kecamatan<span class="text-danger" title="Wajib Diisi">*</span>
+                                            </label>
+                                            <select name="district_id" id="districtId" class="form-control"
+                                                style="width: 100%;">
+                                                <option value="" selected hidden disabled>*PILIH KECAMATAN
+                                                </option>
+                                                @foreach ($districts as $district)
+                                                    <option value="{{ $district->id }}">{{ $district->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <span id="districtIdError" class="invalid-feedback"></span>
+                                        </div>
+
+                                        <div class="mb-2">
+                                            <label for="villageId" class="form-label">
+                                                Kelurahan / Desa<span class="text-danger">*</span>
+                                            </label>
+                                            <select name="village_id" id="villageId" class="form-control"
+                                                style="width: 100%;" disabled>
+                                            </select>
+                                            <span id="villageIdError" class="invalid-feedback"></span>
+                                        </div>
+
+                                        <div class="mb-2">
+                                            <label for="votingPlaceId" class="form-label">
+                                                TPS<span class="text-danger" title="Wajib Diisi">*</span>
+                                            </label>
+                                            <select name="voting_place_id" id="votingPlaceId" class="form-control"
+                                                style="width: 100%;" disabled>
+                                            </select>
+                                            <span id="votingPlaceIdError" class="invalid-feedback"></span>
+                                        </div>
+
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-lg-6 mb-2">
-                                    <label for="districtId" class="form-label">Kecamatan<span
-                                            class="text-danger">*</span> <span id="districtError"
-                                            class="text-danger"></span></label>
-                                    <select name="district_id" id="districtId" class="form-control">
-                                        <option value="" selected hidden disabled>*PILIH KECAMATAN</option>
-                                        @foreach ($districts as $district)
-                                            <option value="{{ $district->id }}">{{ $district->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <span id="districtIdError" class="invalid-feedback"></span>
-                                </div>
-
-                                <div class="col-12 col-lg-6 mb-2">
-                                    <label title="Wajib Diisi" for="marital_status" class="form-label">Status
-                                        Perkawinan</label>
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <div class="form-check">
-                                                <input id="bMaritalStatus" class="form-check-input" value="B"
-                                                    type="radio" name="marital_status">
-                                                <label for="bMaritalStatus" class="form-check-label">Belum
-                                                    Kawin</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-check">
-                                                <input id="sMaritalStatus" class="form-check-input" value="S"
-                                                    type="radio" name="marital_status">
-                                                <label for="sMaritalStatus" class="form-check-label">Sudah
-                                                    Kawin</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-check">
-                                                <input id="pMaritalStatus" class="form-check-input" value="P"
-                                                    type="radio" name="marital_status">
-                                                <label for="pMaritalStatus" class="form-check-label">Pernah
-                                                    Kawin</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-12 col-lg-6 mb-2">
-                                    <label for="villageId" class="form-label">Kelurahan / Desa<span
-                                            class="text-danger">*</span> <span id="villageError"
-                                            class="text-danger"></span></label>
-                                    <select name="village_id" id="villageId" class="form-control" disabled>
-                                        <option value="" selected hidden disabled>
-                                            *PILIH KECAMATAN DAHULU
-                                        </option>
-                                    </select>
-                                    <span id="villageIdError" class="invalid-feedback"></span>
-                                </div>
-
-                                <div class="col-12 col-lg-6 mb-2">
-                                    <label for="note" class="form-label">Catatan
-                                        <span id="noteError" class="text-danger"></span></label>
-                                    <textarea name="note" id="note" rows="5" class="form-control"></textarea>
-                                </div>
-
-                                <div class="col-12 col-lg-6 mb-2">
-                                    <label for="votingPlaceId" class="form-label">TPS
-                                        <span id="votingPlaceError" class="text-danger"></span></label>
-                                    <select name="voting_place_id" id="votingPlaceId" class="form-control" disabled>
-                                        <option id="votingPlaceOption" value="" selected hidden disabled>
-                                            *PILIH KELURAHAN/DESA DAHULU
-                                        </option>
-                                    </select>
-                                </div>
                             </div>
                         </div>
                     </div>

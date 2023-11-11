@@ -35,6 +35,13 @@ class PartyController extends Controller
                         </a> <span>' . $candidate->name . '</span>';
                     }
                 })
+                ->addColumn('voting_result', function (Candidate $candidate) {
+                    $totalVotingResult = 0;
+                    foreach ($candidate->votingResult as $votingResult) {
+                        $totalVotingResult += $votingResult->number;
+                    }
+                    return $totalVotingResult.' Suara';
+                })
                 ->addColumn('action', function (Candidate $candidate) {
                     $btn = '<button data-id="' . $candidate->id . '"  class="btn btn-sm btn-warning edit" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button> ';
                     $btn .= '<button data-id="' . $candidate->id . '"  class="btn btn-sm btn-danger delete" title="Hapus"><i class="fa fa-trash" aria-hidden="true"></i></button> ';

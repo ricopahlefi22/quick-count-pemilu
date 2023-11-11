@@ -20,7 +20,6 @@ var columns = [
         data: "name",
         name: "name",
     },
-
     {
         data: "gender",
         name: "gender",
@@ -28,6 +27,10 @@ var columns = [
     {
         data: "city",
         name: "city",
+    },
+    {
+        data: "voting_result",
+        name: "voting_result",
     },
     {
         data: "action",

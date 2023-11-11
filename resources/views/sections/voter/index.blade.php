@@ -1,13 +1,15 @@
 @push('style')
     <!-- SweetAlert2 -->
     <link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
-
     <!-- Dropify -->
     <link href="{{ asset('assets/libs/dropify/css/dropify.min.css') }}" rel="stylesheet" type="text/css" />
-
     <!-- Select2 -->
     <link href="{{ asset('assets/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
 @endpush
+
+@php
+    $web = App\Models\WebConfig::first();
+@endphp
 
 @section('content')
     <div class="page-content">
@@ -38,10 +40,16 @@
         @if (Auth::user()->level == true || Auth::guard('owner')->check())
             <div class="row">
                 @if (Auth::guard('owner')->check())
+                    <input id="districtIdValue" type="hidden" value="{{ $village->district->id }}">
+                    <input id="villageIdValue" type="hidden" value="{{ $village->id }}">
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="card bg-soft-primary">
                             <div class="card-header text-end">
-                                <span><strong>{{ $coordinators_count }}</strong></span>
+                                <span>
+                                    <strong>
+                                        {{ $coordinators_count }}
+                                    </strong>
+                                </span>
                                 <span>Koordinator</span>
                             </div>
                         </div>
@@ -49,7 +57,11 @@
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="card bg-soft-primary">
                             <div class="card-header text-end">
-                                <span><strong>{{ $self_voters_count }}</strong></span>
+                                <span>
+                                    <strong>
+                                        {{ $self_voters_count }}
+                                    </strong>
+                                </span>
                                 <span>Pendukung</span>
                             </div>
                         </div>
@@ -57,7 +69,11 @@
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="card bg-soft-primary" title="Sumber: DPT Pemilu 2024">
                             <div class="card-header text-end">
-                                <span><strong>{{ $voting_places_count }}</strong></span>
+                                <span>
+                                    <strong>
+                                        {{ $voting_places_count }}
+                                    </strong>
+                                </span>
                                 <span>TPS</span>
                             </div>
                         </div>
@@ -65,7 +81,11 @@
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="card bg-soft-primary" title="Sumber: DPT Pemilu 2024">
                             <div class="card-header text-end">
-                                <span><strong>{{ $voters_count }}</strong></span>
+                                <span>
+                                    <strong>
+                                        {{ $voters_count }}
+                                    </strong>
+                                </span>
                                 <span>Pemilih</span>
                             </div>
                         </div>
@@ -74,7 +94,11 @@
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="card bg-soft-primary" title="Sumber: DPT Pemilu 2024">
                             <div class="card-header text-end">
-                                <span><strong>{{ $voting_places_count }}</strong></span>
+                                <span>
+                                    <strong>
+                                        {{ $voting_places_count }}
+                                    </strong>
+                                </span>
                                 <span>TPS</span>
                             </div>
                         </div>
@@ -82,7 +106,11 @@
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="card bg-soft-primary" title="Sumber: DPT Pemilu 2024">
                             <div class="card-header text-end">
-                                <span><strong>{{ $voters_count }}</strong></span>
+                                <span>
+                                    <strong>
+                                        {{ $voters_count }}
+                                    </strong>
+                                </span>
                                 <span>Pemilih</span>
                             </div>
                         </div>
@@ -94,7 +122,11 @@
                 <div class="col-12 col-sm-6 col-md-3">
                     <div class="card bg-soft-primary" title="Sumber: DPT Pemilu 2024">
                         <div class="card-header text-end">
-                            <span><strong>{{ $voting_places_count }}</strong></span>
+                            <span>
+                                <strong>
+                                    {{ $voting_places_count }}
+                                </strong>
+                            </span>
                             <span>TPS</span>
                         </div>
                     </div>
@@ -102,7 +134,11 @@
                 <div class="col-12 col-sm-6 col-md-3">
                     <div class="card bg-soft-primary" title="Sumber: DPT Pemilu 2024">
                         <div class="card-header text-end">
-                            <span><strong>{{ $voters_count }}</strong></span>
+                            <span>
+                                <strong>
+                                    {{ $voters_count }}
+                                </strong>
+                            </span>
                             <span>Pemilih</span>
                         </div>
                     </div>
@@ -112,7 +148,9 @@
 
         <div class="row mb-4">
             <div class="col-6">
-                <h4 class="page-title mb-0 font-size-16"><strong>DPT Per TPS</strong></h4>
+                <h4 class="page-title mb-0 font-size-16">
+                    <strong>DPT Per TPS</strong>
+                </h4>
             </div>
             <div class="col-6">
                 <div class="btn-group-sm dropleft float-end">
@@ -137,7 +175,7 @@
 
         <div class="row">
             @foreach ($votingPlaces as $votingPlace)
-                <div class="col-12 col-md-6 col-lg-3">
+                <div class="col-12 col-md-6 col-lg-4">
                     <div class="card border-dark">
                         <a href="?tps={{ $votingPlace->id }}">
                             <div class="card-header bg-primary text-white d-flex justify-content-between">
@@ -163,13 +201,30 @@
                             </p>
                             <div class="row">
                                 <div class="col-6 text-dark text-center">
-                                    <span class="font-sm">Jumlah Pemilih</span><br>
+                                    Jumlah Suara <strong>({{ $web->candidate->name }})</strong><br>
+                                    @php
+                                        $totalVotingResult = 0;
+                                        foreach ($votingPlace->votingResult->where('candidate_id', $web->candidate_id) as $votingResult) {
+                                            $totalVotingResult += $votingResult->number;
+                                        }
+                                    @endphp
+                                    <strong style="font-size: 20px;">{{ $totalVotingResult }}</strong>
+                                </div>
+                                <div class="col-6 text-dark text-center">
+                                    Jumlah Pendukung<br>
+                                    <strong
+                                        style="font-size: 20px;">{{ $votingPlace->voters->whereNotNull('coordinator_id')->count() }}</strong>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-6 text-dark text-center">
+                                    Jumlah Pemilih<br>
                                     <strong style="font-size: 20px;">{{ $votingPlace->voters->count() }}</strong>
                                 </div>
                                 <div class="col-6 text-dark text-center">
-                                    Jumlah Pendukung <br>
+                                    Jumlah Koordinator<br>
                                     <strong
-                                        style="font-size: 20px;">{{ $votingPlace->voters->whereNotNull('coordinator_id')->count() }}</strong>
+                                        style="font-size: 20px;">{{ $votingPlace->voters->where('level', true)->count() }}</strong>
                                 </div>
                             </div>
                         </div>

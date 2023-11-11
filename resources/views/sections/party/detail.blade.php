@@ -61,6 +61,7 @@
                                     <th>Nama</th>
                                     <th>Jenis Kelamin</th>
                                     <th>Kota</th>
+                                    <th>Jumlah Suara</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -70,6 +71,7 @@
                                     <th>Nama</th>
                                     <th>Jenis Kelamin</th>
                                     <th>Kota</th>
+                                    <th>Jumlah Suara</th>
                                     <th>Aksi</th>
                                 </tr>
                             </tfoot>

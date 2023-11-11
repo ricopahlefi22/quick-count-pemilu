@@ -19,7 +19,7 @@ class Voter extends Model
         'id_number',
         'family_card_number',
         'phone_number',
-        'age',
+        // 'age',
         'birthplace',
         'birthday',
         'gender',
@@ -35,7 +35,27 @@ class Voter extends Model
         'coordinator_id',
     ];
 
-    public function monitor(){
+    public static $validationMessage = [
+        'name.required' => 'kolom nama belum diisi',
+        'id_number.required' => 'kolom NIK belum diisi',
+        'id_number.unique' => 'NIK sudah ada',
+        'id_number.min' => 'panjang NIK harus 16 karakter',
+        'family_card_number.min' => 'panjang No. KK harus 16 karakter',
+        'phone_number.min' => 'panjang No. Handphone minimal 10 karakter',
+        'phone_number.max' => 'panjang No. Handphone maksimal 14 karakter',
+        'phone_number.regex' => 'format No. Handphone tidak benar',
+        'address.required' => 'isi data alamat',
+        'rt.required' => 'isi kolom RT',
+        'rt.min' => 'panjang nomor RT harus 3 karakter',
+        'rw.required' => 'isi kolom RW',
+        'rw.min' => 'panjang nomor RW harus 3 karakter',
+        'district_id.required' => 'kecamatan belum dipilih',
+        'village_id.required' => 'kelurahan/desa belum dipilih',
+        'voting_place_id.required' => 'tps belum dipilih',
+    ];
+
+    public function monitor()
+    {
         return $this->hasOne(Monitor::class);
     }
 

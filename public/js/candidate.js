@@ -37,6 +37,10 @@ var columns = [
         name: "city",
     },
     {
+        data: "voting_result",
+        name: "voting_result",
+    },
+    {
         data: "action",
         name: "action",
         orderable: false,

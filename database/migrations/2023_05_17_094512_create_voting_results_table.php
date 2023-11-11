@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('voting_results', function (Blueprint $table) {
             $table->id();
-            $table->string('number')->nullable();
+            $table->integer('number')->nullable();
             $table->foreignId('voting_place_id')->nullable();
             $table->foreign('voting_place_id')->references('id')->on('voting_places');
             $table->foreignId('party_id')->nullable();

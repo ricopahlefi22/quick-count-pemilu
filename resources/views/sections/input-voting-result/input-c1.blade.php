@@ -100,7 +100,8 @@
                                                 </h6>
                                             </div>
                                             <div class="col-6">
-                                                <input type="number" name="number_voters_candidate_{{ $candidate->id }}"
+                                                <input type="number" min="0"
+                                                    name="number_voters_candidate_{{ $candidate->id }}"
                                                     class="form-control" placeholder="Masukkan Jumlah Suara"
                                                     value="{{ empty($candidate->votingResult->where('voting_place_id', $votingPlace->id)->first()->number) ? null : $candidate->votingResult->where('voting_place_id', $votingPlace->id)->first()->number }}">
                                             </div>
@@ -114,9 +115,15 @@
             </div>
 
             <div class="row">
-                <button id="submit" type="submit" class="my-4 float-end btn btn-primary">
-                    Simpan C1 <i class="mdi mdi-send"></i>
-                </button>
+                @if ($votingPlace->votingResult()->exists())
+                    <button id="submit" type="submit" class="my-4 float-end btn btn-dark">
+                        Simpan Pembaruan C1 <i class="mdi mdi-send"></i>
+                    </button>
+                @else
+                    <button id="submit" type="submit" class="my-4 float-end btn btn-primary">
+                        Simpan C1 <i class="mdi mdi-send"></i>
+                    </button>
+                @endif
             </div>
         </form>
     </div>

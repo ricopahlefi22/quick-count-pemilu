@@ -34,8 +34,11 @@ class VoterController extends Controller
             if ($request->ajax()) {
                 return DataTables::of($data['voters'])
                     ->addIndexColumn()
-                    ->addColumn('family_card_number', function (Voter $voter) {
-                        return empty($voter->family_card_number) ? '-' : $voter->family_card_number;
+                    ->addColumn('id_number', function (Voter $voter) {
+                        return empty($voter->id_number) ? '-' : $voter->id_number;
+                    })
+                    ->addColumn('age', function (Voter $voter) {
+                        return empty($voter->age) ? '-' : $voter->age;
                     })
                     ->addColumn('address', function (Voter $voter) {
                         if ($voter->address && $voter->rt && $voter->rw) {
@@ -125,23 +128,8 @@ class VoterController extends Controller
             'rw' => 'min:3',
             'district_id' => 'required',
             'village_id' => 'required',
-        ], [
-            'name.required' => 'kolom nama belum diisi',
-            'id_number.required' => 'kolom NIK belum diisi',
-            'id_number.unique' => 'NIK sudah ada',
-            'id_number.min' => 'panjang NIK harus 16 karakter',
-            'family_card_number.min' => 'panjang No. KK harus 16 karakter',
-            'phone_number.min' => 'panjang No. Handphone minimal 10 karakter',
-            'phone_number.max' => 'panjang No. Handphone maksimal 14 karakter',
-            'phone_number.regex' => 'format No. Handphone tidak benar',
-            'address.required' => 'isi data alamat',
-            'rt.required' => 'isi kolom RT',
-            'rt.min' => 'panjang nomor RT harus 3 karakter',
-            'rw.required' => 'isi kolom RW',
-            'rw.min' => 'panjang nomor RW harus 3 karakter',
-            'district_id.required' => 'kecamatan belum dipilih',
-            'village_id.required' => 'kelurahan/desa belum dipilih',
-        ]);
+            'voting_place_id' => 'required',
+        ], Voter::$validationMessage);
 
         $photo = $request->hidden_photo;
 

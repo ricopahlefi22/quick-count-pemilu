@@ -44,8 +44,10 @@
         <!-- end page title -->
 
         <div class="row">
+            <input id="districtIdValue" type="hidden" value="{{ $tps->district->id }}">
+            <input id="villageIdValue" type="hidden" value="{{ $tps->village->id }}">
+            <input id="votingPlaceIdValue" type="hidden" value="{{ $tps->id }}">
             <div class="col-12">
-
                 <div class="card">
                     <div class="card-header d-flex justify-content-between flex-column flex-sm-row">
                         <div class="d-flex align-items-center">

@@ -37,10 +37,10 @@ $(document).ready(function () {
     });
 
     evidence.on("dropify.afterClear", function (event, element) {
-        $("#hiddenKTP").val("");
+        $("#hiddenEvidence").val("");
     });
 
-    $("#select2insidemodal").select2({
+    $("#coordinatorId").select2({
         dropdownParent: $("#coordinatorModal"),
     });
 
@@ -73,10 +73,12 @@ $(document).ready(function () {
         {
             data: "phone_number",
             name: "phone_number",
+            class: "text-center",
         },
         {
             data: "coordinator_id",
             name: "coordinator_id",
+            class: "text-center",
         },
     ];
 
@@ -110,7 +112,7 @@ $(document).ready(function () {
     });
 
     $("#createButton").click(function () {
-        $("#formModal").modal("show");
+        $("#voterModal").modal("show");
         $("#modalTitle").html("Tambah Data Pemilih");
 
         var photo = $("#photo").dropify({
@@ -135,6 +137,17 @@ $(document).ready(function () {
         ktp.destroy();
         ktp.init();
 
+        var evidence = $("#evidence").dropify({
+            defaultFile: null,
+        });
+
+        evidence = evidence.data("dropify");
+        evidence.resetPreview();
+        evidence.clearElement();
+        evidence.settings.defaultFile = null;
+        evidence.destroy();
+        evidence.init();
+
         $("#name").removeClass("is-invalid").val("");
         $("#idNumber").removeClass("is-invalid").val("");
         $("#familyCardNumber").removeClass("is-invalid").val("");
@@ -142,36 +155,24 @@ $(document).ready(function () {
         $("#address").removeClass("is-invalid").val("");
         $("#rt").removeClass("is-invalid").val("");
         $("#rw").removeClass("is-invalid").val("");
-        $("#districtId").removeClass("is-invalid").val("");
-        $("#villageId").removeClass("is-invalid").val("");
-        $("#birthplace").val("");
-        $("#birthday").val("");
-        $('input[name="gender"]').val([]);
-        $('input[name="marital_status"]').val([]);
-        $('input[name="disability_information"]').val([]);
-        $('input[name="e_ktp_record_state"]').val([]);
 
-        $("#villageId").html(
-            '<option value="" selected hidden disabled>*PILIH KECAMATAN DAHULU</option>'
-        );
-        $("#votingPlaceId").html(
-            '<option value="" selected hidden disabled>*PILIH KELURAHAN/DESA DAHULU</option>'
-        );
-        $("#coordinatorId").html(
-            '<option value="" selected hidden disabled>*PILIH KELURAHAN/DESA DAHULU</option>'
-        );
-    });
+        $("#districtId")
+            .removeClass("is-invalid")
+            .val($("#districtIdValue").val())
+            .trigger("change");
 
-    $("#select2insidemodal").on("change", function () {
-        $("#coordinatorButton").prop("disabled", false);
-    });
-
-    $("#districtId").change(function () {
         $.ajax({
             type: "POST",
             url: "/villages/json",
             data: {
-                district_id: $(this).val(),
+                district_id: $("#districtIdValue").val(),
+            },
+            beforeSend: function () {
+                $("#villageId")
+                    .html(
+                        '<option value="" selected disabled hidden>*MOHON TUNGGU</option>'
+                    )
+                    .prop("disabled", true);
             },
             success: function (response) {
                 var options = "";
@@ -184,12 +185,79 @@ $(document).ready(function () {
                         "</option>";
                 });
 
-                $("#villageId").html(
-                    "<option selected hidden disabled>*PILIH KELURAHAN/DESA</option>" +
-                        options
-                );
+                $("#villageId")
+                    .html(options)
+                    .val($("#villageIdValue").val())
+                    .prop("disabled", false)
+                    .trigger("change");
 
-                $("#villageId").prop('disabled', false);
+                $.ajax({
+                    type: "POST",
+                    url: "/voting-places/json",
+                    data: { village_id: $("#villageIdValue").val() },
+                    success: function (response) {
+                        var options = "";
+                        $.each(response, function (key, value) {
+                            options +=
+                                '<option value="' +
+                                value["id"] +
+                                '">' +
+                                value["name"] +
+                                "</option>";
+                        });
+
+                        $("#votingPlaceId")
+                            .html(options)
+                            .val($("#votingPlaceIdValue").val())
+                            .prop("disabled", false);
+                    },
+                });
+            },
+        });
+
+        $("#birthplace").val("");
+        $("#birthday").val("");
+        $('input[name="gender"]').val([]);
+        $('input[name="marital_status"]').val([]);
+        $('input[name="disability_information"]').val([]);
+        $('input[name="e_ktp_record_state"]').val([]);
+    });
+
+    $("#coordinatorId").on("change", function () {
+        $("#coordinatorButton").prop("disabled", false);
+    });
+
+    $("#districtId").change(function () {
+        $.ajax({
+            type: "POST",
+            url: "/villages/json",
+            data: {
+                district_id: $(this).val(),
+            },
+            beforeSend: function () {
+                $("#villageId")
+                    .html(
+                        '<option value="" selected disabled hidden>*MOHON TUNGGU</option>'
+                    )
+                    .prop("disabled", true);
+            },
+            success: function (response) {
+                var options = "";
+                $.each(response, function (key, value) {
+                    options +=
+                        '<option value="' +
+                        value["id"] +
+                        '">' +
+                        value["name"] +
+                        "</option>";
+                });
+
+                $("#villageId")
+                    .html(
+                        "<option selected hidden disabled>*PILIH KELURAHAN/DESA</option>" +
+                            options
+                    )
+                    .prop("disabled", false);
             },
         });
     });
@@ -204,6 +272,13 @@ $(document).ready(function () {
             data: {
                 village_id: $(this).val(),
             },
+            beforeSend: function () {
+                $("#votingPlaceId")
+                    .html(
+                        '<option value="" selected disabled hidden>*MOHON TUNGGU</option>'
+                    )
+                    .prop("disabled", true);
+            },
             success: function (response) {
                 var options = "";
                 if (response.length != 0) {
@@ -215,17 +290,15 @@ $(document).ready(function () {
                             value["name"] +
                             "</option>";
                     });
-
-                    $("#votingPlaceId").html(
-                        '<option value="" selected>--- PILIH TPS ---</option>' +
-                            options
-                    );
-
-                    $("#votingPlaceId").prop('disabled', false);
-
+                    $("#votingPlaceId")
+                        .html(
+                            '<option value="" selected disabled hidden>*PILIH TPS</option>' +
+                                options
+                        )
+                        .prop("disabled", false);
                 } else {
                     $("#votingPlaceId").html(
-                        "<option selected hidden disabled>--- TIDAK ADA TPS ---</option>"
+                        "<option selected hidden disabled>*TIDAK ADA TPS</option>"
                     );
                 }
             },
@@ -296,8 +369,33 @@ $(document).ready(function () {
                     ktp.init();
                 }
 
+                if (data.evidence_image != null) {
+                    var evidence = $("#evidence").dropify({
+                        defaultFile: "/" + data.evidence_image,
+                    });
+
+                    evidence = evidence.data("dropify");
+                    evidence.resetPreview();
+                    evidence.clearElement();
+                    evidence.settings.defaultFile = "/" + data.evidence_image;
+                    evidence.destroy();
+                    evidence.init();
+                } else {
+                    var evidence = $("#evidence").dropify({
+                        defaultFile: null,
+                    });
+
+                    evidence = evidence.data("dropify");
+                    evidence.resetPreview();
+                    evidence.clearElement();
+                    evidence.settings.defaultFile = null;
+                    evidence.destroy();
+                    evidence.init();
+                }
+
                 $("#hiddenPhoto").val(data.photo);
                 $("#hiddenKTP").val(data.ktp_image);
+                $("#hiddenEvidence").val(data.evidence_image);
                 $("#id").val(data.id);
                 $("#name").val(data.name);
                 $("#idNumber").val(data.id_number).prop("readonly", true);
@@ -330,13 +428,13 @@ $(document).ready(function () {
                                     "</option>";
                             });
 
-                            $("#villageId").html(
-                                "<option selected hidden disabled>*PILIH KELURAHAN/DESA</option>" +
-                                    options
-                            );
-                            $("#villageId").val(data.village_id);
-                            $("#villageId").prop('disabled', false);
-
+                            $("#villageId")
+                                .html(
+                                    "<option selected hidden disabled>*PILIH KELURAHAN/DESA</option>" +
+                                        options
+                                )
+                                .val(data.village_id)
+                                .prop("disabled", false);
 
                             $.ajax({
                                 type: "POST",
@@ -359,11 +457,9 @@ $(document).ready(function () {
                                     );
 
                                     if (data.voting_place_id) {
-                                        $("#votingPlaceId").val(
-                                            data.voting_place_id
-                                        );
-
-                                        $("#votingPlaceId").prop('disabled', false);
+                                        $("#votingPlaceId")
+                                            .val(data.voting_place_id)
+                                            .prop("disabled", false);
                                     }
                                 },
                             });
@@ -371,7 +467,7 @@ $(document).ready(function () {
                     });
                 }
 
-                $("#formModal").modal("show");
+                $("#voterModal").modal("show");
                 $("#modalTitle").html("Sunting Data Pemilih");
                 $("#button")
                     .html("Simpan Perubahan")
@@ -379,8 +475,6 @@ $(document).ready(function () {
                     .addClass("btn-warning");
             },
             error: function (error) {
-                console.error(error);
-
                 Swal.fire({
                     type: "error",
                     title: error.status,
@@ -416,11 +510,11 @@ $(document).ready(function () {
                     ("</option>");
                 });
 
-                $("#select2insidemodal").html(
+                $("#coordinatorId").html(
                     '<option value="">*PILIH KOORDINATOR*</option>' + options
                 );
 
-                $("#select2insidemodal").val(response.data.coordinator_id);
+                $("#coordinatorId").val(response.data.coordinator_id);
 
                 $("#coordinatorModal").modal("show");
             },
@@ -500,7 +594,6 @@ $(document).ready(function () {
                     table.ajax.reload(null, false);
                 },
                 error: function (error) {
-                    console.error(error);
                     Swal.fire({
                         type: "error",
                         title: error.status,
@@ -531,6 +624,8 @@ $(document).ready(function () {
                 $("#rw").removeClass("is-invalid");
                 $("#districtId").removeClass("is-invalid");
                 $("#villageId").removeClass("is-invalid");
+                $("#votingPlaceId").removeClass("is-invalid");
+
                 $("#button").html(
                     '<i class="bx bx-loader bx-spin font-size-16 align-middle me-2"></i> Menyimpan'
                 );
@@ -543,7 +638,9 @@ $(document).ready(function () {
                     showConfirmButton: !1,
                     timer: 1500,
                 });
-                $("#formModal").modal("hide");
+
+                $("#voterModal").modal("hide");
+
                 table.ajax.reload(null, false);
             },
             error: function (error) {
@@ -561,6 +658,11 @@ $(document).ready(function () {
                     $("#rwError").html(rspError["rw"]);
                     $("#districtIdError").html(rspError["district_id"]);
                     $("#villageIdError").html(rspError["village_id"]);
+                    $("#votingPlaceIdError").html(rspError["voting_place_id"]);
+
+                    if (rspError["voting_place_id"]) {
+                        $("#votingPlaceId").addClass("is-invalid");
+                    }
 
                     if (rspError["village_id"]) {
                         $("#villageId").addClass("is-invalid");
@@ -610,7 +712,7 @@ $(document).ready(function () {
             url: "/list-coordinator",
             data: {
                 id: $("#idCoordinator").val(),
-                coordinator_id: $("#select2insidemodal").val(),
+                coordinator_id: $("#coordinatorId").val(),
             },
             success: function (response) {
                 Swal.fire({

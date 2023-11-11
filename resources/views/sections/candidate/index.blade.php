@@ -64,6 +64,7 @@
                                     <th>Partai</th>
                                     <th>Jenis Kelamin</th>
                                     <th>Kota</th>
+                                    <th>Jumlah Suara</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -74,6 +75,7 @@
                                     <th>Partai</th>
                                     <th>Jenis Kelamin</th>
                                     <th>Kota</th>
+                                    <th>Jumlah Suara</th>
                                     <th>Aksi</th>
                                 </tr>
                             </tfoot>

@@ -2,13 +2,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Pilih Koordinator</h5>
+                <h5 class="modal-title">Pilih Koordinator</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form id="coordinatorForm" method="POST">
                 <input id="idCoordinator" type="hidden" name="id">
                 <div class="modal-body">
-                    <select id="select2insidemodal" name="coordinator_id" class="form-control" style="width: 100%"></select>
+                    <select id="coordinatorId" name="coordinator_id" class="form-control" style="width: 100%"></select>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
