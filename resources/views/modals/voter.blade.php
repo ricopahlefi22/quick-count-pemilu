@@ -45,6 +45,7 @@
                                     <label for="idNumber" class="form-label">
                                         NIK
                                     </label>
+                                    <input id="oldIdNumber" type="hidden" name="old_id_number">
                                     <input id="idNumber" name="id_number" class="form-control"
                                         placeholder="Nomor Induk Kependudukan"
                                         data-inputmask='"mask": "9999 9999 9999 9999"' data-mask>

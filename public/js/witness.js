@@ -89,8 +89,8 @@ $(document).ready(function () {
                         " (" +
                         "TPS " +
                         value["name"] +
-                        ")";
-                    ("</option>");
+                        ")" +
+                        "</option>";
                 });
 
                 $("#votingPlaceId").html(
@@ -130,8 +130,11 @@ $(document).ready(function () {
                             '<option value="' +
                             value["id"] +
                             '">' +
-                            value["name"];
-                        ("</option>");
+                            value["name"] +
+                            " (" +
+                            value["age"] +
+                            " Tahun)" +
+                            "</option>";
                     });
 
                     $("#voterId")
@@ -211,8 +214,8 @@ $(document).ready(function () {
                                 " (" +
                                 "TPS " +
                                 value["name"] +
-                                ")";
-                            ("</option>");
+                                ")" +
+                                "</option>";
                         });
 
                         $("#votingPlaceId")
@@ -237,8 +240,11 @@ $(document).ready(function () {
                                             '<option value="' +
                                             value["id"] +
                                             '">' +
-                                            value["name"];
-                                        ("</option>");
+                                            value["name"] +
+                                            " (" +
+                                            value["age"] +
+                                            " Tahun)" +
+                                            "</option>";
                                     });
 
                                     $("#voterId")

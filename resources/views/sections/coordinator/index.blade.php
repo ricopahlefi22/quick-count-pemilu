@@ -58,7 +58,7 @@
                 </div>
                 @foreach ($district->village as $village)
                     <div class="col-12 col-sm-6 col-md-3">
-                        <a href="{{ url('coordinators') }}?vllg={{ $village->id }}">
+                        <a href="{{ url('coordinators/village', Crypt::encrypt($village->id)) }}">
                             <div class="card border-dark">
                                 <div class="card-header text-black text-center bg-primary-subtle">
                                     {{ $village->name }}

@@ -62,7 +62,17 @@
                         <div class="row align-items-center">
                             <div class="col-12">
                                 <p class="mb-2">Jumlah Saksi</p>
-                                <h4 class="mb-0"><strong>0</strong></h4>
+                                <h4 class="mb-0"><strong>{{ $witnesses_count }}</strong></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <p class="mb-2">Jumlah Pemantau</p>
+                                <h4 class="mb-0"><strong>{{ $monitors_count }}</strong></h4>
                             </div>
                         </div>
                     </div>
@@ -119,7 +129,7 @@
 
             options = {
                 chart: {
-                    height: 320,
+                    height: 420,
                     type: "pie"
                 },
                 series: [

@@ -61,11 +61,9 @@ class VoterController extends Controller
                             return empty($voter->coordinator_id) ? '-' : $voter->coordinator->name;
                         }
                     })
-                    ->addColumn('voting_place_id', function (Voter $voter) {
-                        return empty($voter->voting_place_id) ? '-' : $voter->votingPlace->name;
-                    })
                     ->addColumn('action', function (Voter $voter) {
-                        $btn = '<button data-id="' . $voter->id . '"  class="dropdown-item text-warning edit">Edit</button> ';
+                        $btn = '<a href="/voters/detail/' . Crypt::encrypt($voter->id) . '"  class="dropdown-item">Detail</a> ';
+                        $btn .= '<button data-id="' . $voter->id . '"  class="dropdown-item text-warning edit">Edit</button> ';
 
                         if ($voter->level == 0) {
                             $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item coordinator">' . (empty($voter->coordinator_id) ? 'Tambah Koordinator' : 'Ganti Koordinator') . '</button>';
@@ -109,6 +107,61 @@ class VoterController extends Controller
         return view('admin.voter.index', $data);
     }
 
+    function detail(Request $request)
+    {
+        $data['voter'] = Voter::findOrFail(Crypt::decrypt($request->id));
+        $data['title'] = 'Detail Data ' . $data['voter']->name;
+        $data['districts'] = District::all();
+
+        if ($request->ajax()) {
+            return DataTables::of($data['voter']->member->except($data['voter']->id))
+                ->addIndexColumn()
+                ->addColumn('age', function (Voter $voter) {
+                    return empty($voter->age) ? '-' : $voter->age;
+                })
+                ->addColumn('address', function (Voter $voter) {
+                    if ($voter->address && $voter->rt && $voter->rw) {
+                        return $voter->address . ', RT ' . $voter->rt . '/RW ' . $voter->rw;
+                    } else if ($voter->address && $voter->rt) {
+                        return $voter->address . ', RT ' . $voter->rt;
+                    } else if ($voter->rt && $voter->rw) {
+                        return 'RT ' . $voter->rt . '/RW ' . $voter->rw;
+                    } else {
+                        return $voter->address;
+                    }
+                })
+                ->addColumn('phone_number', function (Voter $voter) {
+                    return empty($voter->phone_number) ? '-' : $voter->phone_number;
+                })
+                ->addColumn('voting_place', function (Voter $voter) {
+                    return empty($voter->voting_place_id) ? '-' : $voter->votingPlace->name . '<br><strong>' . $voter->village->name . '</strong>';
+                })
+                ->addColumn('action', function (Voter $voter) {
+                    $btn = '<a href="/voters/detail/' . Crypt::encrypt($voter->id) . '"  class="dropdown-item">Detail</a> ';
+                    $btn .= '<button data-id="' . $voter->id . '"  class="dropdown-item text-warning edit">Edit</button> ';
+
+                    if ($voter->level == 0) {
+                        $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item coordinator">' . (empty($voter->coordinator_id) ? 'Tambah Koordinator' : 'Ganti Koordinator') . '</button>';
+                        $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-primary be-coordinator">Jadikan Koordinator</button>';
+                    } else {
+                        $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-danger cancel-coordinator">Batalkan Koordinator</button>';
+                    }
+
+                    if (Auth::user()->level == true || Auth::guard('owner')->check()) {
+                        $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-danger delete">Hapus Data</button>';
+                    }
+                    return '<div class="btn-group dropup"><button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></button>'
+                        . '<div class="dropdown-menu" role="menu">'
+                        . $btn
+                        . '</div></div>';
+                })
+                ->rawColumns(['voting_place', 'action'])
+                ->make(true);
+        }
+
+        return view('owner.voter.detail', $data);
+    }
+
     function store(Request $request)
     {
         $request->merge([
@@ -120,7 +173,7 @@ class VoterController extends Controller
 
         $request->validate([
             'name' => 'required',
-            empty($request->id_number) ? null : 'id_number' => 'required|unique:voters,id_number,NULL,id,deleted_at,NULL|min:16',
+            'id_number' => empty($request->id_number) ? 'max:16' : ($request->old_id_number == $request->id_number ? 'unique:voters,id_number,' . $request->id . ',id,deleted_at,NULL|min:16' : 'unique:voters,id_number,NULL,id,deleted_at,NULL|min:16'),
             empty($request->family_card_number) ? null : 'family_card_number' => 'min:16',
             empty($request->phone_number) ? null : 'phone_number' => 'min:10|max:14|regex:/^(08[0-9\s\-\+\(\)]*)$/',
             'address' => 'required',

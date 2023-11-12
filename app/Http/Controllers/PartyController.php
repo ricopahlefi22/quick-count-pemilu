@@ -44,7 +44,7 @@ class PartyController extends Controller
                 })
                 ->addColumn('action', function (Candidate $candidate) {
                     $btn = '<button data-id="' . $candidate->id . '"  class="btn btn-sm btn-warning edit" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button> ';
-                    $btn .= '<button data-id="' . $candidate->id . '"  class="btn btn-sm btn-danger delete" title="Hapus"><i class="fa fa-trash" aria-hidden="true"></i></button> ';
+                    // $btn .= '<button data-id="' . $candidate->id . '"  class="btn btn-sm btn-danger delete" title="Hapus"><i class="fa fa-trash" aria-hidden="true"></i></button> ';
                     return '<div class="btn-group">' . $btn . '</div>';
                 })
                 ->rawColumns(['name', 'party', 'action'])

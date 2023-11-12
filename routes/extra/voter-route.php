@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('voters')->controller(VoterController::class)->group(function () {
     Route::get('village/{id}', 'index');
+    Route::get('detail/{id}', 'detail');
     Route::post('validating', 'validating');
     Route::post('check', 'check');
     Route::post('store', 'store');

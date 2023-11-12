@@ -32,7 +32,7 @@ class VotingPlaceController extends Controller
                 })
                 ->addColumn('action', function (VotingPlace $votingplace) {
                     $btn = '<button data-id="' . $votingplace->id . '"  class="btn btn-sm btn-warning edit" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button> ';
-                    $btn .= '<button data-id="' . $votingplace->id . '"  class="btn btn-sm btn-danger delete" title="Hapus"><i class="fa fa-trash" aria-hidden="true"></i></button> ';
+                    // $btn .= '<button data-id="' . $votingplace->id . '"  class="btn btn-sm btn-danger delete" title="Hapus"><i class="fa fa-trash" aria-hidden="true"></i></button> ';
                     return '<div class="btn-group">' . $btn . '</div>';
                 })
                 ->rawColumns(['voting_place', 'action'])

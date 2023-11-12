@@ -75,8 +75,8 @@ var columns = [
         class: "text-center",
     },
     {
-        data: "coordinator_id",
-        name: "coordinator_id",
+        data: "voting_place",
+        name: "voting_place",
         class: "text-center",
     },
 ];
@@ -149,7 +149,7 @@ $("#createButton").click(function () {
 
     $("#name").removeClass("is-invalid").val("");
     $("#oldIdNumber").val("");
-    $("#idNumber").removeClass("is-invalid").val("").prop("readonly", false);
+    $("#idNumber").removeClass("is-invalid").val("");
     $("#familyCardNumber").removeClass("is-invalid").val("");
     $("#phoneNumber").removeClass("is-invalid").val("");
     $("#address").removeClass("is-invalid").val("");
@@ -420,6 +420,13 @@ $("body").on("click", ".edit", function () {
                     type: "POST",
                     url: "/villages/json",
                     data: { district_id: data.district_id },
+                    beforeSend: function () {
+                        $("#villageId")
+                            .html(
+                                '<option value="" selected disabled hidden>*MOHON TUNGGU</option>'
+                            )
+                            .prop("disabled", true);
+                    },
                     success: function (response) {
                         var options = "";
                         $.each(response, function (key, value) {
@@ -443,6 +450,13 @@ $("body").on("click", ".edit", function () {
                             type: "POST",
                             url: "/voting-places/json",
                             data: { village_id: data.village_id },
+                            beforeSend: function () {
+                                $("#votingPlaceId")
+                                    .html(
+                                        '<option value="" selected disabled hidden>*MOHON TUNGGU</option>'
+                                    )
+                                    .prop("disabled", true);
+                            },
                             success: function (response) {
                                 var options = "";
                                 $.each(response, function (key, value) {

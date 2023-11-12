@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\District;
+use App\Models\Monitor;
 use App\Models\Village;
 use App\Models\Voter;
 use App\Models\VotingPlace;
 use App\Models\WebConfig;
+use App\Models\Witness;
 
 class DashboardController extends Controller
 {
@@ -19,6 +21,8 @@ class DashboardController extends Controller
         $data['voters_count'] = Voter::count();
         $data['self_voters_count'] = Voter::whereNotNull('coordinator_id')->count();
         $data['coordinators_count'] = Voter::where('level', 1)->count();
+        $data['witnesses_count'] = Witness::count();
+        $data['monitors_count'] = Monitor::count();
 
         return view('owner.dashboard', $data);
     }

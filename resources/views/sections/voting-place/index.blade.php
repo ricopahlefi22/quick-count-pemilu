@@ -51,9 +51,9 @@
                     <div class="card-header">
                         <h4 class="card-title">
                             Tabel Tempat Pemungutan Suara (TPS)
-                            <button id="createButton" class="btn btn-sm btn-dark float-end">
+                            {{-- <button id="createButton" class="btn btn-sm btn-dark float-end">
                                 <i class="fa fa-plus"></i> Tambah
-                            </button>
+                            </button> --}}
                         </h4>
                     </div>
                     <div class="card-body">

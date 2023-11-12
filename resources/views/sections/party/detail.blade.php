@@ -48,9 +48,18 @@
                         <h4 class="card-title">
                             <img src="{{ asset($party->logo) }}" height="30" alt="Logo {{ $party->name }}">
                             Tabel Calon Legislatif {{ $party->name }}
-                            {{-- <button id="createButton" class="btn btn-sm btn-dark float-end">
-                                <i class="fa fa-plus"></i> Tambah
-                            </button> --}}
+                            <div class="float-end">
+                                <span class="badge bg-dark">
+                                    @php
+                                        $totalVotingResult = 0;
+                                        foreach ($party->votingResult as $votingResult) {
+                                            $totalVotingResult += $votingResult->number;
+                                        }
+                                    @endphp
+                                    Total Suara : {{ $totalVotingResult }}
+                                </span>
+                                <span class="badge bg-secondary">Suara Partai : -</span>
+                            </div>
                         </h4>
                     </div>
                     <div class="card-body">

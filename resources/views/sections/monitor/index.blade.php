@@ -94,5 +94,5 @@
     <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
 
     <!-- Script -->
-    <script src="{{ asset('js/monitor-table.js') }}"></script>
+    <script src="{{ asset('js/monitor.js') }}"></script>
 @endpush

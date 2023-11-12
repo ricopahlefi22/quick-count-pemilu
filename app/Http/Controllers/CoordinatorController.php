@@ -15,60 +15,8 @@ class CoordinatorController extends Controller
     function index(Request $request)
     {
         $data['title'] = 'Data Koordinator';
-
-        if ($request->vllg) {
-            $data['village'] = Village::findOrFail($request->vllg);
-            $data['coordinators'] = Voter::where('level', 1)->where('village_id', $request->vllg)->orderBy('voting_place_id', 'asc')->get();
-            $data['districts'] = District::all();
-
-            if ($request->ajax()) {
-                return DataTables::of($data['coordinators'])
-                    ->addIndexColumn()
-                    ->addColumn('voting_place', function (Voter $coordinator) {
-                        return $coordinator->village->name . ' (TPS ' . $coordinator->votingPlace->name . ')';
-                    })
-                    ->addColumn('address', function (Voter $coordinator) {
-                        if ($coordinator->rt && $coordinator->rw) {
-                            return $coordinator->address . ', RT ' . $coordinator->rt . '/RW ' . $coordinator->rw;
-                        } else if ($coordinator->rt) {
-                            return $coordinator->address . ', RT ' . $coordinator->rt;
-                        } else {
-                            return $coordinator->address;
-                        }
-                    })
-                    ->addColumn('phone_number', function (Voter $coordinator) {
-                        return empty($coordinator->phone_number) ? '-' : $coordinator->phone_number;
-                    })
-                    ->addColumn('member_total', function (Voter $coordinator) {
-                        return $coordinator->member->except($coordinator->id)->count();
-                    })
-                    ->addColumn('action', function (Voter $coordinator) {
-                        if (Auth::guard('owner')->check()) {
-                            $btn = '<a href="coordinators?id=' . Crypt::encrypt($coordinator->id) . '" class="dropdown-item">Detail</a> ';
-                            $btn .= '<button data-id="' . $coordinator->id . '"  class="dropdown-item text-warning edit">Edit</button> ';
-                        } else {
-                            $btn = '<button data-id="' . $coordinator->id . '"  class="dropdown-item text-warning edit">Edit</button> ';
-                        }
-                        $btn .= '<button data-id="' . $coordinator->id . '" class="dropdown-item text-danger cancel-coordinator">Batalkan Koordinator</button>';
-
-                        if (Auth::user()->level == true || Auth::guard('owner')->check()) {
-                            $btn .= '<button data-id="' . $coordinator->id . '" class="dropdown-item text-danger delete">Hapus Data</button>';
-                        }
-                        return '<div class="btn-group dropup"><button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></button>'
-                            . '<div class="dropdown-menu" role="menu">'
-                            . $btn
-                            . '</div></div>';
-                    })
-                    ->rawColumns([ 'address', 'phone_number', 'member_total', 'action'])
-                    ->make(true);
-            }
-
-            if (Auth::guard('owner')->check()) {
-                return view('owner.coordinator.table', $data);
-            }
-
-            return view('admin.coordinator.table', $data);
-        }
+        $data['coordinator_count'] = Voter::where('level', 1)->count();
+        $data['districts'] = District::all();
 
         if ($request->id) {
             if (Auth::guard('owner')->check()) {
@@ -113,14 +61,70 @@ class CoordinatorController extends Controller
             return abort(404);
         }
 
-        $data['coordinator_count'] = Voter::where('level', 1)->count();
-        $data['districts'] = District::all();
 
         if (Auth::guard('owner')->check()) {
             return view('owner.coordinator.index', $data);
         }
 
         return view('admin.coordinator.index', $data);
+    }
+
+    function village(Request $request)
+    {
+        $data['village'] = Village::findOrFail(Crypt::decrypt($request->id));
+        $data['title'] = 'Data Koordinator di ' . $data['village']->name;
+        $data['coordinators'] = Voter::where('level', 1)->where('village_id', $data['village']->id)->orderBy('voting_place_id', 'asc')->get();
+        $data['districts'] = District::all();
+
+        if ($request->ajax()) {
+            return DataTables::of($data['coordinators'])
+                ->addIndexColumn()
+                ->addColumn('voting_place', function (Voter $coordinator) {
+                    return $coordinator->village->name . ' (TPS ' . $coordinator->votingPlace->name . ')';
+                })
+                ->addColumn('address', function (Voter $voter) {
+                    if ($voter->address && $voter->rt && $voter->rw) {
+                        return $voter->address . ', RT ' . $voter->rt . '/RW ' . $voter->rw;
+                    } else if ($voter->address && $voter->rt) {
+                        return $voter->address . ', RT ' . $voter->rt;
+                    } else if ($voter->rt && $voter->rw) {
+                        return 'RT ' . $voter->rt . '/RW ' . $voter->rw;
+                    } else {
+                        return $voter->address;
+                    }
+                })
+                ->addColumn('phone_number', function (Voter $coordinator) {
+                    return empty($coordinator->phone_number) ? '-' : $coordinator->phone_number;
+                })
+                ->addColumn('member_total', function (Voter $coordinator) {
+                    return $coordinator->member->except($coordinator->id)->count();
+                })
+                ->addColumn('action', function (Voter $coordinator) {
+                    if (Auth::guard('owner')->check()) {
+                        $btn = '<a href="/coordinators/detail/' . Crypt::encrypt($coordinator->id) . '" class="dropdown-item">Detail</a> ';
+                        $btn .= '<button data-id="' . $coordinator->id . '"  class="dropdown-item text-warning edit">Edit</button> ';
+                    } else {
+                        $btn = '<button data-id="' . $coordinator->id . '"  class="dropdown-item text-warning edit">Edit</button> ';
+                    }
+                    $btn .= '<button data-id="' . $coordinator->id . '" class="dropdown-item text-danger cancel-coordinator">Batalkan Koordinator</button>';
+
+                    if (Auth::user()->level == true || Auth::guard('owner')->check()) {
+                        $btn .= '<button data-id="' . $coordinator->id . '" class="dropdown-item text-danger delete">Hapus Data</button>';
+                    }
+                    return '<div class="btn-group dropup"><button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></button>'
+                        . '<div class="dropdown-menu" role="menu">'
+                        . $btn
+                        . '</div></div>';
+                })
+                ->rawColumns(['address', 'phone_number', 'member_total', 'action'])
+                ->make(true);
+        }
+
+        if (Auth::guard('owner')->check()) {
+            return view('owner.coordinator.table', $data);
+        }
+
+        return view('admin.coordinator.table', $data);
     }
 
     function json(Request $request)

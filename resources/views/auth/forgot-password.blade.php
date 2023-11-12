@@ -14,9 +14,7 @@
             </div>
         </div>
         <div class="card-body pt-5">
-
             <div class="p-2">
-
                 <form id="form" class="form-horizontal" method="POST">
                     <div class="mb-3">
                         <label class="form-label" for="phoneNumber">No. Handphone (Whatsapp)</label>
