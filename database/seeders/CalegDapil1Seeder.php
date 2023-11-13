@@ -104,68 +104,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
         // Partai Kebangkitan Bangsa
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        // -----------------------------------------------------------------------------------------------------------------------------------------
 
         // Partai Gerakan Indonesia Raya
         Candidate::factory()->create([
@@ -259,66 +198,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
         // Partai Gerakan Indonesia Raya
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        // -----------------------------------------------------------------------------------------------------------------------------------------
 
         // Partai Demokrasi Indonesia Perjuangan
         Candidate::factory()->create([
@@ -412,49 +292,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
         // Partai Demokrasi Indonesia Perjuangan
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        // -----------------------------------------------------------------------------------------------------------------------------------------
 
         // Partai Golongan Karya
         Candidate::factory()->create([
@@ -548,31 +386,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
         // Partai Golongan Karya
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        // -----------------------------------------------------------------------------------------------------------------------------------------
 
         // Partai Nasdem
         Candidate::factory()->create([
@@ -666,29 +480,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
         // Partai Nasdem
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        // -----------------------------------------------------------------------------------------------------------------------------------------
 
         // Partai Buruh
         Candidate::factory()->create([
@@ -719,34 +511,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
         // Partai Buruh
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        // -----------------------------------------------------------------------------------------------------------------------------------------
 
         // Partai Gelora Indonesia
         Candidate::factory()->create([
@@ -822,56 +587,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
         // Partai Gelora Indonesia
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        // -----------------------------------------------------------------------------------------------------------------------------------------
 
         // Partai PKS
         Candidate::factory()->create([
@@ -965,62 +681,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
         // Partai PKS
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        // -----------------------------------------------------------------------------------------------------------------------------------------
 
         // Partai Hanura
         Candidate::factory()->create([
@@ -1114,55 +775,11 @@ class CalegDapil1Seeder extends Seeder
         ]);
         // Partai Hanura
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        // -----------------------------------------------------------------------------------------------------------------------------------------
 
         // Partai PAN
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/1.png',
+            'photo' => 'images/candidate/partai-pan/ketapang-1/1.png',
             'number' => 1,
             'name' => 'Suryanto. AR, S.H.',
             'gender' => 'Laki-Laki',
@@ -1171,7 +788,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/2.png',
+            'photo' => 'images/candidate/partai-pan/ketapang-1/2.png',
             'number' => 2,
             'name' => 'Julvan Teruna',
             'gender' => 'Laki-Laki',
@@ -1180,7 +797,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/3.png',
+            'photo' => 'images/candidate/partai-pan/ketapang-1/3.png',
             'number' => 3,
             'name' => 'Dwi Purnamasari, S.M.',
             'gender' => 'Perempuan',
@@ -1189,7 +806,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/4.png',
+            'photo' => 'images/candidate/partai-pan/ketapang-1/4.png',
             'number' => 4,
             'name' => 'Ery Harnadi',
             'gender' => 'Laki-Laki',
@@ -1198,7 +815,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/5.png',
+            'photo' => 'images/candidate/partai-pan/ketapang-1/5.png',
             'number' => 5,
             'name' => 'Subrata',
             'gender' => 'Laki-Laki',
@@ -1207,7 +824,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/6.png',
+            'photo' => 'images/candidate/partai-pan/ketapang-1/6.png',
             'number' => 6,
             'name' => 'Stephanie',
             'gender' => 'Perempuan',
@@ -1216,7 +833,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/7.png',
+            'photo' => 'images/candidate/partai-pan/ketapang-1/7.png',
             'number' => 7,
             'name' => 'M. Yunus',
             'gender' => 'Laki-Laki',
@@ -1225,25 +842,25 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/8.png',
+            'photo' => 'images/candidate/partai-pan/ketapang-1/8.png',
             'number' => 8,
             'name' => 'Siti Aulia, A.Md.Keb.',
-            'gender' => 'Laki-Laki',
-            'city' => 'Ketapang',
-            'party_id' => 12,
-        ]);
-
-        Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/9.png',
-            'number' => 9,
-            'name' => 'Afriza, S.H.',
             'gender' => 'Perempuan',
             'city' => 'Ketapang',
             'party_id' => 12,
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/10.png',
+            'photo' => 'images/candidate/partai-pan/ketapang-1/9.png',
+            'number' => 9,
+            'name' => 'Afriza, S.H.',
+            'gender' => 'Laki-Laki',
+            'city' => 'Ketapang',
+            'party_id' => 12,
+        ]);
+
+        Candidate::factory()->create([
+            'photo' => 'images/candidate/partai-pan/ketapang-1/10.png',
             'number' => 10,
             'name' => 'Adib Sunni',
             'gender' => 'Laki-Laki',
@@ -1252,77 +869,11 @@ class CalegDapil1Seeder extends Seeder
         ]);
         // Partai PAN
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        // -----------------------------------------------------------------------------------------------------------------------------------------
 
         // Partai Demokrat
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/1.png',
+            'photo' => 'images/candidate/partai-demokrat/ketapang-1/1.png',
             'number' => 1,
             'name' => 'Rion Sardi',
             'gender' => 'Laki-Laki',
@@ -1331,7 +882,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/2.png',
+            'photo' => 'images/candidate/partai-demokrat/ketapang-1/2.png',
             'number' => 2,
             'name' => 'Alpiani M. Alim Jali',
             'gender' => 'Laki-Laki',
@@ -1340,7 +891,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/3.png',
+            'photo' => 'images/candidate/partai-demokrat/ketapang-1/3.png',
             'number' => 3,
             'name' => 'Nurlinda',
             'gender' => 'Perempuan',
@@ -1349,7 +900,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/4.png',
+            'photo' => 'images/candidate/partai-demokrat/ketapang-1/4.png',
             'number' => 4,
             'name' => 'Andri Yusa Putra',
             'gender' => 'Laki-Laki',
@@ -1358,7 +909,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/5.png',
+            'photo' => 'images/candidate/partai-demokrat/ketapang-1/5.png',
             'number' => 5,
             'name' => 'Renaultdus Jhorghie Pranatal',
             'gender' => 'Laki-Laki',
@@ -1367,7 +918,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/6.png',
+            'photo' => 'images/candidate/partai-demokrat/ketapang-1/6.png',
             'number' => 6,
             'name' => 'Asmawati',
             'gender' => 'Perempuan',
@@ -1376,34 +927,34 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/7.png',
+            'photo' => 'images/candidate/partai-demokrat/ketapang-1/7.png',
             'number' => 7,
             'name' => 'Eko Sugianto',
             'gender' => 'Laki-Laki',
-            'city' => 'Ketapang',
+            'city' => 'Pontianak',
             'party_id' => 14,
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/8.png',
+            'photo' => 'images/candidate/partai-demokrat/ketapang-1/8.png',
             'number' => 8,
             'name' => 'Masdiana',
-            'gender' => 'Laki-Laki',
-            'city' => 'Ketapang',
-            'party_id' => 14,
-        ]);
-
-        Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/9.png',
-            'number' => 9,
-            'name' => 'Sunli, S.Pd.',
             'gender' => 'Perempuan',
             'city' => 'Ketapang',
             'party_id' => 14,
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/10.png',
+            'photo' => 'images/candidate/partai-demokrat/ketapang-1/9.png',
+            'number' => 9,
+            'name' => 'Sunli, S.Pd.',
+            'gender' => 'Laki-Laki',
+            'city' => 'Ketapang',
+            'party_id' => 14,
+        ]);
+
+        Candidate::factory()->create([
+            'photo' => 'images/candidate/partai-demokrat/ketapang-1/10.png',
             'number' => 10,
             'name' => 'Hary Riamijar',
             'gender' => 'Laki-Laki',
@@ -1412,68 +963,11 @@ class CalegDapil1Seeder extends Seeder
         ]);
         // Partai Demokrat
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        // -----------------------------------------------------------------------------------------------------------------------------------------
 
         // Partai PSI
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/1.png',
+            'photo' => 'images/candidate/partai-psi/ketapang-1/1.png',
             'number' => 1,
             'name' => 'Suharman, S.T.',
             'gender' => 'Laki-Laki',
@@ -1482,7 +976,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/2.png',
+            'photo' => 'images/candidate/partai-psi/ketapang-1/2.png',
             'number' => 2,
             'name' => 'Sukianto',
             'gender' => 'Laki-Laki',
@@ -1491,7 +985,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/3.png',
+            'photo' => 'images/candidate/partai-psi/ketapang-1/3.png',
             'number' => 3,
             'name' => 'Juniawati',
             'gender' => 'Perempuan',
@@ -1500,16 +994,16 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/4.png',
+            'photo' => 'images/candidate/partai-psi/ketapang-1/4.png',
             'number' => 4,
-            'name' => 'Ardianto Zulkarnaen',
+            'name' => 'Efendy Irawan',
             'gender' => 'Laki-Laki',
             'city' => 'Ketapang',
             'party_id' => 15,
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/5.png',
+            'photo' => 'images/candidate/partai-psi/ketapang-1/5.png',
             'number' => 5,
             'name' => 'FR Opoi Saryudi H',
             'gender' => 'Laki-Laki',
@@ -1518,7 +1012,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/6.png',
+            'photo' => 'images/candidate/partai-psi/ketapang-1/6.png',
             'number' => 6,
             'name' => 'Supraptiwi',
             'gender' => 'Perempuan',
@@ -1527,7 +1021,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/7.png',
+            'photo' => 'images/candidate/partai-psi/ketapang-1/7.png',
             'number' => 7,
             'name' => 'Victor Yosefli Thomi',
             'gender' => 'Laki-Laki',
@@ -1536,16 +1030,16 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/8.png',
+            'photo' => 'images/candidate/partai-psi/ketapang-1/8.png',
             'number' => 8,
             'name' => 'Dewi Hartatik',
-            'gender' => 'Laki-Laki',
+            'gender' => 'Perempuan',
             'city' => 'Ketapang',
             'party_id' => 15,
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/9.png',
+            'photo' => 'images/candidate/partai-psi/ketapang-1/9.png',
             'number' => 9,
             'name' => 'Astuti',
             'gender' => 'Perempuan',
@@ -1554,7 +1048,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/10.png',
+            'photo' => 'images/candidate/partai-psi/ketapang-1/10.png',
             'number' => 10,
             'name' => 'Doriamanta Purba, A.Md.',
             'gender' => 'Laki-Laki',
@@ -1563,63 +1057,11 @@ class CalegDapil1Seeder extends Seeder
         ]);
         // Partai PSI
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        // -----------------------------------------------------------------------------------------------------------------------------------------
 
         // Partai Perindo
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/1.png',
+            'photo' => 'images/candidate/partai-perindo/ketapang-1/1.png',
             'number' => 1,
             'name' => 'Robi Sugara',
             'gender' => 'Laki-Laki',
@@ -1628,7 +1070,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/2.png',
+            'photo' => 'images/candidate/partai-perindo/ketapang-1/2.png',
             'number' => 2,
             'name' => 'Rosli',
             'gender' => 'Laki-Laki',
@@ -1637,7 +1079,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/3.png',
+            'photo' => 'images/candidate/partai-perindo/ketapang-1/3.png',
             'number' => 3,
             'name' => 'Kornelia Corry',
             'gender' => 'Perempuan',
@@ -1646,7 +1088,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/4.png',
+            'photo' => 'images/candidate/partai-perindo/ketapang-1/4.png',
             'number' => 4,
             'name' => 'Efendi',
             'gender' => 'Laki-Laki',
@@ -1655,7 +1097,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/5.png',
+            'photo' => 'images/candidate/partai-perindo/ketapang-1/5.png',
             'number' => 5,
             'name' => 'Hendrik Alpiktoria, A.Md.',
             'gender' => 'Laki-Laki',
@@ -1664,7 +1106,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/6.png',
+            'photo' => 'images/candidate/partai-perindo/ketapang-1/6.png',
             'number' => 6,
             'name' => 'Fitria Karyani',
             'gender' => 'Perempuan',
@@ -1673,7 +1115,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/7.png',
+            'photo' => 'images/candidate/partai-perindo/ketapang-1/7.png',
             'number' => 7,
             'name' => 'Herie Handoko, S.IP.',
             'gender' => 'Laki-Laki',
@@ -1682,25 +1124,25 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/8.png',
+            'photo' => 'images/candidate/partai-perindo/ketapang-1/8.png',
             'number' => 8,
             'name' => 'Wiwik Nirawati',
-            'gender' => 'Laki-Laki',
-            'city' => 'Ketapang',
-            'party_id' => 16,
-        ]);
-
-        Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/9.png',
-            'number' => 9,
-            'name' => 'Drisyfida, S.H.',
             'gender' => 'Perempuan',
             'city' => 'Ketapang',
             'party_id' => 16,
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/10.png',
+            'photo' => 'images/candidate/partai-perindo/ketapang-1/9.png',
+            'number' => 9,
+            'name' => 'Drisyfida, S.H.',
+            'gender' => 'Laki-Laki',
+            'city' => 'Ketapang',
+            'party_id' => 16,
+        ]);
+
+        Candidate::factory()->create([
+            'photo' => 'images/candidate/partai-perindo/ketapang-1/10.png',
             'number' => 10,
             'name' => 'Bambang Irawan',
             'gender' => 'Laki-Laki',
@@ -1709,60 +1151,11 @@ class CalegDapil1Seeder extends Seeder
         ]);
         // Partai Perindo
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        // -----------------------------------------------------------------------------------------------------------------------------------------
 
         // Partai PPP
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/1.png',
+            'photo' => 'images/candidate/partai-ppp/ketapang-1/1.png',
             'number' => 1,
             'name' => 'Hendra, S.P., M.Sos.',
             'gender' => 'Laki-Laki',
@@ -1771,7 +1164,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/2.png',
+            'photo' => 'images/candidate/partai-ppp/ketapang-1/2.png',
             'number' => 2,
             'name' => 'Sukardi',
             'gender' => 'Laki-Laki',
@@ -1780,7 +1173,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/3.png',
+            'photo' => 'images/candidate/partai-ppp/ketapang-1/3.png',
             'number' => 3,
             'name' => 'Cindy Monica',
             'gender' => 'Perempuan',
@@ -1789,7 +1182,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/4.png',
+            'photo' => 'images/candidate/partai-ppp/ketapang-1/4.png',
             'number' => 4,
             'name' => 'Jahidi',
             'gender' => 'Laki-Laki',
@@ -1798,7 +1191,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/5.png',
+            'photo' => 'images/candidate/partai-ppp/ketapang-1/5.png',
             'number' => 5,
             'name' => 'Junainah',
             'gender' => 'Perempuan',
@@ -1807,16 +1200,16 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/6.png',
+            'photo' => 'images/candidate/partai-ppp/ketapang-1/6.png',
             'number' => 6,
-            'name' => 'Sugianto',
+            'name' => 'Refki Feri Setiawan, S.T.',
             'gender' => 'Laki-Laki',
-            'city' => 'Ketapang',
+            'city' => 'Pontianak',
             'party_id' => 17,
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/7.png',
+            'photo' => 'images/candidate/partai-ppp/ketapang-1/7.png',
             'number' => 7,
             'name' => 'Heri Gunawan',
             'gender' => 'Laki-Laki',
@@ -1825,7 +1218,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/8.png',
+            'photo' => 'images/candidate/partai-ppp/ketapang-1/8.png',
             'number' => 8,
             'name' => 'Suhadasiah',
             'gender' => 'Perempuan',
@@ -1834,7 +1227,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/9.png',
+            'photo' => 'images/candidate/partai-ppp/ketapang-1/9.png',
             'number' => 9,
             'name' => 'Wahyu Abdillah',
             'gender' => 'Laki-Laki',
@@ -1843,63 +1236,11 @@ class CalegDapil1Seeder extends Seeder
         ]);
         // Partai PPP
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        // -----------------------------------------------------------------------------------------------------------------------------------------
 
         // Partai Ummat
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/1.png',
+            'photo' => 'images/candidate/partai-ummat/ketapang-1/1.png',
             'number' => 1,
             'name' => 'Munauri',
             'gender' => 'Laki-Laki',
@@ -1908,7 +1249,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/2.png',
+            'photo' => 'images/candidate/partai-ummat/ketapang-1/2.png',
             'number' => 2,
             'name' => 'Ayu Rahayu',
             'gender' => 'Perempuan',
@@ -1917,7 +1258,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/3.png',
+            'photo' => 'images/candidate/partai-ummat/ketapang-1/3.png',
             'number' => 3,
             'name' => 'Sam Syajarudin',
             'gender' => 'Laki-Laki',
@@ -1926,7 +1267,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/4.png',
+            'photo' => 'images/candidate/partai-ummat/ketapang-1/4.png',
             'number' => 4,
             'name' => 'Idrus, S.E.I.',
             'gender' => 'Laki-Laki',
@@ -1935,7 +1276,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/5.png',
+            'photo' => 'images/candidate/partai-ummat/ketapang-1/5.png',
             'number' => 5,
             'name' => 'Siswono',
             'gender' => 'Laki-Laki',
@@ -1944,7 +1285,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/6.png',
+            'photo' => 'images/candidate/partai-ummat/ketapang-1/6.png',
             'number' => 6,
             'name' => 'Riska Natalia',
             'gender' => 'Perempuan',
@@ -1953,7 +1294,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/7.png',
+            'photo' => 'images/candidate/partai-ummat/ketapang-1/7.png',
             'number' => 7,
             'name' => 'M. Yunus',
             'gender' => 'Laki-Laki',
@@ -1962,16 +1303,16 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/8.png',
+            'photo' => 'images/candidate/partai-ummat/ketapang-1/8.png',
             'number' => 8,
-            'name' => 'Deri Hermansyah',
+            'name' => 'Ardianto Zulkarnain',
             'gender' => 'Laki-Laki',
             'city' => 'Ketapang',
             'party_id' => 18,
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/9.png',
+            'photo' => 'images/candidate/partai-ummat/ketapang-1/9.png',
             'number' => 9,
             'name' => 'Nur Asikin',
             'gender' => 'Perempuan',
@@ -1980,7 +1321,7 @@ class CalegDapil1Seeder extends Seeder
         ]);
 
         Candidate::factory()->create([
-            'photo' => 'images/candidate/partai-hanura/ketapang-1/10.png',
+            'photo' => 'images/candidate/partai-ummat/ketapang-1/10.png',
             'number' => 10,
             'name' => 'Normansyah',
             'gender' => 'Laki-Laki',
