@@ -36,26 +36,24 @@
         <!-- end page title -->
 
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-12 col-lg-5">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4">Column Charts</h4>
-
-                        <div id="columnChart" class="apex-charts" dir="ltr"></div>
-                    </div>
-                </div>
-                <!--end card-->
-            </div>
-
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-body">
-                        <p class="mb-2">Grafik Pendukung <b>{{ $web->name }}</b> per Kecamatan</p>
+                        <p class="mb-2">Perbandingan Pendukung <b>{{ $web->name }}</b> per Kecamatan Dalam Persentase</p>
 
                         <div id="pieChart" class="apex-charts" dir="ltr"></div>
                     </div>
                 </div>
-                <!--end card-->
+            </div>
+
+            <div class="col-12 col-lg-7">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="mb-2">Perbandingan Pendukung <b>{{ $web->name }}</b> per Desa Dalam Persentase</p>
+
+                        <div id="donutChart" class="apex-charts" dir="ltr"></div>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- end row -->
@@ -64,7 +62,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4">Bar Chart</h4>
+                        <h4 class="card-title mb-4">Grafik Pemetaan Pendukung <b>{{ $web->name }}</b> per Desa</h4>
 
                         <div id="barChart" class="apex-charts" dir="ltr"></div>
                     </div>
@@ -81,88 +79,11 @@
     <!-- apexcharts -->
     <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
 
-    <!-- apexcharts init -->
-    {{-- <script src="{{ asset('assets/js/pages/apexcharts.init.js') }}"></script> --}}
-
     <script type="text/javascript">
-        $(document).ready(function() {
-            columnChart = {
+        (chart = new ApexCharts(
+            document.querySelector("#pieChart"), {
                 chart: {
-                    height: 350,
-                    type: "bar",
-                    toolbar: {
-                        show: !1
-                    }
-                },
-                plotOptions: {
-                    bar: {
-                        horizontal: !1,
-                        columnWidth: "45%",
-                        endingShape: "rounded"
-                    },
-                },
-                dataLabels: {
-                    enabled: !1
-                },
-                stroke: {
-                    show: !0,
-                    width: 2,
-                    colors: ["transparent"]
-                },
-                series: [{
-                        name: "Net Profit",
-                        data: [46, 57, 59, 54, 62, 58, 64, 60, 66]
-                    },
-                    {
-                        name: "Revenue",
-                        data: [74, 83, 102, 97, 86, 106, 93, 114, 94]
-                    },
-                    {
-                        name: "Free Cash Flow",
-                        data: [37, 42, 38, 26, 47, 50, 54, 55, 43]
-                    },
-                ],
-                colors: ["#45cb85", "#3b5de7", "#eeb902"],
-                xaxis: {
-                    categories: [
-                        "Feb",
-                        "Mar",
-                        "Apr",
-                        "May",
-                        "Jun",
-                        "Jul",
-                        "Aug",
-                        "Sep",
-                        "Oct",
-                    ],
-                },
-                yaxis: {
-                    title: {
-                        text: "$ (thousands)"
-                    }
-                },
-                grid: {
-                    borderColor: "#f1f1f1"
-                },
-                fill: {
-                    opacity: 1
-                },
-                tooltip: {
-                    y: {
-                        formatter: function(e) {
-                            return "$ " + e + " thousands";
-                        },
-                    },
-                },
-            };
-            (chart = new ApexCharts(
-                document.querySelector("#columnChart"),
-                columnChart
-            )).render();
-
-            pieChart = {
-                chart: {
-                    height: 380,
+                    height: 400,
                     type: "pie"
                 },
                 series: [
@@ -195,54 +116,128 @@
                         }
                     },
                 }, ],
-            };
-            (chart = new ApexCharts(
-                document.querySelector("#pieChart"),
-                pieChart
-            )).render();
-        });
+            }
+        )).render();
 
-        barChart = {
-            chart: {
-                height: 350,
-                type: "bar",
-                toolbar: {
-                    show: !1
-                }
-            },
-            plotOptions: {
-                bar: {
-                    horizontal: !0
-                }
-            },
-            dataLabels: {
-                enabled: !1
-            },
-            series: [{
-                data: [380, 430, 450, 475, 550, 584, 780, 1100, 1220, 1365]
-            }],
-            colors: ["#45cb85"],
-            grid: {
-                borderColor: "#f1f1f1"
-            },
-            xaxis: {
-                categories: [
-                    "South Korea",
-                    "Canada",
-                    "United Kingdom",
-                    "Netherlands",
-                    "Italy",
-                    "France",
-                    "Japan",
-                    "United States",
-                    "China",
-                    "Germany",
-                ],
-            },
-        };
         (chart = new ApexCharts(
-            document.querySelector("#barChart"),
-            barChart
+            document.querySelector("#donutChart"), {
+                chart: {
+                    height: 365,
+                    type: "donut"
+                },
+                series: [
+                    @foreach ($villages as $village)
+                        {{ $village->voters->whereNotNull('coordinator_id')->count() }},
+                    @endforeach
+                ],
+                labels: [
+                    @foreach ($villages as $village)
+                        "{{ $village->name }}",
+                    @endforeach
+                ],
+                colors: [
+                    "#067913",
+                    "#1ebf65",
+                    "#b12f73",
+                    "#0be3e8",
+                    "#a70a10",
+                    "#53f2af",
+                    "#2c3219",
+                    "#d8c53f",
+                    "#bf5a45",
+                    "#91e6f5",
+                    "#f405ba",
+                    "#abc21d",
+                    "#df4230",
+                    "#0acddc",
+                    "#2e74e3",
+                    "#a09c17",
+                    "#0b5919",
+                    "#8fa08c",
+                    "#53a497",
+                    "#a199a6",
+                    "#f5be84",
+                    "#64d045",
+                ],
+                legend: {
+                    show: true,
+                    horizontalAlign: "center",
+                    verticalAlign: "middle",
+                    floating: !1,
+                    fontSize: "0px",
+                    offsetX: 0,
+                },
+                responsive: [{
+                    breakpoint: 600,
+                    options: {
+                        chart: {
+                            height: 250
+                        },
+                        legend: {
+                            show: false,
+
+                        }
+                    },
+                }, ],
+            }
+        )).render();
+
+        (chart = new ApexCharts(
+            document.querySelector("#barChart"), {
+                chart: {
+                    height: 350,
+                    type: "bar",
+                    toolbar: {
+                        show: !1
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false
+                    }
+                },
+                series: [{
+                    name: "Jumlah Pendukung",
+                    data: [
+                        @foreach ($villages as $village)
+                            {
+                                x: "{{ $village->name }}",
+                                y: {{ $village->voters->whereNotNull('coordinator_id')->count() }},
+                            },
+                        @endforeach
+                    ],
+                }],
+                colors: ["#000000"],
+                // grid: {
+                //     borderColor: "#f1f1f1"
+                // },
+                legend: {
+                    show: true,
+                    floating: false,
+                    fontSize: "10px",
+                    offsetX: 0,
+                },
+                responsive: [{
+                    breakpoint: 600,
+                    options: {
+                        plotOptions: {
+                            bar: {
+                                horizontal: true
+                            }
+                        },
+                        legend: {
+                            // position: "bottom"
+                        }
+                    }
+                }],
+                xaxis: {
+                    categories: [
+                        @foreach ($villages as $village)
+                            "{{ $village->name }}",
+                        @endforeach
+                    ],
+                },
+            }
         )).render();
     </script>
 @endpush

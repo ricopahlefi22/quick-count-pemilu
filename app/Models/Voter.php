@@ -19,7 +19,7 @@ class Voter extends Model
         'id_number',
         'family_card_number',
         'phone_number',
-        // 'age',
+        'age',
         'birthplace',
         'birthday',
         'gender',

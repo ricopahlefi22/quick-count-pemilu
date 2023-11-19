@@ -13,6 +13,7 @@ class MappingController extends Controller
     {
         $data['title'] = 'Hasil Pemetaan Suara';
         $data['districts'] = District::all();
+        $data['villages'] = Village::all();
 
         return view('owner.mapping.index', $data);
     }
@@ -21,13 +22,16 @@ class MappingController extends Controller
     {
         $data['district'] = District::findOrFail(Crypt::decrypt($request->id));
         $data['title'] = 'Hasil Kecamatan ' . $data['district']->name;
-        return view('owner.mapping.index', $data);
+        $data['villages'] = Village::where('district_id', $data['district']->id)->get();
+
+        return view('owner.mapping.district', $data);
     }
 
     function village(Request $request)
     {
         $data['village'] = Village::findOrFail(Crypt::decrypt($request->id));
         $data['title'] = 'Hasil Kecamatan ' . $data['village']->name;
-        return view('owner.mapping.index', $data);
+
+        return view('owner.mapping.village', $data);
     }
 }
