@@ -75,8 +75,8 @@ var columns = [
         class: "text-center",
     },
     {
-        data: "coordinator_id",
-        name: "coordinator_id",
+        data: "coordinator",
+        name: "coordinator",
         class: "text-center",
     },
 ];

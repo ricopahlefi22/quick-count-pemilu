@@ -48,7 +48,8 @@
                     </div>
                     <div class="mb-2">
                         <label for="latitude" class="form-label">
-                            Koordinat Peta<span class="text-danger">*</span>
+                            Koordinat Peta
+                            {{-- <span class="text-danger">*</span> --}}
                         </label>
                         <div class="row">
                             <div class="col-12 col-sm-6">

@@ -24,6 +24,7 @@ Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
     Route::middleware('auth:admin')->group(function () {
         Route::controller(DashboardController::class)->group(function () {
             Route::get('/', 'adminDashboard');
+            Route::get('home', 'adminDashboard');
             Route::get('dashboard', 'adminDashboard');
         });
 
@@ -71,6 +72,7 @@ Route::controller(AuthOwnerController::class)->group(function () {
 Route::middleware('auth:owner')->group(function () {
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/', 'ownerDashboard');
+        Route::get('home', 'ownerDashboard');
         Route::get('dashboard', 'ownerDashboard');
     });
 

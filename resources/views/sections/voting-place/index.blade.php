@@ -60,20 +60,20 @@
                         <table id="table" class="table table-bordered dt-responsive nowrap">
                             <thead>
                                 <tr>
+                                    <th>Aksi</th>
                                     <th>TPS</th>
                                     <th>Kecamatan</th>
                                     <th>Alamat</th>
                                     <th>Koordinat</th>
-                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
+                                    <th>Aksi</th>
                                     <th>TPS</th>
                                     <th>Kecamatan</th>
                                     <th>Alamat</th>
                                     <th>Koordinat</th>
-                                    <th>Aksi</th>
                                 </tr>
                             </tfoot>
                         </table>

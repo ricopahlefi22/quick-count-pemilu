@@ -1,3 +1,7 @@
+@php
+    $web = App\Models\WebConfig::first();
+@endphp
+
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-flex align-items-center justify-content-between">
@@ -32,7 +36,7 @@
                             <div class="modal fade" id="districtDashboardModal" data-bs-backdrop="static"
                                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
                                 aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-dialog modal-xl modal-dialog-centered">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title">Data Kecamatan</h5>
@@ -47,17 +51,37 @@
                                                         <th>Jumlah Desa</th>
                                                         <th>Jumlah TPS</th>
                                                         <th>Jumlah Pemilih</th>
+                                                        <th>Pemetaan Suara</th>
+                                                        <th>Perolehan Suara</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($districts as $district)
                                                         <tr>
-                                                            <td>{{ $district->name }}</td>
+                                                            <td class="fw-bold">
+                                                                {{ $district->name }}
+                                                            </td>
                                                             <td class="text-center">
-                                                                {{ $district->village->count() }}</td>
+                                                                {{ $district->village->count() }}
+                                                            </td>
                                                             <td class="text-center">
-                                                                {{ $district->votingPlace->count() }}</td>
-                                                            <td class="text-center">{{ $district->voters->count() }}
+                                                                {{ $district->votingPlace->count() }}
+                                                            </td>
+                                                            <td class="text-center">
+                                                                {{ $district->voters->count() }}
+                                                            </td>
+                                                            <td class="text-center">
+                                                                {{ $district->voters->whereNotNull('coordinator_id')->count() }}
+                                                            </td>
+                                                            <td class="text-center">
+                                                                @php
+                                                                    $districtVotingResult = 0;
+                                                                    foreach ($district->votingResult->where('party_id', $web->party_id)->where('candidate_id', $web->candidate_id) as $key => $value) {
+                                                                        $districtVotingResult += $value->number;
+                                                                    }
+                                                                @endphp
+
+                                                                {{ $districtVotingResult }}
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -97,7 +121,7 @@
                             <div class="modal fade" id="villageDashboardModal" data-bs-backdrop="static"
                                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
                                 aria-hidden="true">
-                                <div class="modal-dialog modal-lg modal-dialog-centered">
+                                <div class="modal-dialog modal-xl modal-dialog-centered">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title">Data Kelurahan / Desa</h5>
@@ -109,17 +133,40 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Kecamatan</th>
+                                                        <th>Kelurahan/Desa</th>
                                                         <th>Jumlah TPS</th>
                                                         <th>Jumlah Pemilih</th>
+                                                        <th>Pemetaan Suara</th>
+                                                        <th>Perolehan Suara</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($villages as $village)
                                                         <tr>
-                                                            <td>{{ $village->name }}</td>
+                                                            <td>
+                                                                {{ $village->district->name }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $village->name }}
+                                                            </td>
                                                             <td class="text-center">
-                                                                {{ $village->votingPlace->count() }}</td>
-                                                            <td class="text-center">{{ $village->voters->count() }}
+                                                                {{ $village->votingPlace->count() }}
+                                                            </td>
+                                                            <td class="text-center">
+                                                                {{ $village->voters->count() }}
+                                                            </td>
+                                                            <td class="text-center">
+                                                                {{ $village->voters->whereNotNull('coordinator_id')->count() }}
+                                                            </td>
+                                                            <td class="text-center">
+                                                                @php
+                                                                    $villageVotingResult = 0;
+                                                                    foreach ($village->votingResult->where('party_id', $web->party_id)->where('candidate_id', $web->candidate_id) as $key => $value) {
+                                                                        $villageVotingResult += $value->number;
+                                                                    }
+                                                                @endphp
+
+                                                                {{ $villageVotingResult }}
                                                             </td>
                                                         </tr>
                                                     @endforeach

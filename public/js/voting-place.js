@@ -6,6 +6,13 @@ $("[data-mask]").inputmask();
 
 var columns = [
     {
+        data: "action",
+        name: "action",
+        orderable: false,
+        searchable: false,
+        class: "text-center",
+    },
+    {
         data: "voting_place",
         name: "voting_place",
     },
@@ -20,13 +27,6 @@ var columns = [
     {
         data: "coordinate",
         name: "coordinate",
-    },
-    {
-        data: "action",
-        name: "action",
-        orderable: false,
-        searchable: false,
-        class: "text-center",
     },
 ];
 

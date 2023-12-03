@@ -34,8 +34,14 @@ class VoterController extends Controller
             if ($request->ajax()) {
                 return DataTables::of($data['voters'])
                     ->addIndexColumn()
-                    ->addColumn('id_number', function (Voter $voter) {
-                        return empty($voter->id_number) ? '-' : $voter->id_number;
+                    ->addColumn('name', function (Voter $voter) {
+                        if ($voter->gender == 'P') {
+                            $gender = ' <i class="fa fa-venus text-danger" title="Perempuan"></i>';
+                        } else {
+                            $gender = ($voter->level == true) ? ' <i class="fa fa-mars text-white" title="Laki-Laki"></i>' : ' <i class="fa fa-mars text-primary" title="Laki-Laki"></i>';
+                        }
+                        $id_number = empty($voter->id_number) ? null : '<br> NIK. ' . $voter->id_number;
+                        return $voter->name . $gender . $id_number;
                     })
                     ->addColumn('age', function (Voter $voter) {
                         return empty($voter->age) ? '-' : $voter->age;
@@ -54,11 +60,11 @@ class VoterController extends Controller
                     ->addColumn('phone_number', function (Voter $voter) {
                         return empty($voter->phone_number) ? '-' : $voter->phone_number;
                     })
-                    ->addColumn('coordinator_id', function (Voter $voter) {
+                    ->addColumn('coordinator', function (Voter $voter) {
                         if ($voter->coordinator_id == $voter->id) {
-                            return 'Koordinator';
+                            return '<b>Koordinator</b>' . '<br>' . 'Dengan ' . $voter->member->count() . ' anggota';
                         } else {
-                            return empty($voter->coordinator_id) ? '-' : $voter->coordinator->name;
+                            return empty($voter->coordinator_id) ? '-' : '<b>' . $voter->coordinator->name . '</b>' . '<br>' . $voter->coordinator->village->name . ' TPS ' . $voter->coordinator->votingPlace->name;
                         }
                     })
                     ->addColumn('action', function (Voter $voter) {
@@ -73,14 +79,14 @@ class VoterController extends Controller
                         }
 
                         if (Auth::user()->level == true || Auth::guard('owner')->check()) {
-                            $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-danger delete">Hapus Data</button>';
+                            // $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-danger delete">Hapus Data</button>';
                         }
                         return '<div class="btn-group dropup"><button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></button>'
                             . '<div class="dropdown-menu" role="menu">'
                             . $btn
                             . '</div></div>';
                     })
-                    ->rawColumns(['action'])
+                    ->rawColumns(['name', 'coordinator', 'action'])
                     ->setRowClass(function (Voter $voter) {
                         if ($voter->level == 1) {
                             return 'bg-primary text-white';

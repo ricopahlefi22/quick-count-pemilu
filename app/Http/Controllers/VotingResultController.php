@@ -14,6 +14,26 @@ use Yajra\DataTables\Facades\DataTables;
 
 class VotingResultController extends Controller
 {
+    function index()
+    {
+        $data['voting_results'] = VotingResult::all();
+
+        $data['time'] = '2024/01/01';
+        return view('errors.maintenance', $data);
+    }
+
+    function district()
+    {
+        $data['time'] = '2024/01/01';
+        return view('errors.maintenance', $data);
+    }
+
+    function village()
+    {
+        $data['time'] = '2024/01/01';
+        return view('errors.maintenance', $data);
+    }
+
     function inputIndex(Request $request)
     {
         $data['title'] = 'Data Hasil Perolehan Suara (C1)';
@@ -85,7 +105,9 @@ class VotingResultController extends Controller
                 $votingResult->save();
             } else {
                 $data = new VotingResult;
-                $data->voting_place_id = $request->voting_place_id;
+                $data->voting_place_id = $votingPlace->id;
+                $data->village_id = $votingPlace->village->id;
+                $data->district_id = $votingPlace->district->id;
                 $data->party_id = $candidate->party->id;
                 $data->candidate_id = $candidate->id;
                 $data->number = is_null($request->{"number_voters_candidate_" . $candidate->id}) ? 0 : $request->{"number_voters_candidate_" . $candidate->id};

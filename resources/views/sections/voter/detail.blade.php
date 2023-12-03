@@ -45,19 +45,33 @@
                     <div class="card-body">
                         <div class="profile-widgets py-2">
                             <div class="text-center">
-                                <a class="image-popup-no-margins"
-                                    href="{{ asset(empty($voter->photo) ? 'images/default-photos.jpg' : $voter->photo) }}">
-                                    <img src="{{ asset(empty($voter->photo) ? 'images/default-photos.jpg' : $voter->photo) }}"
-                                        class="avatar-lg mx-auto img-thumbnail rounded-circle">
-                                    <div class="online-circle font-size-22">
-                                        @if ($voter->gender == 'P')
-                                            <i class="fa fa-venus text-danger" title="Perempuan"></i>
-                                        @elseif ($voter->gender == 'L')
-                                            <i class="fa fa-mars text-primary" title="Laki-Laki"></i>
-                                        @else
-                                        @endif
-                                    </div>
-                                </a>
+                                @if (empty($voter->photo))
+                                    @if ($voter->gender == 'P')
+                                        <a class="image-popup-no-margins" href="{{ asset('images/female.jpg') }}">
+                                            <img src="{{ asset('images/female.jpg') }}"
+                                                class="avatar-lg mx-auto img-thumbnail rounded-circle">
+                                        </a>
+                                    @else
+                                        <a class="image-popup-no-margins" href="{{ asset('images/male.jpg') }}">
+                                            <img src="{{ asset('images/male.jpg') }}"
+                                                class="avatar-lg mx-auto img-thumbnail rounded-circle">
+                                        </a>
+                                    @endif
+                                @else
+                                    <a class="image-popup-no-margins" href="{{ asset($voter->photo) }}">
+                                        <img src="{{ asset($voter->photo) }}"
+                                            class="avatar-lg mx-auto img-thumbnail rounded-circle">
+                                    </a>
+                                @endif
+
+                                <div class="online-circle font-size-22">
+                                    @if ($voter->gender == 'P')
+                                        <i class="fa fa-venus text-danger" title="Perempuan"></i>
+                                    @elseif ($voter->gender == 'L')
+                                        <i class="fa fa-mars text-primary" title="Laki-Laki"></i>
+                                    @else
+                                    @endif
+                                </div>
 
                                 <div class="mt-3">
                                     <a href="javascript:void(0)" class="text-reset font-size-16">

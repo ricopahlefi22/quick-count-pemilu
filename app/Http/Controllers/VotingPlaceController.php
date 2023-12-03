@@ -28,14 +28,19 @@ class VotingPlaceController extends Controller
                     return empty($votingPlace->address) ? '-' : $votingPlace->address;
                 })
                 ->addColumn('coordinate', function (VotingPlace $votingPlace) {
-                    return empty($votingPlace->latitude) ? '-' : '( ' . $votingPlace->latitude . ', ' . $votingPlace->longitude . ' )';
+                    $latitude = empty($votingPlace->latitude) ? 'Lat: -' : 'Lat: ' . $votingPlace->latitude;
+                    $longitude = empty($votingPlace->longitude) ? 'Lng: -' : 'Lng: ' . $votingPlace->longitude;
+                    return $latitude . '<br>' . $longitude;
                 })
                 ->addColumn('action', function (VotingPlace $votingplace) {
-                    $btn = '<button data-id="' . $votingplace->id . '"  class="btn btn-sm btn-warning edit" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button> ';
-                    // $btn .= '<button data-id="' . $votingplace->id . '"  class="btn btn-sm btn-danger delete" title="Hapus"><i class="fa fa-trash" aria-hidden="true"></i></button> ';
-                    return '<div class="btn-group">' . $btn . '</div>';
+                    $btn = '<button data-id="' . $votingplace->id . '"  class="dropdown-item text-warning edit">Edit</button> ';
+                    $btn .= '<button data-id="' . $votingplace->id . '"  class="dropdown-item text-danger delete">Hapus</button> ';
+                    return '<div class="btn-group dropup"><button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></button>'
+                        . '<div class="dropdown-menu" role="menu">'
+                        . $btn
+                        . '</div></div>';
                 })
-                ->rawColumns(['voting_place', 'action'])
+                ->rawColumns(['voting_place', 'coordinate',  'action'])
                 ->make(true);
         }
 
@@ -55,8 +60,8 @@ class VotingPlaceController extends Controller
             'village_id' => 'required',
             'name' => 'required',
             'address' => 'required',
-            'latitude' => 'required',
-            'longitude' => 'required',
+            // 'latitude' => 'required',
+            // 'longitude' => 'required',
         ], VotingPlace::$validationMessage);
 
         $data = VotingPlace::updateOrCreate([
