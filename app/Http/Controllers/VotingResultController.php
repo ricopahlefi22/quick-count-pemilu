@@ -16,21 +16,26 @@ class VotingResultController extends Controller
 {
     function index()
     {
-        $data['voting_results'] = VotingResult::all();
+        $data['title'] = 'Hasil Perhitungan Cepat';
+        $data['parties'] = Party::all();
 
+        // return view('owner.voting-result.index', $data);
         $data['time'] = '2024/01/01';
+    
         return view('errors.maintenance', $data);
     }
 
     function district()
     {
         $data['time'] = '2024/01/01';
+
         return view('errors.maintenance', $data);
     }
 
     function village()
     {
         $data['time'] = '2024/01/01';
+
         return view('errors.maintenance', $data);
     }
 

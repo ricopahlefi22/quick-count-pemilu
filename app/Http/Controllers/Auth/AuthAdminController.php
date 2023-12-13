@@ -22,17 +22,16 @@ class AuthAdminController extends Controller
     function loginProcess(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
+            'username' => 'required',
             'password' => 'required|min:8',
         ], [
-            'email.required' => 'Email tidak boleh kosong',
-            'email.email' => 'Mohon isi sesuai format email',
+            'username.required' => 'Email tidak boleh kosong',
             'password.required' => 'Kata sandi tidak boleh kosong',
             'password.min' => 'Panjang kata sandi minimal 8 karakter',
         ]);
 
         try {
-            if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
+            if (Auth::guard('admin')->attempt(['username' => $request->username, 'password' => $request->password])) {
                 return response()->json([
                     'code' => 200,
                     'status' => 'Berhasil!',

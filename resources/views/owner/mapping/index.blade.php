@@ -4,7 +4,7 @@
     $web = App\Models\WebConfig::first();
 @endphp
 
-@push('style')
+{{-- @push('style')
     <!-- DataTables -->
     <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet"
         type="text/css" />
@@ -12,12 +12,10 @@
         type="text/css" />
     <link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet"
         type="text/css" />
-@endpush
+@endpush --}}
 
 @section('content')
     <div class="page-content">
-
-        <!-- start page title -->
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
