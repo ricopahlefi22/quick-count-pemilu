@@ -79,8 +79,17 @@ class CoordinatorController extends Controller
         if ($request->ajax()) {
             return DataTables::of($data['coordinators'])
                 ->addIndexColumn()
+                ->addColumn('name', function (Voter $voter) {
+                    if ($voter->gender == 'P') {
+                        $gender = ' <i class="fa fa-venus text-danger" title="Perempuan"></i>';
+                    } else {
+                        $gender = ($voter->level == true) ? ' <i class="fa fa-mars text-white" title="Laki-Laki"></i>' : ' <i class="fa fa-mars text-primary" title="Laki-Laki"></i>';
+                    }
+                    $id_number = empty($voter->id_number) ? null : '<br> NIK. ' . $voter->id_number;
+                    return $voter->name . $gender . $id_number;
+                })
                 ->addColumn('voting_place', function (Voter $coordinator) {
-                    return 'TPS ' . $coordinator->votingPlace->name;
+                    return 'TPS ' . $coordinator->votingPlace->name . ' ' . $coordinator->village->name;
                 })
                 ->addColumn('address', function (Voter $voter) {
                     if ($voter->address && $voter->rt && $voter->rw) {
@@ -97,7 +106,7 @@ class CoordinatorController extends Controller
                     return empty($coordinator->phone_number) ? '-' : $coordinator->phone_number;
                 })
                 ->addColumn('member_total', function (Voter $coordinator) {
-                    return $coordinator->member->except($coordinator->id)->count();
+                    return $coordinator->member->except($coordinator->id)->count() . " Orang";
                 })
                 ->addColumn('action', function (Voter $coordinator) {
                     if (Auth::guard('owner')->check()) {
@@ -116,7 +125,7 @@ class CoordinatorController extends Controller
                         . $btn
                         . '</div></div>';
                 })
-                ->rawColumns(['address', 'phone_number', 'member_total', 'action'])
+                ->rawColumns(['name', 'address', 'phone_number', 'member_total', 'action'])
                 ->make(true);
         }
 
@@ -136,8 +145,17 @@ class CoordinatorController extends Controller
         if ($request->ajax()) {
             return DataTables::of($data['voter']->member->except($data['voter']->id))
                 ->addIndexColumn()
+                ->addColumn('name', function (Voter $voter) {
+                    if ($voter->gender == 'P') {
+                        $gender = ' <i class="fa fa-venus text-danger" title="Perempuan"></i>';
+                    } else {
+                        $gender = ($voter->level == true) ? ' <i class="fa fa-mars text-white" title="Laki-Laki"></i>' : ' <i class="fa fa-mars text-primary" title="Laki-Laki"></i>';
+                    }
+                    $id_number = empty($voter->id_number) ? null : '<br> NIK. ' . $voter->id_number;
+                    return $voter->name . $gender . $id_number;
+                })
                 ->addColumn('age', function (Voter $voter) {
-                    return empty($voter->age) ? '-' : $voter->age;
+                    return empty($voter->age) ? '-' : $voter->age.' Tahun';
                 })
                 ->addColumn('address', function (Voter $voter) {
                     if ($voter->address && $voter->rt && $voter->rw) {
@@ -175,7 +193,7 @@ class CoordinatorController extends Controller
                         . $btn
                         . '</div></div>';
                 })
-                ->rawColumns(['voting_place', 'action'])
+                ->rawColumns(['name', 'voting_place', 'action'])
                 ->make(true);
         }
 

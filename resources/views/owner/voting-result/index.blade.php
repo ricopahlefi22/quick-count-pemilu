@@ -29,7 +29,7 @@ $web = App\Models\WebConfig::first();
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-4">Perhitungan Cepat</h4>
+                <h4 class="card-title mb-4">Grafik Perhitungan Cepat Per Partai</h4>
 
                 <div id="chartPartai" class="apex-charts" dir="ltr"></div>
             </div>
@@ -43,7 +43,7 @@ $web = App\Models\WebConfig::first();
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-4">Grafik Pemetaan Pendukung <b>{{ $web->name }}</b> per Desa</h4>
+                <h4 class="card-title mb-4">Grafik Perhitungan Cepat per Caleg</h4>
 
                 <div id="chartKandidat" class="apex-charts" dir="ltr"></div>
             </div>
@@ -77,7 +77,7 @@ $web = App\Models\WebConfig::first();
             },
             plotOptions: {
                 bar: {
-                    horizontal: false
+                    horizontal: true
                 }
             },
             series: [{
@@ -141,7 +141,7 @@ $web = App\Models\WebConfig::first();
             },
             plotOptions: {
                 bar: {
-                    horizontal: false,
+                    horizontal: true,
                 }
             },
             series: [{
@@ -184,7 +184,7 @@ $web = App\Models\WebConfig::first();
             xaxis: {
                 categories: [
                     @foreach ($kandidat->sortByDesc('total_suara_kandidat')->take(15) as $village)
-                    "{{ $village->name }} ({{$village->party->name}} )",
+                    "{{ $village->name }}",
                     @endforeach
                     ],
             },

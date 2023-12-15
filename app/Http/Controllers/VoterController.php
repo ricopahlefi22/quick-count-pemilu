@@ -44,7 +44,7 @@ class VoterController extends Controller
                         return $voter->name . $gender . $id_number;
                     })
                     ->addColumn('age', function (Voter $voter) {
-                        return empty($voter->age) ? '-' : $voter->age;
+                        return empty($voter->age) ? '-' : $voter->age.' Tahun';
                     })
                     ->addColumn('address', function (Voter $voter) {
                         if ($voter->address && $voter->rt && $voter->rw) {
@@ -62,7 +62,7 @@ class VoterController extends Controller
                     })
                     ->addColumn('coordinator', function (Voter $voter) {
                         if ($voter->coordinator_id == $voter->id) {
-                            return '<b>Koordinator</b>' . '<br>' . 'Dengan ' . $voter->member->count() . ' anggota';
+                            return '<b>Koordinator</b>' . '<br>' . 'Dengan ' . $voter->member->except($voter->id)->count() . ' anggota';
                         } else {
                             return empty($voter->coordinator_id) ? '-' : '<b>' . $voter->coordinator->name . '</b>' . '<br>' . $voter->coordinator->village->name . ' TPS ' . $voter->coordinator->votingPlace->name;
                         }

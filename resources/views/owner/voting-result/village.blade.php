@@ -64,8 +64,6 @@ $web = App\Models\WebConfig::first();
 <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
 
 <script type="text/javascript">
-
-
     (chart = new ApexCharts(
         document.querySelector("#chartPartai"), {
             chart: {

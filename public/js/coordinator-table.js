@@ -46,6 +46,15 @@ $(document).ready(function () {
         {
             data: "name",
             name: "name",
+            class: "fw-bolder",
+        },
+        {
+            data: "member_total",
+            name: "member_total",
+        },
+        {
+            data: "phone_number",
+            name: "phone_number",
         },
         {
             data: "voting_place",
@@ -54,14 +63,6 @@ $(document).ready(function () {
         {
             data: "address",
             name: "address",
-        },
-        {
-            data: "phone_number",
-            name: "phone_number",
-        },
-        {
-            data: "member_total",
-            name: "member_total",
         },
     ];
 
@@ -154,7 +155,7 @@ $(document).ready(function () {
     $("#districtId").change(function () {
         $.ajax({
             type: "POST",
-            url: "villages/json",
+            url: "/villages/json",
             data: {
                 district_id: $(this).val(),
             },
@@ -183,41 +184,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "coordinators/json",
-            data: {
-                village_id: $(this).val(),
-            },
-            success: function (response) {
-                var options = "";
-                console.log(response);
-
-                if (response.length != 0) {
-                    $.each(response, function (key, value) {
-                        options +=
-                            '<option value="' +
-                            value["id"] +
-                            '">' +
-                            value["name"] +
-                            " (" +
-                            value["village"]["name"] +
-                            ") </option>";
-                    });
-
-                    $("#coordinatorId").html(
-                        '<option value="" selected>--- PILIH KOORDINATOR ---</option>' +
-                            options
-                    );
-                } else {
-                    $("#coordinatorId").html(
-                        "<option selected hidden disabled>--- TIDAK ADA KOORDINATOR ---</option>"
-                    );
-                }
-            },
-        });
-
-        $.ajax({
-            type: "POST",
-            url: "voting-places/json",
+            url: "/voting-places/json",
             data: {
                 village_id: $(this).val(),
             },
@@ -249,8 +216,10 @@ $(document).ready(function () {
     $("body").on("click", ".edit", function () {
         $.ajax({
             type: "POST",
-            url: "voters/check",
-            data: { id: $(this).data("id") },
+            url: "/voters/check",
+            data: {
+                id: $(this).data("id"),
+            },
             success: function (data) {
                 $("#name").removeClass("is-invalid");
                 $("#idNumber").removeClass("is-invalid");
@@ -274,18 +243,18 @@ $(document).ready(function () {
                 photo.init();
 
                 var ktp = $("#ktp").dropify({
-                    defaultFile: data.e_ktp_image,
+                    defaultFile: data.ktp_image,
                 });
 
                 ktp = ktp.data("dropify");
                 ktp.resetPreview();
                 ktp.clearElement();
-                ktp.settings.defaultFile = data.e_ktp_image;
+                ktp.settings.defaultFile = data.ktp_image;
                 ktp.destroy();
                 ktp.init();
 
                 $("#hiddenPhoto").val(data.photo);
-                $("#hiddenKTP").val(data.e_ktp_image);
+                $("#hiddenKTP").val(data.ktp_image);
                 $("#id").val(data.id);
                 $("#name").val(data.name);
                 $("#idNumber").val(data.id_number).prop("readonly", true);
@@ -300,25 +269,15 @@ $(document).ready(function () {
                 $("#note").val(data.note);
                 $('input[name="gender"]').val([data.gender]);
                 $('input[name="marital_status"]').val([data.marital_status]);
-                $('input[name="e_ktp_record_state"]').val([
-                    data.e_ktp_record_state,
-                ]);
-                $('input[name="disability_information"]').val([
-                    data.disability_information,
-                ]);
-
-                if (data.level == 1) {
-                    $("#coordinatorIdFormWrapper").addClass("d-none");
-                } else {
-                    $("#coordinatorIdFormWrapper").removeClass("d-none");
-                }
 
                 if (data.district_id != null) {
                     $("#districtId").val(data.district_id);
                     $.ajax({
                         type: "POST",
-                        url: "villages/json",
-                        data: { district_id: data.district_id },
+                        url: "/villages/json",
+                        data: {
+                            district_id: data.district_id,
+                        },
                         success: function (response) {
                             var options = "";
                             $.each(response, function (key, value) {
@@ -338,8 +297,10 @@ $(document).ready(function () {
 
                             $.ajax({
                                 type: "POST",
-                                url: "voting-places/json",
-                                data: { village_id: data.village_id },
+                                url: "/voting-places/json",
+                                data: {
+                                    village_id: data.village_id,
+                                },
                                 success: function (response) {
                                     var options = "";
                                     $.each(response, function (key, value) {
@@ -361,46 +322,6 @@ $(document).ready(function () {
                                             data.voting_place_id
                                         );
                                     }
-                                },
-                            });
-
-                            $.ajax({
-                                type: "POST",
-                                url: "coordinators/json",
-                                data: { village_id: data.village_id },
-                                success: function (response) {
-                                    var options = "";
-                                    if (response.length != 0) {
-                                        $.each(response, function (key, value) {
-                                            options +=
-                                                '<option value="' +
-                                                value["id"] +
-                                                '">' +
-                                                value["name"] +
-                                                " (TPS " +
-                                                value["voting_place"]["name"] +
-                                                ")" +
-                                                "</option>";
-                                        });
-
-                                        $("#coordinatorId").html(
-                                            '<option value="" selected>*PILIH KOORDINATOR</option>' +
-                                                options
-                                        );
-
-                                        if (data.coordinator_id) {
-                                            $("#coordinatorId").val(
-                                                data.coordinator_id
-                                            );
-                                        }
-                                    } else {
-                                        $("#coordinatorId").html(
-                                            "<option selected hidden disabled>*TIDAK ADA KOORDINATOR DI DESA INI</option>"
-                                        );
-                                    }
-                                },
-                                error: function (error) {
-                                    console.log(error);
                                 },
                             });
                         },
@@ -430,7 +351,7 @@ $(document).ready(function () {
         const id = $(this).data("id");
         $.ajax({
             type: "POST",
-            url: "voters/check-coordinator",
+            url: "/check-coordinator",
             data: {
                 id: $(this).data("id"),
             },
@@ -473,7 +394,7 @@ $(document).ready(function () {
     $("body").on("click", ".be-coordinator", function () {
         $.ajax({
             type: "POST",
-            url: "voters/check",
+            url: "/voters/check",
             data: {
                 id: $(this).data("id"),
             },
@@ -495,7 +416,7 @@ $(document).ready(function () {
     $("body").on("click", ".cancel-coordinator", function () {
         $.ajax({
             type: "POST",
-            url: "voters/check",
+            url: "/voters/check",
             data: {
                 id: $(this).data("id"),
             },
@@ -522,8 +443,10 @@ $(document).ready(function () {
         ) {
             $.ajax({
                 type: "DELETE",
-                url: "voters/destroy",
-                data: { id: $(this).data("id") },
+                url: "/voters/destroy",
+                data: {
+                    id: $(this).data("id"),
+                },
                 success: function (response) {
                     Swal.fire({
                         type: "success",
@@ -583,7 +506,6 @@ $(document).ready(function () {
                 table.ajax.reload(null, false);
             },
             error: function (error) {
-                console.log(error);
                 $("#button").html("Simpan");
                 if (error.status == 422) {
                     var rspError = error["responseJSON"]["errors"];
@@ -644,7 +566,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "voters/coordinator",
+            url: "/list-coordinator",
             data: {
                 id: $("#idCoordinator").val(),
                 coordinator_id: $("#select2insidemodal").val(),
@@ -677,7 +599,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "voters/be-coordinator",
+            url: "/be-coordinator",
             data: {
                 id: $("#idBeCoordinator").val(),
             },
@@ -708,7 +630,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "voters/cancel-coordinator",
+            url: "/cancel-coordinator",
             data: {
                 id: $("#idCancelCoordinator").val(),
             },
