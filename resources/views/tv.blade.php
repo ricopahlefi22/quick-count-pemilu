@@ -17,7 +17,8 @@
         </div>
     </header>
     <section class="content">
-        <livewire:show-tv /> 
+        {{-- @livewire.show-tv --}}
+        @livewire('show-tv')
     </section>
     
   

@@ -51,30 +51,7 @@ class ShowTv extends Component
            ];
            
         }
-        // $webConfig = WebConfig::first(); // Assuming you want to get the first WebConfig record
-        // $candidateId = $webConfig->candidate_id ?? null;
-
-       
-        // if ($candidateId) {
-        //     $listCandidate =  VotingResult::where('candidate_id', $candidateId)
-        //     ->groupBy('candidate_id')
-        //     ->selectRaw('candidate_id, SUM(number) as total_votes')
-        //     ->get();
-
-        //         // ->map(function ($result) {
-        //         //     $candidate = $result->candidate;
-        //         //     $partyId = $candidate->party_id;
-        //         //     $listParty = Party::where('id', $partyId)->get();
-        //         //     return [
-        //         //         "Candidate" => $candidate->name,
-        //         //         "Party" => $listParty,
-        //         //     ];
-        //         // });
-        //     // $this->listCandidate = $listCandidate;
-        //     dd($listCandidate);
-
-           
-        // }
+        
        
     }
     public function render()
