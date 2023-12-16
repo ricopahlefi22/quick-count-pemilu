@@ -6,7 +6,13 @@ use App\Http\Controllers\Auth\AuthOwnerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\TvController;
 use Illuminate\Support\Facades\Route;
+
+// TV Controller
+Route::controller(TvController::class)->group(function () {
+    Route::get('tv', 'tv');
+});
 
 // ADMIN
 Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
@@ -108,5 +114,4 @@ Route::middleware('auth:owner')->group(function () {
     include 'extra/party-route.php';
 
     include 'extra/candidate-route.php';
-
 });

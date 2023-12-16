@@ -1,0 +1,36 @@
+
+<div class="container mx-auto" class="pool" wire:poll="foo">
+
+    
+    @foreach ($listData['candidate'] as $candidate) @endforeach
+    @foreach ($listData['countCandidate'] as $countCandidate) @endforeach
+    @foreach ($listData['party'] as $party) @endforeach
+    @foreach ($listData['countPary'] as $countPary) @endforeach
+    
+    <div class="row">
+        <div class="col-md-6" >
+            <div class="card-counter mb-3" >
+                <div class="counter-image">
+                    <img src="{{ asset($candidate->photo) }}" alt="">
+                    <span class="name">{{ $candidate->name }}</span>
+                </div>
+                <div class="box-count">
+                    <p class="title">TOTAL SUARA</p>
+                    <p class="count">{{ $countCandidate->CountCandidate }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6" >
+            <div class="card-counter mb-3" >
+                <div class="counter-image">
+                    <img src="{{ asset($party->logo) }}" alt="">
+                    <span class="name">{{ $party->name }}</span>
+                </div>
+                <div class="box-count">
+                    <p class="title">TOTAL SUARA</p>
+                    <p class="count">{{ $countPary->CountParty }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
