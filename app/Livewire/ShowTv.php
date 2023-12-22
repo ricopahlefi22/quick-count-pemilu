@@ -36,27 +36,27 @@ class ShowTv extends Component
                             ->groupBy('candidate_id')
                             ->selectRaw('SUM(number) as CountCandidate')
                             ->get();
-            
+
             $party = Party::where('id', $partyId)->get();
-            $countParty = Candidate::where('party_id', $partyId)
+            $countParty = VotingResult::where('party_id', $partyId)
                             ->groupBy('party_id')
                             ->selectRaw('SUM(number) as CountParty')
                             ->get();
-            
+
            $this->listData = [
                 'candidate' => $candidate,
                 'countCandidate' => $countCandidate,
                 'party' => $party,
-                'countPary' => $countParty,
+                'countParty' => $countParty,
            ];
-           
+
         }
-        
-       
+
+
     }
     public function render()
     {
-       
+
         return view('livewire.show-tv');
     }
 }

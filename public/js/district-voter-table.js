@@ -9,7 +9,7 @@ var photo = $("#photo").dropify({
     },
 });
 
-photo.on("dropify.afterClear", function () {
+photo.on("dropify.afterClear", function (event, element) {
     $("#hiddenPhoto").val("");
 });
 
@@ -22,7 +22,7 @@ var ktp = $("#ktp").dropify({
     },
 });
 
-ktp.on("dropify.afterClear", function () {
+ktp.on("dropify.afterClear", function (event, element) {
     $("#hiddenKTP").val("");
 });
 
@@ -35,7 +35,7 @@ var evidence = $("#evidence").dropify({
     },
 });
 
-evidence.on("dropify.afterClear", function () {
+evidence.on("dropify.afterClear", function (event, element) {
     $("#hiddenEvidence").val("");
 });
 
@@ -44,17 +44,17 @@ $("#coordinatorId").select2({
 });
 
 var columns = [
-    // {
-    //     data: "DT_RowIndex",
-    //     name: "DT_RowIndex",
-    // },
     {
-        data: "action",
-        name: "action",
-        orderable: false,
-        searchable: false,
-        class: "text-center",
+        data: "DT_RowIndex",
+        name: "DT_RowIndex",
     },
+    // {
+    //     data: "action",
+    //     name: "action",
+    //     orderable: false,
+    //     searchable: false,
+    //     class: "text-center",
+    // },
     {
         data: "name",
         name: "name",
@@ -98,13 +98,13 @@ var oLanguage = {
 };
 
 var table = $("#table").DataTable({
-    // stateSave: true,
-    serverSide: true,
+    stateSave: true,
+    serverSide: false,
     processing: true,
-    // select: true,
-    // autoWidth: false,
-    // responsive: true,
-    pageLength: 100,
+    deferRender: false,
+    select: true,
+    autoWidth: false,
+    responsive: true,
     ajax: document.URL,
     columns: columns,
     oLanguage: oLanguage,

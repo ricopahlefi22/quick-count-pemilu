@@ -6,7 +6,10 @@ use App\Http\Controllers\VoterController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('voters')->controller(VoterController::class)->group(function () {
-    Route::get('village/{id}', 'index');
+    Route::get('/', 'index');
+    Route::get('district/{id}', 'district');
+    Route::get('village/{id}', 'village');
+    Route::get('voting-place/{id}', 'votingPlace');
     Route::get('detail/{id}', 'detail');
     Route::post('validating', 'validating');
     Route::post('check', 'check');
@@ -14,7 +17,9 @@ Route::prefix('voters')->controller(VoterController::class)->group(function () {
     Route::delete('destroy', 'destroy');
 
     Route::controller(ExportController::class)->group(function () {
-        Route::get('export', 'export');
+        Route::get('export/all', 'all');
+        Route::get('export/district/{id}', 'district');
+        Route::get('export/village/{id}', 'village');
     });
 
     Route::controller(ImportController::class)->group(function () {

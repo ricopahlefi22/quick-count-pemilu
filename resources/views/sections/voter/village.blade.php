@@ -21,7 +21,7 @@
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
                     <h4 class="page-title my-4 lh-1">
-                        DPT Kabupaten Ketapang Daerah Pemilihan 1 Tahun 2024
+                        DPT {{ $village->name }}
                     </h4>
 
                     <div class="page-title-right d-none d-xl-block">
@@ -29,7 +29,7 @@
                             <li class="breadcrumb-item">
                                 <a href="javascript: void(0);">Data Pemilih</a>
                             </li>
-                            <li class="breadcrumb-item active">Seluruh</li>
+                            <li class="breadcrumb-item active">{{ $village->name }}</li>
                         </ol>
                     </div>
                 </div>
@@ -38,6 +38,7 @@
         <!-- end page title -->
 
         <div class="row">
+            <input id="districtIdValue" type="hidden" value="{{ $village->id }}">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between flex-column flex-sm-row">
@@ -64,7 +65,7 @@
                                 <button id="createButton" class="dropdown-item">
                                     <i class="fa fa-plus-circle"></i> Tambah Data
                                 </button>
-                                <a href="{{ url('voters/export') }}" class="dropdown-item">
+                                <a href="{{ url('voters/export/village', $village->id) }}" class="dropdown-item">
                                     <i class="fa fa-file-csv"></i> Ekspor CSV
                                 </a>
                                 <a href="{{ url('voters/import') }}" class="dropdown-item text-success">
@@ -76,18 +77,24 @@
                         <table id="table" class="table table-bordered dt-responsive nowrap">
                             <thead>
                                 <tr>
-                                    {{-- <th>No</th> --}}
+                                    <th>No</th>
                                     <th>Aksi</th>
                                     <th>Nama</th>
                                     <th>Usia</th>
+                                    <th>Alamat, RT/RW</th>
+                                    <th>Nomor Ponsel</th>
+                                    <th>Koordinator</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                    {{-- <th>No</th> --}}
+                                    <th>No</th>
                                     <th>Aksi</th>
                                     <th>Nama</th>
                                     <th>Usia</th>
+                                    <th>Alamat, RT/RW</th>
+                                    <th>Nomor Ponsel</th>
+                                    <th>Koordinator</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -120,5 +127,5 @@
     <!-- Dropify -->
     <script src="{{ asset('assets/libs/dropify/js/dropify.min.js') }}"></script>
     <!-- Script -->
-    <script src="{{ asset('js/voter-table.js') }}"></script>
+    <script src="{{ asset('js/village-voter-table.js') }}"></script>
 @endpush

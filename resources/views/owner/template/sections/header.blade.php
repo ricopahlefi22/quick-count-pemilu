@@ -143,6 +143,9 @@
                                     <a href="{{ url('voting-places') }}" class="dropdown-item">
                                         Peta TPS
                                     </a>
+                                    <a href="https://cekdptonline.kpu.go.id" target="_blank" class="dropdown-item">
+                                        Cek DPT Online
+                                    </a>
                                 </div>
                             </li>
 
