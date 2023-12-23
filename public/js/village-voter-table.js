@@ -45,10 +45,6 @@ $("#coordinatorId").select2({
 
 var columns = [
     {
-        data: "DT_RowIndex",
-        name: "DT_RowIndex",
-    },
-    {
         data: "action",
         name: "action",
         orderable: false,
@@ -68,6 +64,21 @@ var columns = [
     {
         data: "address",
         name: "address",
+    },
+    // {
+    //     data: "rt",
+    //     name: "rt",
+    //     class: "text-center",
+    // },
+    // {
+    //     data: "rw",
+    //     name: "rw",
+    //     class: "text-center",
+    // },
+    {
+        data: "voting_place",
+        name: "voting_place",
+        class: "text-center",
     },
     {
         data: "phone_number",
@@ -99,14 +110,14 @@ var oLanguage = {
 
 var table = $("#table").DataTable({
     stateSave: true,
-    serverSide: false,
+    // serverSide: true,
     processing: true,
-    deferRender: false,
+    // deferRender: true,
     select: true,
+    paging: true,
     autoWidth: false,
     responsive: true,
     ajax: document.URL,
-    pageLength: 100,
     columns: columns,
     oLanguage: oLanguage,
 });
@@ -750,6 +761,11 @@ $("#beCoordinatorForm").on("submit", function (event) {
         data: {
             id: $("#idBeCoordinator").val(),
         },
+        beforeSend: function () {
+            $("#beCoordinatorButton").html(
+                '<i class="bx bx-loader bx-spin font-size-16 align-middle me-2"></i> Melanjutkan'
+            );
+        },
         success: function (response) {
             Swal.fire({
                 type: "success",
@@ -760,6 +776,8 @@ $("#beCoordinatorForm").on("submit", function (event) {
             });
 
             $("#beCoordinatorModal").modal("hide");
+            $("#beCoordinatorButton").html("Lanjutkan");
+
             table.ajax.reload(null, false);
         },
         error: function (error) {
@@ -768,6 +786,8 @@ $("#beCoordinatorForm").on("submit", function (event) {
                 title: error.status,
                 text: "Terjadi Kesalahan, mohon ulangi beberapa saat lagi :)",
             });
+
+            $("#beCoordinatorButton").html("Lanjutkan");
         },
     });
 });

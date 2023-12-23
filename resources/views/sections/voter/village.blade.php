@@ -77,22 +77,26 @@
                         <table id="table" class="table table-bordered dt-responsive nowrap">
                             <thead>
                                 <tr>
-                                    <th>No</th>
                                     <th>Aksi</th>
                                     <th>Nama</th>
                                     <th>Usia</th>
-                                    <th>Alamat, RT/RW</th>
+                                    <th>Alamat</th>
+                                    {{-- <th>RT</th>
+                                    <th>RW</th> --}}
+                                    <th>TPS</th>
                                     <th>Nomor Ponsel</th>
                                     <th>Koordinator</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th>No</th>
                                     <th>Aksi</th>
                                     <th>Nama</th>
                                     <th>Usia</th>
-                                    <th>Alamat, RT/RW</th>
+                                    <th>Alamat</th>
+                                    {{-- <th>RT</th>
+                                    <th>RW</th> --}}
+                                    <th>TPS</th>
                                     <th>Nomor Ponsel</th>
                                     <th>Koordinator</th>
                                 </tr>
