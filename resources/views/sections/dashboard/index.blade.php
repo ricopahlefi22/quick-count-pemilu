@@ -22,7 +22,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="align-items-center">
-                    <p class="mb-2">Jumlah Kecamatan</p>
+                    <p class="mb-2">Jumlah Kecamatan </p>
                     <div class="row">
                         <div class="col-6">
                             <h4 class="mb-0">{{ $districts->count() }}</h4>

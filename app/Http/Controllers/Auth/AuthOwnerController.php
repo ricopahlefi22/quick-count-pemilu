@@ -16,6 +16,7 @@ class AuthOwnerController extends Controller
 {
     function login()
     {
+    
         $data['config'] = WebConfig::first();
 
         return view('owner.lock-screen', $data);

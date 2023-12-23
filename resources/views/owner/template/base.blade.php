@@ -12,6 +12,7 @@
 
     <!-- Custom Style -->
     @stack('style')
+    @livewireStyles
 
     <!-- Bootstrap Css -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
@@ -67,6 +68,7 @@
 
     <!-- Custom Script -->
     @stack('script')
+    @livewireScripts
 
     <!-- CSRF TOKEN -->
     <script>

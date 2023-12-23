@@ -12,6 +12,7 @@
         type="text/css" />
     <link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet"
         type="text/css" />
+
 @endpush
 
 @section('content')
@@ -36,13 +37,16 @@
         </div>
 
         <div class="row">
+            <div class="col-md-12">
+                
+            </div>
             <div class="col-12 col-md-3">
                 <div class="card">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-12">
                                 <p class="mb-2">Jumlah Pendukung</p>
-                                <h4 class="mb-0"><strong>{{ $self_voters_count }}</strong></h4>
+                                <h4 class="mb-0"><strong> @livewire('live-penduduk')</strong></h4>
                             </div>
                         </div>
                     </div>
@@ -52,7 +56,7 @@
                         <div class="row align-items-center">
                             <div class="col-12">
                                 <p class="mb-2">Jumlah Koordinator</p>
-                                <h4 class="mb-0"><strong>{{ $coordinators_count }}</strong></h4>
+                                <h4 class="mb-0"><strong>@livewire('live-koordinator')</strong></h4>
                             </div>
                         </div>
                     </div>
@@ -62,7 +66,7 @@
                         <div class="row align-items-center">
                             <div class="col-12">
                                 <p class="mb-2">Jumlah Saksi</p>
-                                <h4 class="mb-0"><strong>{{ $witnesses_count }}</strong></h4>
+                                <h4 class="mb-0"><strong>@livewire('live-saksi')</strong></h4>
                             </div>
                         </div>
                     </div>
@@ -72,7 +76,7 @@
                         <div class="row align-items-center">
                             <div class="col-12">
                                 <p class="mb-2">Jumlah Pemantau</p>
-                                <h4 class="mb-0"><strong>{{ $monitors_count }}</strong></h4>
+                                <h4 class="mb-0"><strong>@livewire('live-pemantau')</strong></h4>
                             </div>
                         </div>
                     </div>
@@ -169,4 +173,5 @@
             )).render();
         });
     </script>
+
 @endpush

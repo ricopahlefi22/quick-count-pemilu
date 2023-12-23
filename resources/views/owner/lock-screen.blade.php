@@ -1,6 +1,7 @@
 @extends('auth.auth-base')
 
 @section('content')
+
     <div class="card overflow-hidden">
         <div class="bg-login text-center">
             <div class="bg-login-overlay"></div>
