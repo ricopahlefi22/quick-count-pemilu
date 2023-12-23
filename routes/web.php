@@ -107,6 +107,8 @@ Route::middleware('auth:owner')->group(function () {
 
     include 'extra/voter-route.php';
 
+    include 'extra/mapping-voter-route.php';
+
     include 'extra/mapping-result-route.php';
 
     include 'extra/voting-result-route.php';

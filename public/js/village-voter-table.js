@@ -59,22 +59,16 @@ var columns = [
     {
         data: "age",
         name: "age",
+        orderable: false,
+        searchable: false,
         class: "text-center",
     },
     {
         data: "address",
         name: "address",
+        orderable: false,
+        searchable: false,
     },
-    // {
-    //     data: "rt",
-    //     name: "rt",
-    //     class: "text-center",
-    // },
-    // {
-    //     data: "rw",
-    //     name: "rw",
-    //     class: "text-center",
-    // },
     {
         data: "voting_place",
         name: "voting_place",
@@ -83,6 +77,8 @@ var columns = [
     {
         data: "phone_number",
         name: "phone_number",
+        orderable: false,
+        searchable: false,
         class: "text-center",
     },
     {

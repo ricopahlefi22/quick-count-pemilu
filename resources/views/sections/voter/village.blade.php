@@ -44,15 +44,19 @@
                     <div class="card-header d-flex justify-content-between flex-column flex-sm-row">
                         <div class="d-flex align-items-center">
                             <span style="height: 10px;width:10px;margin-right:5px;" class="bg-primary"></span> =
-                            Koordinator ({{ $voters->where('level', 1)->count() }} Orang)
+                            Koordinator ({{ $coordinators_count }} Orang)
                         </div>
                         <div class="d-flex align-items-center">
                             <span style="height: 10px;width:10px;margin-right:5px;" class="bg-primary-subtle"></span> =
-                            Terdaftar ({{ $voters->whereNotNull('coordinator_id')->count() }} Orang)
+                            Terdaftar ({{ $registered_voters_count }} Orang)
                         </div>
                         <div class="d-flex align-items-center">
                             <span style="height: 10px;width:10px;margin-right:5px;" class="bg-secondary-subtle"></span> =
-                            Tidak Terdaftar ({{ $voters->whereNull('coordinator_id')->count() }} Orang)
+                            Tidak Terdaftar ({{ $not_registered_voters_count }} Orang)
+                        </div>
+                        <div class="d-flex align-items-center">
+                            {{-- <span style="height: 10px;width:10px;margin-right:5px;" class="bg-dark"></span> = --}}
+                            Total Pemilih ({{ $voters_count }} Orang)
                         </div>
                     </div>
                     <div class="card-body">
@@ -62,15 +66,21 @@
                                 Aksi Lainnya <i class="mdi mdi-chevron-down"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="btnGroupDropdown">
-                                <button id="createButton" class="dropdown-item">
+                                {{-- <button id="createButton" class="dropdown-item">
                                     <i class="fa fa-plus-circle"></i> Tambah Data
-                                </button>
-                                <a href="{{ url('voters/export/village', $village->id) }}" class="dropdown-item">
+                                </button> --}}
+                                <a href="{{ url('voters/export/village', Crypt::encrypt($village->id)) }}" class="dropdown-item">
+                                    <i class="fa fa-chart-area"></i> Grafik Pemetaan Suara
+                                </a>
+                                <a href="{{ url('voters/export/village', Crypt::encrypt($village->id)) }}" class="dropdown-item">
+                                    <i class="fa fa-users"></i> Peta Pendukung Per TPS
+                                </a>
+                                <a href="{{ url('voters/export/village', Crypt::encrypt($village->id)) }}" class="dropdown-item text-success">
                                     <i class="fa fa-file-csv"></i> Ekspor CSV
                                 </a>
-                                <a href="{{ url('voters/import') }}" class="dropdown-item text-success">
+                                {{-- <a href="{{ url('voters/import') }}" class="dropdown-item text-success">
                                     <i class="fa fa-file-pdf"></i> Impor
-                                </a>
+                                </a> --}}
                             </div>
                         </div>
 
@@ -81,8 +91,6 @@
                                     <th>Nama</th>
                                     <th>Usia</th>
                                     <th>Alamat</th>
-                                    {{-- <th>RT</th>
-                                    <th>RW</th> --}}
                                     <th>TPS</th>
                                     <th>Nomor Ponsel</th>
                                     <th>Koordinator</th>
@@ -94,8 +102,6 @@
                                     <th>Nama</th>
                                     <th>Usia</th>
                                     <th>Alamat</th>
-                                    {{-- <th>RT</th>
-                                    <th>RW</th> --}}
                                     <th>TPS</th>
                                     <th>Nomor Ponsel</th>
                                     <th>Koordinator</th>
