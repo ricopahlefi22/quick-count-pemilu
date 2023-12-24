@@ -7,7 +7,7 @@ use App\Models\Village;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
-class MappingController extends Controller
+class MappingResultController extends Controller
 {
     function index()
     {

@@ -13,12 +13,24 @@ var columns = [
         class: "text-center",
     },
     {
+        data: "district",
+        name: "district",
+    },
+    {
+        data: "village",
+        name: "village",
+    },
+    {
         data: "voting_place",
         name: "voting_place",
     },
     {
-        data: "district",
-        name: "district",
+        data: "mapping_voters",
+        name: "mapping_voters",
+    },
+    {
+        data: "total_voters",
+        name: "total_voters",
     },
     {
         data: "address",
@@ -27,6 +39,8 @@ var columns = [
     {
         data: "coordinate",
         name: "coordinate",
+        orderable: false,
+        searchable: false,
     },
 ];
 
@@ -47,11 +61,11 @@ var oLanguage = {
 };
 
 var table = $("#table").DataTable({
-    stateSave: true,
-    serverSide: true,
+    // stateSave: true,
+    // serverSide: true,
     processing: true,
-    deferRender: true,
-    select: true,
+    // deferRender: true,
+    // select: true,
     autoWidth: false,
     responsive: true,
     ajax: document.URL,
@@ -242,7 +256,7 @@ $("#form").on("submit", function (event) {
             table.ajax.reload(null, false);
         },
         error: function (error) {
-            console.error(error);
+            // console.error(error);
             $("#button").html("Simpan");
             if (error.status == 422) {
                 var rspError = error["responseJSON"]["errors"];

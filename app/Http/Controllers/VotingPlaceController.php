@@ -13,16 +13,26 @@ class VotingPlaceController extends Controller
     {
         $data['title'] = 'Data Tempat Pemungutan Suara';
         $data['districts'] = District::all();
-        $data['votingPlaces'] = VotingPlace::all();
+        $data['votingPlaces'] = VotingPlace::query();
 
         if ($request->ajax()) {
-            return DataTables::of($data['votingPlaces'])
+            // return DataTables::of($data['votingPlaces'])
+            return DataTables::eloquent($data['votingPlaces'])
                 ->addIndexColumn()
-                ->addColumn('voting_place', function (VotingPlace $votingPlace) {
-                    return $votingPlace->village->name . ' <strong>(TPS ' . $votingPlace->name . ')</strong>';
-                })
                 ->addColumn('district', function (VotingPlace $votingPlace) {
                     return $votingPlace->district->name;
+                })
+                ->addColumn('village', function (VotingPlace $votingPlace) {
+                    return $votingPlace->village->name;
+                })
+                ->addColumn('voting_place', function (VotingPlace $votingPlace) {
+                    return 'TPS ' . $votingPlace->name;
+                })
+                ->addColumn('mapping_voters', function (VotingPlace $votingPlace) {
+                    return $votingPlace->voters->whereNotNull('coordinator_id')->count() . ' Pendukung';
+                })
+                ->addColumn('total_voters', function (VotingPlace $votingPlace) {
+                    return $votingPlace->voters->count() . ' Pemilih';
                 })
                 ->addColumn('address', function (VotingPlace $votingPlace) {
                     return empty($votingPlace->address) ? '-' : $votingPlace->address;
@@ -41,7 +51,8 @@ class VotingPlaceController extends Controller
                         . '</div></div>';
                 })
                 ->rawColumns(['voting_place', 'coordinate',  'action'])
-                ->make(true);
+                ->toJson();
+                // ->make(true);
         }
 
         return view('owner.voting-place.index', $data);

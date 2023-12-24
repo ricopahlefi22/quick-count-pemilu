@@ -69,10 +69,10 @@
                                 {{-- <button id="createButton" class="dropdown-item">
                                     <i class="fa fa-plus-circle"></i> Tambah Data
                                 </button> --}}
-                                <a href="{{ url('voters/export/village', Crypt::encrypt($village->id)) }}" class="dropdown-item">
+                                <a href="{{ url('mapping-result/village', Crypt::encrypt($village->id)) }}" class="dropdown-item">
                                     <i class="fa fa-chart-area"></i> Grafik Pemetaan Suara
                                 </a>
-                                <a href="{{ url('voters/export/village', Crypt::encrypt($village->id)) }}" class="dropdown-item">
+                                <a href="{{ url('mapping-voters/village', Crypt::encrypt($village->id)) }}" class="dropdown-item">
                                     <i class="fa fa-users"></i> Peta Pendukung Per TPS
                                 </a>
                                 <a href="{{ url('voters/export/village', Crypt::encrypt($village->id)) }}" class="dropdown-item text-success">

@@ -61,8 +61,11 @@
                             <thead>
                                 <tr>
                                     <th>Aksi</th>
-                                    <th>TPS</th>
                                     <th>Kecamatan</th>
+                                    <th>Kelurahan/Desa</th>
+                                    <th>TPS</th>
+                                    <th>Pemetaan Suara</th>
+                                    <th>Jumlah Pemilih</th>
                                     <th>Alamat</th>
                                     <th>Koordinat</th>
                                 </tr>
@@ -70,8 +73,11 @@
                             <tfoot>
                                 <tr>
                                     <th>Aksi</th>
-                                    <th>TPS</th>
                                     <th>Kecamatan</th>
+                                    <th>Kelurahan/Desa</th>
+                                    <th>TPS</th>
+                                    <th>Pemetaan Suara</th>
+                                    <th>Jumlah Pemilih</th>
                                     <th>Alamat</th>
                                     <th>Koordinat</th>
                                 </tr>
