@@ -64,7 +64,7 @@ var table = $("#table").DataTable({
     // stateSave: true,
     // serverSide: true,
     processing: true,
-    // deferRender: true,
+    deferRender: true,
     // select: true,
     autoWidth: false,
     responsive: true,

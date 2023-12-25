@@ -73,7 +73,7 @@
                                     <div class="row">
                                         <div class="col-8">
                                             <label title="Wajib Diisi" for="address" class="form-label">
-                                                Alamat<span class="text-danger">*</span>
+                                                Alamat
                                             </label>
                                             <input id="address" name="address" type="text" class="form-control"
                                                 placeholder="Jalan/Dukuh">

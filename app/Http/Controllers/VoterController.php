@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\District;
 use App\Models\Village;
 use App\Models\Voter;
+use App\Models\VotingPlace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
-use yajra\DataTables\DataTables;
+use Yajra\DataTables\Facades\DataTables;
 
 class  VoterController extends Controller
 {
@@ -18,7 +19,7 @@ class  VoterController extends Controller
         $data['districts'] = District::all();
 
         $data['village'] = Village::findOrFail(Crypt::decrypt($request->id));
-        $data['voters'] = Voter::query()->where('village_id', $data['village']->id)->orderBy('name', 'asc');
+        $data['voters'] = Voter::where('village_id', $data['village']->id)->orderBy('name', 'asc')->get();
 
         $data['coordinators_count'] = Voter::where('village_id', $data['village']->id)->where('level', true)->count();
         $data['registered_voters_count'] = Voter::where('village_id', $data['village']->id)->whereNotNull('coordinator_id')->count();
@@ -26,92 +27,35 @@ class  VoterController extends Controller
         $data['voters_count'] = Voter::where('village_id', $data['village']->id)->count();
 
         if ($request->ajax()) {
-            $datatables = new Datatables();
-            return $datatables->eloquent($data['voters'])
-                ->addIndexColumn()
-                ->addColumn('name', function (Voter $voter) {
-                    if ($voter->gender == 'P') {
-                        $gender = ' <i class="fa fa-venus text-danger" title="Perempuan"></i>';
-                    } else {
-                        $gender = ($voter->level == true) ? ' <i class="fa fa-mars text-white" title="Laki-Laki"></i>' : ' <i class="fa fa-mars text-primary" title="Laki-Laki"></i>';
-                    }
-                    $id_number = empty($voter->id_number) ? null : '<br> NIK. ' . $voter->id_number;
-                    return $voter->name . $gender . $id_number;
-                })
-                ->addColumn('age', function (Voter $voter) {
-                    return empty($voter->age) ? '-' : $voter->age . ' Tahun';
-                })
-                ->addColumn('address', function (Voter $voter) {
-                    // if ($voter->address && $voter->rt && $voter->rw) {
-                    //     return $voter->address . ', RT ' . $voter->rt . '/RW ' . $voter->rw;
-                    // } else if ($voter->address && $voter->rt) {
-                    //     return $voter->address . ', RT ' . $voter->rt;
-                    // } else if ($voter->rt && $voter->rw) {
-                    //     return $voter->village->name . ', RT ' . $voter->rt . '/RW ' . $voter->rw;
-                    // } else {
-                    //     return empty($voter->address) ? '-' : $voter->address;
-                    // }
-                    $address = '';
-                    if($voter->address){
-                        $address = '<b>'.$voter->address . '</b><br>';
-                    }
-                    $defaultAddress = $voter->village->name . ', RT ' . $voter->rt . '/RW ' . $voter->rw;
-
-                    return $address.$defaultAddress;
-                })
-                ->addColumn('rt', function (Voter $voter) {
-                    return empty($voter->rt) ? '-' : 'RT ' . $voter->rt;
-                })
-                ->addColumn('rw', function (Voter $voter) {
-                    return empty($voter->rw) ? '-' : 'RW ' . $voter->rw;
-                })
-                ->addColumn('voting_place', function (Voter $voter) {
-                    return empty($voter->voting_place_id) ? '-' : '<b>TPS ' . $voter->votingPlace->name . '</b><br>' . $voter->votingPlace->village->name;
-                })
-                ->addColumn('phone_number', function (Voter $voter) {
-                    return empty($voter->phone_number) ? '-' : $voter->phone_number;
-                })
-                ->addColumn('coordinator', function (Voter $voter) {
-                    if ($voter->coordinator_id == $voter->id) {
-                        return '<b>Koordinator</b>' . '<br>' . 'Dengan ' . $voter->member->except($voter->id)->count() . ' anggota';
-                    } else {
-                        return empty($voter->coordinator_id) ? '-' : '<b>' . $voter->coordinator->name . '</b>' . '<br>' . $voter->coordinator->village->name . ' TPS ' . $voter->coordinator->votingPlace->name;
-                    }
-                })
-                ->addColumn('action', function (Voter $voter) {
-                    $btn = '<a href="/voters/detail/' . Crypt::encrypt($voter->id) . '"  class="dropdown-item">Detail</a> ';
-                    $btn .= '<button data-id="' . $voter->id . '"  class="dropdown-item text-warning edit">Edit</button> ';
-
-                    if ($voter->level == 0) {
-                        $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item coordinator">' . (empty($voter->coordinator_id) ? 'Tambah Koordinator' : 'Ganti Koordinator') . '</button>';
-                        $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-primary be-coordinator">Jadikan Koordinator</button>';
-                    } else {
-                        $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-danger cancel-coordinator">Batalkan Koordinator</button>';
-                    }
-
-                    if (Auth::user()->level == true || Auth::guard('owner')->check()) {
-                        // $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-danger delete">Hapus Data</button>';
-                    }
-                    return '<div class="btn-group dropup"><button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></button>'
-                        . '<div class="dropdown-menu" role="menu">'
-                        . $btn
-                        . '</div></div>';
-                })
-                ->rawColumns(['name', 'address', 'voting_place', 'coordinator', 'action'])
-                ->setRowClass(function (Voter $voter) {
-                    if ($voter->level == 1) {
-                        return 'bg-primary text-white';
-                    } else if ($voter->coordinator_id) {
-                        return 'bg-primary-subtle';
-                    } else {
-                        return 'bg-secondary-subtle';
-                    }
-                })
-                ->toJson();
+            return $this->formatDatatables($data['voters']);
         }
 
         if (Auth::guard('owner')->check()) {
             return view('owner.voter.village', $data);
+        }
+
+        return view('admin.voter.village', $data);
+    }
+
+    function votingPlace(Request $request)
+    {
+        $data['title'] = 'Data Pemilih';
+        $data['districts'] = District::all();
+
+        $data['votingPlace'] = VotingPlace::findOrFail(Crypt::decrypt($request->id));
+        $data['voters'] = Voter::where('voting_place_id', $data['votingPlace']->id)->orderBy('name', 'asc')->get();
+
+        $data['coordinators_count'] = Voter::where('voting_place_id', $data['votingPlace']->id)->where('level', true)->count();
+        $data['registered_voters_count'] = Voter::where('voting_place_id', $data['votingPlace']->id)->whereNotNull('coordinator_id')->count();
+        $data['not_registered_voters_count'] = Voter::where('voting_place_id', $data['votingPlace']->id)->whereNull('coordinator_id')->count();
+        $data['voters_count'] = Voter::where('voting_place_id', $data['votingPlace']->id)->count();
+
+        if ($request->ajax()) {
+            return $this->formatDatatables($data['voters']);
+        }
+
+        if (Auth::guard('owner')->check()) {
+            return view('owner.voter.voting-place', $data);
         }
 
         return view('admin.voter.village', $data);
@@ -122,51 +66,10 @@ class  VoterController extends Controller
         $data['voter'] = Voter::findOrFail(Crypt::decrypt($request->id));
         $data['title'] = 'Detail Data ' . $data['voter']->name;
         $data['districts'] = District::all();
+        $data['members'] = Voter::where('coordinator_id', $data['voter']->id)->get()->except($data['voter']->id);
 
         if ($request->ajax()) {
-            return DataTables::of($data['voter']->member->except($data['voter']->id))
-                ->addIndexColumn()
-                ->addColumn('age', function (Voter $voter) {
-                    return empty($voter->age) ? '-' : $voter->age;
-                })
-                ->addColumn('address', function (Voter $voter) {
-                    if ($voter->address && $voter->rt && $voter->rw) {
-                        return $voter->address . ', RT ' . $voter->rt . '/RW ' . $voter->rw;
-                    } else if ($voter->address && $voter->rt) {
-                        return $voter->address . ', RT ' . $voter->rt;
-                    } else if ($voter->rt && $voter->rw) {
-                        return 'RT ' . $voter->rt . '/RW ' . $voter->rw;
-                    } else {
-                        return $voter->address;
-                    }
-                })
-                ->addColumn('phone_number', function (Voter $voter) {
-                    return empty($voter->phone_number) ? '-' : $voter->phone_number;
-                })
-                ->addColumn('voting_place', function (Voter $voter) {
-                    return empty($voter->voting_place_id) ? '-' : $voter->votingPlace->name . '<br><strong>' . $voter->village->name . '</strong>';
-                })
-                ->addColumn('action', function (Voter $voter) {
-                    $btn = '<a href="/voters/detail/' . Crypt::encrypt($voter->id) . '"  class="dropdown-item">Detail</a> ';
-                    $btn .= '<button data-id="' . $voter->id . '"  class="dropdown-item text-warning edit">Edit</button> ';
-
-                    if ($voter->level == 0) {
-                        $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item coordinator">' . (empty($voter->coordinator_id) ? 'Tambah Koordinator' : 'Ganti Koordinator') . '</button>';
-                        $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-primary be-coordinator">Jadikan Koordinator</button>';
-                    } else {
-                        $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-danger cancel-coordinator">Batalkan Koordinator</button>';
-                    }
-
-                    if (Auth::user()->level == true || Auth::guard('owner')->check()) {
-                        $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-danger delete">Hapus Data</button>';
-                    }
-                    return '<div class="btn-group dropup"><button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></button>'
-                        . '<div class="dropdown-menu" role="menu">'
-                        . $btn
-                        . '</div></div>';
-                })
-                ->rawColumns(['voting_place', 'action'])
-                ->make(true);
+            return $this->formatDatatables($data['members']);
         }
 
         return view('owner.voter.detail', $data);
@@ -186,7 +89,7 @@ class  VoterController extends Controller
             'id_number' => empty($request->id_number) ? 'max:16' : ($request->old_id_number == $request->id_number ? 'unique:voters,id_number,' . $request->id . ',id,deleted_at,NULL|min:16' : 'unique:voters,id_number,NULL,id,deleted_at,NULL|min:16'),
             empty($request->family_card_number) ? null : 'family_card_number' => 'min:16',
             empty($request->phone_number) ? null : 'phone_number' => 'min:10|max:14|regex:/^(08[0-9\s\-\+\(\)]*)$/',
-            'address' => 'required',
+            // 'address' => 'required',
             'rt' => 'min:3',
             'rw' => 'min:3',
             'district_id' => 'required',
@@ -241,7 +144,7 @@ class  VoterController extends Controller
             'birthday' => $request->birthday,
             'gender' => $request->gender,
             'marital_status' => $request->marital_status,
-            'address' => ucwords(strtolower($request->address)),
+            'address' => $request->address,
             'rt' => $request->rt,
             'rw' => $request->rw,
             'note' => $request->note,
@@ -286,5 +189,89 @@ class  VoterController extends Controller
             'status' => 'Berhasil!',
             'message' => 'Data telah dihapus.',
         ]);
+    }
+
+    public function formatDatatables($data)
+    {
+        // return DataTables::eloquent($data)
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->addColumn('name', function (Voter $voter) {
+                if ($voter->gender == 'P') {
+                    $gender = ' <i class="fa fa-venus text-danger" title="Perempuan"></i>';
+                } else {
+                    $gender = ($voter->level == true) ? ' <i class="fa fa-mars text-white" title="Laki-Laki"></i>' : ' <i class="fa fa-mars text-primary" title="Laki-Laki"></i>';
+                }
+                $id_number = empty($voter->id_number) ? null : '<br> NIK. ' . $voter->id_number;
+                return $voter->name . $gender . $id_number;
+            })
+            ->addColumn('age', function (Voter $voter) {
+                return empty($voter->age) ? '-' : $voter->age . ' Tahun';
+            })
+            ->addColumn('address', function (Voter $voter) {
+                $address = '';
+                if ($voter->address) {
+                    $address = '<b>' . $voter->address . '</b><br>';
+                }
+
+                if ($voter->rt && $voter->rw) {
+                    $defaultAddress = $voter->village->name . ', RT ' . $voter->rt . '/RW ' . $voter->rw;
+                } else if ($voter->rt) {
+                    $defaultAddress = $voter->village->name . ', RT ' . $voter->rt;
+                } else if ($voter->rw) {
+                    $defaultAddress = $voter->village->name . ', RW ' . $voter->rw;
+                } else {
+                    $defaultAddress = $voter->village->name;
+                }
+
+                return $address . $defaultAddress;
+            })
+            ->addColumn('rt', function (Voter $voter) {
+                return empty($voter->rt) ? '-' : 'RT ' . $voter->rt;
+            })
+            ->addColumn('rw', function (Voter $voter) {
+                return empty($voter->rw) ? '-' : 'RW ' . $voter->rw;
+            })
+            ->addColumn('voting_place', function (Voter $voter) {
+                return empty($voter->voting_place_id) ? '-' : '<b>TPS ' . $voter->votingPlace->name . '</b><br>' . $voter->votingPlace->village->name;
+            })
+            ->addColumn('phone_number', function (Voter $voter) {
+                return empty($voter->phone_number) ? '-' : '<a href="https://wa.me/+62' . $voter->phone_number . '" class="' . ($voter->level == true ? 'text-white' : 'text-dark') . '" target="_blank">' . $voter->phone_number . '</a>';
+            })
+            ->addColumn('coordinator', function (Voter $voter) {
+                if ($voter->coordinator_id == $voter->id) {
+                    return '<b>Koordinator</b>' . '<br>' . 'Dengan ' . $voter->member->except($voter->id)->count() . ' anggota';
+                } else {
+                    return empty($voter->coordinator_id) ? '-' : '<b>' . $voter->coordinator->name . '</b>' . '<br>' . $voter->coordinator->village->name . ' TPS ' . $voter->coordinator->votingPlace->name;
+                }
+            })
+            ->addColumn('action', function (Voter $voter) {
+                $btn = '<a href="/voters/detail/' . Crypt::encrypt($voter->id) . '"  class="dropdown-item">Detail</a> ';
+                $btn .= '<button data-id="' . $voter->id . '"  class="dropdown-item text-warning edit">Edit</button> ';
+
+                if ($voter->level == 0) {
+                    $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item coordinator">' . (empty($voter->coordinator_id) ? 'Tambah Koordinator' : 'Ganti Koordinator') . '</button>';
+                    $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-primary be-coordinator">Jadikan Koordinator</button>';
+                } else {
+                    $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-danger cancel-coordinator">Batalkan Koordinator</button>';
+                }
+
+                return '<div class="btn-group dropup"><button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></button>'
+                    . '<div class="dropdown-menu" role="menu">'
+                    . $btn
+                    . '</div></div>';
+            })
+            ->rawColumns(['name', 'address', 'voting_place', 'phone_number', 'coordinator', 'action'])
+            ->setRowClass(function (Voter $voter) {
+                if ($voter->level == true) {
+                    return 'bg-primary text-white';
+                } else if ($voter->coordinator_id) {
+                    return 'bg-primary-subtle';
+                } else {
+                    return 'bg-secondary-subtle';
+                }
+            })
+            // ->toJson();
+            ->make(true);
     }
 }

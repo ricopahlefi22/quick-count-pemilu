@@ -106,11 +106,11 @@ var oLanguage = {
 
 var table = $("#table").DataTable({
     stateSave: true,
-    // serverSide: true,
+    serverSide: true,
     processing: true,
-    // deferRender: true,
+    deferRender: true,
     select: true,
-    paging: true,
+    // paging: true,
     autoWidth: false,
     responsive: true,
     ajax: document.URL,

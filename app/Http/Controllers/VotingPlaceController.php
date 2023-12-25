@@ -52,7 +52,6 @@ class VotingPlaceController extends Controller
                 })
                 ->rawColumns(['voting_place', 'coordinate',  'action'])
                 ->toJson();
-                // ->make(true);
         }
 
         return view('owner.voting-place.index', $data);

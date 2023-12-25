@@ -32,7 +32,6 @@
                             <li class="breadcrumb-item active">Detail</li>
                         </ol>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -135,7 +134,6 @@
                                     @endif
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -143,6 +141,20 @@
 
             <div class="col-12 col-xl-8">
                 <div class="card">
+                    <div class="card-header">
+                        @if ($voter->ktp_image)
+                            <a class="image-popup-no-margins" href="{{ asset($voter->ktp_image) }}">
+                                <button class="btn btn-sm btn-dark"><i class="fa fa-id-card"></i> Foto KTP</button>
+                            </a>
+                        @endif
+
+                        @if ($voter->evidence_image)
+                            <a class="image-popup-no-margins" href="{{ asset($voter->evidence_image) }}">
+                                <button class="btn btn-sm btn-dark"><i class="fa fa-clipboard-check"></i> Bukti
+                                    Coblos</button>
+                            </a>
+                        @endif
+                    </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
@@ -239,6 +251,16 @@
                                     </h6>
                                 </div>
                             </div>
+                            @if ($voter->note)
+                                <div class="col-12">
+                                    <div class="mt-2">
+                                        <p class="font-size-12 text-muted mb-1">Catatan</p>
+                                        <h6>
+                                            {{ empty($voter->note) ? '-' : $voter->note }}
+                                        </h6>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -250,7 +272,10 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title mb-4">Anggota</h4>
+                            <h4 class="card-title mb-4">
+                                Anggota
+                                <a href="{{url('voters')}}" class="btn btn-dark">Ekspor CSV</a>
+                            </h4>
 
                             <table id="table" class="table table-centered mb-0">
                                 <thead>
