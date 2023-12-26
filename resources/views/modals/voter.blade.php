@@ -182,7 +182,7 @@
                                                 style="width: 100%;">
                                                 <option value="" selected hidden disabled>*PILIH KECAMATAN
                                                 </option>
-                                                @foreach ($districts as $district)
+                                                @foreach (App\Models\District::all() as $district)
                                                     <option value="{{ $district->id }}">{{ $district->name }}</option>
                                                 @endforeach
                                             </select>

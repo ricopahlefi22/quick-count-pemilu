@@ -92,11 +92,33 @@
                             </li>
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle arrow-none" href="#" id="voters-data-topnav"
-                                    role="button">
-                                    Data Pemilih<div class="arrow-down"></div>
+                                <a class="nav-link" href="{{ url('voters') }}">
+                                    Seluruh Pemilih
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="voters-data-topnav">
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none" href="#"
+                                    id="district-voters-data-topnav" role="button">
+                                    Pemilih Per Kecamatan <div class="arrow-down"></div>
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="district-voters-data-topnav">
+                                    @foreach (App\Models\District::all() as $district)
+                                        <a href="{{ url('voters/district', Crypt::encrypt($district->id)) }}"
+                                            class="dropdown-item">
+                                            {{ $district->name }}
+                                        </a>
+                                    @endforeach
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none" href="#"
+                                    id="village-voters-data-topnav" role="button">
+                                    Pemilih per Desa<div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="village-voters-data-topnav">
                                     @foreach (App\Models\District::all() as $district)
                                         <div class="dropdown">
                                             <a class="dropdown-item dropdown-toggle arrow-none" href="#"
@@ -150,7 +172,6 @@
                                     </a>
                                 </div>
                             </li>
-
                         </ul>
                     </div>
                 </nav>
@@ -158,18 +179,12 @@
         </div>
 
         <div class="d-flex">
-            {{-- <div class="dropdown d-none d-lg-inline-block ms-1">
-                <button type="button" class="btn header-item noti-icon waves-effect" data-toggle="fullscreen">
-                    <i class="mdi mdi-fullscreen"></i>
-                </button>
-            </div> --}}
-
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="rounded-circle header-profile-user"
                         src="{{ asset(empty(Auth::user()->photo) ? 'images/default-photos.jpg' : Auth::user()->photo) }}">
-                    <span class="d-none d-xl-inline-block ms-1">{{ Auth::user()->name }}</span>
+                    {{-- <span class="d-none d-xl-inline-block ms-1">{{ Auth::user()->name }}</span> --}}
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">

@@ -274,13 +274,12 @@
                         <div class="card-body">
                             <h4 class="card-title mb-4">
                                 Anggota
-                                <a href="{{url('voters')}}" class="btn btn-dark">Ekspor CSV</a>
+                                {{-- <a href="{{url('voters')}}" class="btn btn-dark">Ekspor CSV</a> --}}
                             </h4>
 
                             <table id="table" class="table table-centered mb-0">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
                                         <th>Aksi</th>
                                         <th>Nama</th>
                                         <th>Usia</th>
@@ -291,7 +290,6 @@
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>No</th>
                                         <th>Aksi</th>
                                         <th>Nama</th>
                                         <th>Usia</th>
@@ -312,6 +310,8 @@
     @include('modals.voter')
     @include('modals.coordinator')
     @include('modals.be-coordinator')
+    @include('modals.cancel-coordinator')
+    @include('modals.delete-member')
 @endsection
 
 @push('script')
@@ -333,5 +333,5 @@
     <!-- Tour init js-->
     <script src="{{ asset('assets/js/pages/lightbox.init.js') }}"></script>
     <!-- Script -->
-    <script src="{{ asset('js/member.js') }}"></script>
+    <script src="{{ asset('js/voters/detail.js') }}"></script>
 @endpush

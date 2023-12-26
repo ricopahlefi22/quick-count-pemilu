@@ -16,12 +16,12 @@
 
 @section('content')
     <div class="page-content">
-        <!-- start page title -->
+        <!-- Title -->
         <div class="row mt-4 mt-sm-2 mt-md-1">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
                     <h4 class="page-title my-4 lh-1">
-                        DPT {{ $tps->village->name }} TPS {{ $tps->name }}
+                        DPT Kabupaten Ketapang DAPIL 1 PEMILU Tahun 2024
                     </h4>
 
                     <div class="page-title-right d-none d-xl-block">
@@ -29,37 +29,32 @@
                             <li class="breadcrumb-item">
                                 <a href="javascript: void(0);">Data Pemilih</a>
                             </li>
-                            <li class="breadcrumb-item">
-                                <a href="javascript: void(0);">Kecamatan {{ $tps->district->name }}</a>
-                            </li>
-                            <li class="breadcrumb-item active">{{ $tps->village->name }}</li>
+                            <li class="breadcrumb-item active">Seluruh</li>
                         </ol>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- end page title -->
+        <!-- Title -->
 
-        <div class="row">
-            <input id="districtIdValue" type="hidden" value="{{ $tps->district->id }}">
-            <input id="villageIdValue" type="hidden" value="{{ $tps->village->id }}">
-            <input id="votingPlaceIdValue" type="hidden" value="{{ $tps->id }}">
+        <!-- Counter -->
+        <div class="badge bg-primary text-white fs-6">
+            Koordinator ({{ $coordinators_count }} Orang)
+        </div>
+        <div class="badge bg-primary-subtle text-dark fs-6">
+            Terdaftar ({{ $registered_voters_count }} Orang)
+        </div>
+        <div class="badge bg-secondary-subtle text-dark fs-6">
+            Tidak Terdaftar ({{ $not_registered_voters_count }} Orang)
+        </div>
+        <div class="badge bg-dark text-white fs-6">
+            Total Pemilih ({{ $voters_count }} Orang)
+        </div>
+        <!-- Counter -->
+
+        <div class="row mt-2">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header d-flex justify-content-between flex-column flex-sm-row">
-                        <div class="d-flex align-items-center">
-                            <span style="height: 10px;width:10px;margin-right:5px;" class="bg-primary"></span> =
-                            Koordinator ({{ $voters->where('level', 1)->count() }} Orang)
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <span style="height: 10px;width:10px;margin-right:5px;" class="bg-primary-subtle"></span> =
-                            Terdaftar ({{ $voters->whereNotNull('coordinator_id')->count() }} Orang)
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <span style="height: 10px;width:10px;margin-right:5px;" class="bg-secondary-subtle"></span> =
-                            Tidak Terdaftar ({{ $voters->whereNull('coordinator_id')->count() }} Orang)
-                        </div>
-                    </div>
                     <div class="card-body">
                         <div class="btn-group dropdown float-end">
                             <button id="btnGroupDropdown" type="button" class="btn btn-sm btn-dark dropdown-toggle"
@@ -70,11 +65,11 @@
                                 <button id="createButton" class="dropdown-item">
                                     <i class="fa fa-plus-circle"></i> Tambah Data
                                 </button>
-                                <a href="{{ url('voters/export') }}?tps={{ $tps->id }}" class="dropdown-item">
-                                    <i class="fa fa-file-csv"></i> Ekspor CSV
+                                <a href="{{ url('mapping-result') }}" class="dropdown-item">
+                                    <i class="fa fa-chart-area"></i> Grafik Pemetaan Suara
                                 </a>
-                                <a href="{{ url('voters/import') }}" class="dropdown-item text-success">
-                                    <i class="fa fa-file-pdf"></i> Impor
+                                <a href="{{ url('voters/export') }}" class="dropdown-item text-success">
+                                    <i class="fa fa-file-csv"></i> Ekspor CSV
                                 </a>
                             </div>
                         </div>
@@ -82,22 +77,22 @@
                         <table id="table" class="table table-bordered dt-responsive nowrap">
                             <thead>
                                 <tr>
-                                    <th>No</th>
                                     <th>Aksi</th>
                                     <th>Nama</th>
                                     <th>Usia</th>
-                                    <th>Alamat, RT/RW</th>
+                                    <th>Alamat</th>
+                                    <th>TPS</th>
                                     <th>Nomor Ponsel</th>
                                     <th>Koordinator</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th>No</th>
                                     <th>Aksi</th>
                                     <th>Nama</th>
                                     <th>Usia</th>
-                                    <th>Alamat, RT/RW</th>
+                                    <th>Alamat</th>
+                                    <th>TPS</th>
                                     <th>Nomor Ponsel</th>
                                     <th>Koordinator</th>
                                 </tr>
@@ -115,6 +110,7 @@
     @include('modals.coordinator')
     @include('modals.be-coordinator')
     @include('modals.cancel-coordinator')
+    @include('modals.delete-member')
 @endsection
 
 @push('script')
@@ -132,5 +128,5 @@
     <!-- Dropify -->
     <script src="{{ asset('assets/libs/dropify/js/dropify.min.js') }}"></script>
     <!-- Script -->
-    <script src="{{ asset('js/voter-table.js') }}"></script>
+    <script src="{{ asset('js/voters/index.js') }}"></script>
 @endpush

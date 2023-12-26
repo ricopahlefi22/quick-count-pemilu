@@ -16,11 +16,12 @@
 
 @section('content')
     <div class="page-content">
+        <!-- Title -->
         <div class="row mt-4 mt-sm-2 mt-md-1">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
                     <h4 class="page-title my-4 lh-1">
-                        DPT {{ $votingPlace->name }}
+                        DPT TPS {{ $votingPlace->name }} {{ $votingPlace->village->name }}
                     </h4>
 
                     <div class="page-title-right d-none d-xl-block">
@@ -28,36 +29,38 @@
                             <li class="breadcrumb-item">
                                 <a href="javascript: void(0);">Data Pemilih</a>
                             </li>
-                            <li class="breadcrumb-item active">{{ $votingPlace->name }}</li>
+                            <li class="breadcrumb-item active">Seluruh</li>
                         </ol>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- end page title -->
+        <!-- Title -->
 
-        <div class="row">
-            <input id="districtIdValue" type="hidden" value="{{ $votingPlace->id }}">
+        <!-- ID Position -->
+        <input id="districtIdValue" type="hidden" value="{{ $votingPlace->district->id }}">
+        <input id="villageIdValue" type="hidden" value="{{ $votingPlace->village->id }}">
+        <input id="votingPlaceIdValue" type="hidden" value="{{ $votingPlace->id }}">
+        <!-- ID Position -->
+
+        <!-- Counter -->
+        <div class="badge bg-primary text-white fs-6">
+            Koordinator ({{ $coordinators_count }} Orang)
+        </div>
+        <div class="badge bg-primary-subtle text-dark fs-6">
+            Terdaftar ({{ $registered_voters_count }} Orang)
+        </div>
+        <div class="badge bg-secondary-subtle text-dark fs-6">
+            Tidak Terdaftar ({{ $not_registered_voters_count }} Orang)
+        </div>
+        <div class="badge bg-dark text-white fs-6">
+            Total Pemilih ({{ $voters_count }} Orang)
+        </div>
+        <!-- Counter -->
+
+        <div class="row mt-2">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header d-flex justify-content-between flex-column flex-sm-row">
-                        <div class="d-flex align-items-center">
-                            <span style="height: 10px;width:10px;margin-right:5px;" class="bg-primary"></span> =
-                            Koordinator ({{ $coordinators_count }} Orang)
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <span style="height: 10px;width:10px;margin-right:5px;" class="bg-primary-subtle"></span> =
-                            Terdaftar ({{ $registered_voters_count }} Orang)
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <span style="height: 10px;width:10px;margin-right:5px;" class="bg-secondary-subtle"></span> =
-                            Tidak Terdaftar ({{ $not_registered_voters_count }} Orang)
-                        </div>
-                        <div class="d-flex align-items-center">
-                            {{-- <span style="height: 10px;width:10px;margin-right:5px;" class="bg-dark"></span> = --}}
-                            Total Pemilih ({{ $voters_count }} Orang)
-                        </div>
-                    </div>
                     <div class="card-body">
                         <div class="btn-group dropdown float-end">
                             <button id="btnGroupDropdown" type="button" class="btn btn-sm btn-dark dropdown-toggle"
@@ -65,21 +68,13 @@
                                 Aksi Lainnya <i class="mdi mdi-chevron-down"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="btnGroupDropdown">
-                                {{-- <button id="createButton" class="dropdown-item">
+                                <button id="createButton" class="dropdown-item">
                                     <i class="fa fa-plus-circle"></i> Tambah Data
-                                </button> --}}
-                                <a href="{{ url('mapping-result/votingPlace', Crypt::encrypt($votingPlace->id)) }}" class="dropdown-item">
-                                    <i class="fa fa-chart-area"></i> Grafik Pemetaan Suara
-                                </a>
-                                <a href="{{ url('mapping-voters/votingPlace', Crypt::encrypt($votingPlace->id)) }}" class="dropdown-item">
-                                    <i class="fa fa-users"></i> Peta Pendukung Per TPS
-                                </a>
-                                <a href="{{ url('voters/export/votingPlace', Crypt::encrypt($votingPlace->id)) }}" class="dropdown-item text-success">
+                                </button>
+                                <a href="{{ url('voters/export/voting-place', Crypt::encrypt($votingPlace->id)) }}"
+                                    class="dropdown-item text-success">
                                     <i class="fa fa-file-csv"></i> Ekspor CSV
                                 </a>
-                                {{-- <a href="{{ url('voters/import') }}" class="dropdown-item text-success">
-                                    <i class="fa fa-file-pdf"></i> Impor
-                                </a> --}}
                             </div>
                         </div>
 
@@ -119,6 +114,7 @@
     @include('modals.coordinator')
     @include('modals.be-coordinator')
     @include('modals.cancel-coordinator')
+    @include('modals.delete-member')
 @endsection
 
 @push('script')
@@ -136,5 +132,5 @@
     <!-- Dropify -->
     <script src="{{ asset('assets/libs/dropify/js/dropify.min.js') }}"></script>
     <!-- Script -->
-    <script src="{{ asset('js/voting-place-voter-table.js') }}"></script>
+    <script src="{{ asset('js/voters/voting-place.js') }}"></script>
 @endpush

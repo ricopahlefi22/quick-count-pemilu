@@ -12,4 +12,5 @@ Route::controller(CoordinatorController::class)->group(function () {
     Route::post('check-coordinator', 'checkCoordinator');
     Route::post('be-coordinator', 'beCoordinator');
     Route::post('cancel-coordinator', 'cancelCoordinator');
+    Route::post('delete-member', 'deleteMember');
 });

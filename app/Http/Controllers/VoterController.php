@@ -13,13 +13,60 @@ use Yajra\DataTables\Facades\DataTables;
 
 class  VoterController extends Controller
 {
+    function index(Request $request)
+    {
+        $data['title'] = 'Data Pemilih';
+        $data['districts'] = District::all();
+
+        $data['voters'] = Voter::query();
+
+        $data['coordinators_count'] = Voter::where('level', true)->count();
+        $data['registered_voters_count'] = Voter::whereNotNull('coordinator_id')->count();
+        $data['not_registered_voters_count'] = Voter::whereNull('coordinator_id')->count();
+        $data['voters_count'] = Voter::count();
+
+        if ($request->ajax()) {
+            return $this->formatDatatables($data['voters']);
+        }
+
+        if (Auth::guard('owner')->check()) {
+            return view('owner.voter.index', $data);
+        }
+
+        return view('admin.voter.index', $data);
+    }
+
+    function district(Request $request)
+    {
+        $data['title'] = 'Data Pemilih';
+        $data['districts'] = District::all();
+
+        $data['district'] = District::findOrFail(Crypt::decrypt($request->id));
+        $data['voters'] = Voter::query()->where('district_id', $data['district']->id)->orderBy('name', 'asc');
+
+        $data['coordinators_count'] = Voter::where('district_id', $data['district']->id)->where('level', true)->count();
+        $data['registered_voters_count'] = Voter::where('district_id', $data['district']->id)->whereNotNull('coordinator_id')->count();
+        $data['not_registered_voters_count'] = Voter::where('district_id', $data['district']->id)->whereNull('coordinator_id')->count();
+        $data['voters_count'] = Voter::where('district_id', $data['district']->id)->count();
+
+        if ($request->ajax()) {
+            return $this->formatDatatables($data['voters']);
+        }
+
+        if (Auth::guard('owner')->check()) {
+            return view('owner.voter.district', $data);
+        }
+
+        return view('admin.voter.district', $data);
+    }
+
     function village(Request $request)
     {
         $data['title'] = 'Data Pemilih';
         $data['districts'] = District::all();
 
         $data['village'] = Village::findOrFail(Crypt::decrypt($request->id));
-        $data['voters'] = Voter::where('village_id', $data['village']->id)->orderBy('name', 'asc')->get();
+        $data['voters'] = Voter::query()->where('village_id', $data['village']->id)->orderBy('name', 'asc');
 
         $data['coordinators_count'] = Voter::where('village_id', $data['village']->id)->where('level', true)->count();
         $data['registered_voters_count'] = Voter::where('village_id', $data['village']->id)->whereNotNull('coordinator_id')->count();
@@ -43,7 +90,7 @@ class  VoterController extends Controller
         $data['districts'] = District::all();
 
         $data['votingPlace'] = VotingPlace::findOrFail(Crypt::decrypt($request->id));
-        $data['voters'] = Voter::where('voting_place_id', $data['votingPlace']->id)->orderBy('name', 'asc')->get();
+        $data['voters'] = Voter::query()->where('voting_place_id', $data['votingPlace']->id)->orderBy('name', 'asc');
 
         $data['coordinators_count'] = Voter::where('voting_place_id', $data['votingPlace']->id)->where('level', true)->count();
         $data['registered_voters_count'] = Voter::where('voting_place_id', $data['votingPlace']->id)->whereNotNull('coordinator_id')->count();
@@ -66,7 +113,7 @@ class  VoterController extends Controller
         $data['voter'] = Voter::findOrFail(Crypt::decrypt($request->id));
         $data['title'] = 'Detail Data ' . $data['voter']->name;
         $data['districts'] = District::all();
-        $data['members'] = Voter::where('coordinator_id', $data['voter']->id)->get()->except($data['voter']->id);
+        $data['members'] = Voter::query()->where('coordinator_id', $data['voter']->id)->orderBy('level', 'desc');
 
         if ($request->ajax()) {
             return $this->formatDatatables($data['members']);
@@ -193,8 +240,7 @@ class  VoterController extends Controller
 
     public function formatDatatables($data)
     {
-        // return DataTables::eloquent($data)
-        return DataTables::of($data)
+        return DataTables::eloquent($data)
             ->addIndexColumn()
             ->addColumn('name', function (Voter $voter) {
                 if ($voter->gender == 'P') {
@@ -236,7 +282,7 @@ class  VoterController extends Controller
                 return empty($voter->voting_place_id) ? '-' : '<b>TPS ' . $voter->votingPlace->name . '</b><br>' . $voter->votingPlace->village->name;
             })
             ->addColumn('phone_number', function (Voter $voter) {
-                return empty($voter->phone_number) ? '-' : '<a href="https://wa.me/+62' . $voter->phone_number . '" class="' . ($voter->level == true ? 'text-white' : 'text-dark') . '" target="_blank">' . $voter->phone_number . '</a>';
+                return empty($voter->phone_number) ? '-' : '<a href="https://wa.me/+62' . $voter->phone_number . '" class="' . ($voter->level == true ? 'text-white' : 'text-secondary') . '" target="_blank">' . $voter->phone_number . '</a>';
             })
             ->addColumn('coordinator', function (Voter $voter) {
                 if ($voter->coordinator_id == $voter->id) {
@@ -252,9 +298,14 @@ class  VoterController extends Controller
                 if ($voter->level == 0) {
                     $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item coordinator">' . (empty($voter->coordinator_id) ? 'Tambah Koordinator' : 'Ganti Koordinator') . '</button>';
                     $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-primary be-coordinator">Jadikan Koordinator</button>';
+                    if ($voter->coordinator_id != null) {
+                        $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-danger delete-member">Keluarkan Dari Koordinator (' . $voter->coordinator->name . ')</button>';
+                    }
                 } else {
                     $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-danger cancel-coordinator">Batalkan Koordinator</button>';
                 }
+                // $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-danger delete">Hapus Data</button>';
+
 
                 return '<div class="btn-group dropup"><button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></button>'
                     . '<div class="dropdown-menu" role="menu">'
@@ -271,7 +322,10 @@ class  VoterController extends Controller
                     return 'bg-secondary-subtle';
                 }
             })
-            // ->toJson();
-            ->make(true);
+            ->filterColumn('name', function ($query, $keyword) {
+                $sql = "name like ?";
+                $query->whereRaw($sql, ["%{$keyword}%"]);
+            })
+            ->toJson();
     }
 }

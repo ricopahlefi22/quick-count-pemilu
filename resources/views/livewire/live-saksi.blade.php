@@ -1,4 +1,3 @@
-
 <div class="container mx-auto" class="pool" wire:poll="foo">
-{{$liveSaksi}}
+    {{ $liveSaksi }}
 </div>

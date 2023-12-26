@@ -59,15 +59,11 @@ var columns = [
     {
         data: "age",
         name: "age",
-        orderable: false,
-        searchable: false,
         class: "text-center",
     },
     {
         data: "address",
         name: "address",
-        orderable: false,
-        searchable: false,
     },
     {
         data: "voting_place",
@@ -77,8 +73,6 @@ var columns = [
     {
         data: "phone_number",
         name: "phone_number",
-        orderable: false,
-        searchable: false,
         class: "text-center",
     },
     {
@@ -89,12 +83,13 @@ var columns = [
 ];
 
 var oLanguage = {
-    sSearch: "Pencarian",
+    sSearch: "Cari Nama",
     sInfoEmpty: "Data Belum Tersedia",
     sInfo: "Menampilkan _PAGE_ dari _PAGES_ halaman",
     sEmptyTable: "Data Belum Tersedia",
     sLengthMenu: "Tampilkan _MENU_ Baris",
     sZeroRecords: "Data Tidak Ditemukan",
+    sInfoFiltered: "(Hasil pencarian dari _MAX_ data)",
     sProcessing: "Sedang Memproses...",
     oPaginate: {
         sFirst: "Pertama",
@@ -109,8 +104,8 @@ var table = $("#table").DataTable({
     serverSide: true,
     processing: true,
     deferRender: true,
-    select: true,
-    // paging: true,
+    ordering: false,
+    paging: true,
     autoWidth: false,
     responsive: true,
     ajax: document.URL,
@@ -164,64 +159,78 @@ $("#createButton").click(function () {
     $("#rt").removeClass("is-invalid").val("");
     $("#rw").removeClass("is-invalid").val("");
 
-    $("#districtId")
-        .removeClass("is-invalid")
-        .val($("#districtIdValue").val())
-        .trigger("change");
+    $("#districtId").val("");
 
-    $.ajax({
-        type: "POST",
-        url: "/villages/json",
-        data: {
-            district_id: $("#districtIdValue").val(),
-        },
-        beforeSend: function () {
-            $("#villageId")
-                .html(
-                    '<option value="" selected disabled hidden>*MOHON TUNGGU</option>'
-                )
-                .prop("disabled", true);
-        },
-        success: function (response) {
-            var options = "";
-            $.each(response, function (key, value) {
-                options +=
-                    '<option value="' +
-                    value["id"] +
-                    '">' +
-                    value["name"] +
-                    "</option>";
-            });
+    $("#villageId")
+        .html("<option selected hidden disabled>*PILIH KELURAHAN/DESA</option>")
+        .prop("disabled", true);
 
-            $("#villageId")
-                .html(options)
-                .val($("#villageIdValue").val())
-                .prop("disabled", false)
-                .trigger("change");
+    $("#votingPlaceId")
+        .html("<option selected hidden disabled>*PILIH TPS</option>")
+        .prop("disabled", true);
 
-            $.ajax({
-                type: "POST",
-                url: "/voting-places/json",
-                data: { village_id: $("#villageIdValue").val() },
-                success: function (response) {
-                    var options = "";
-                    $.each(response, function (key, value) {
-                        options +=
-                            '<option value="' +
-                            value["id"] +
-                            '">' +
-                            value["name"] +
-                            "</option>";
-                    });
+    if ($("#districtIdValue").val() !== undefined) {
+        $("#districtId")
+            .removeClass("is-invalid")
+            .val($("#districtIdValue").val())
+            .trigger("change");
 
-                    $("#votingPlaceId")
+        $.ajax({
+            type: "POST",
+            url: "/villages/json",
+            data: {
+                district_id: $("#districtIdValue").val(),
+            },
+            beforeSend: function () {
+                $("#villageId")
+                    .html(
+                        '<option value="" selected disabled hidden>*MOHON TUNGGU</option>'
+                    )
+                    .prop("disabled", true);
+            },
+            success: function (response) {
+                var options = "";
+                $.each(response, function (key, value) {
+                    options +=
+                        '<option value="' +
+                        value["id"] +
+                        '">' +
+                        value["name"] +
+                        "</option>";
+                });
+
+                if ($("#villageIdValue").val() !== undefined) {
+                    $("#villageId")
                         .html(options)
-                        .val($("#votingPlaceIdValue").val())
-                        .prop("disabled", false);
-                },
-            });
-        },
-    });
+                        .val($("#villageIdValue").val())
+                        .prop("disabled", false)
+                        .trigger("change");
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/voting-places/json",
+                        data: { village_id: $("#villageIdValue").val() },
+                        success: function (response) {
+                            var options = "";
+                            $.each(response, function (key, value) {
+                                options +=
+                                    '<option value="' +
+                                    value["id"] +
+                                    '">' +
+                                    value["name"] +
+                                    "</option>";
+                            });
+
+                            $("#votingPlaceId")
+                                .html(options)
+                                .val($("#votingPlaceIdValue").val())
+                                .prop("disabled", false);
+                        },
+                    });
+                }
+            },
+        });
+    }
 
     $("#birthplace").val("");
     $("#birthday").val("");
@@ -251,7 +260,7 @@ $("#districtId").change(function () {
         },
         success: function (response) {
             var options = "";
-            $.each(response, function (key, value) {
+            $.each(response, function (_, value) {
                 options +=
                     '<option value="' +
                     value["id"] +
@@ -260,20 +269,25 @@ $("#districtId").change(function () {
                     "</option>";
             });
 
-            $("#villageId")
-                .html(
-                    "<option selected hidden disabled>*PILIH KELURAHAN/DESA</option>" +
-                        options
-                )
-                .prop("disabled", false);
+            if (response.length != 0) {
+                $("#villageId")
+                    .html(
+                        "<option selected hidden disabled>*PILIH KELURAHAN/DESA</option>" +
+                            options
+                    )
+                    .prop("disabled", false);
+            } else {
+                $("#villageId")
+                    .html(
+                        "<option selected hidden disabled>*PILIH KELURAHAN/DESA</option>"
+                    )
+                    .prop("disabled", true);
+            }
         },
     });
 });
 
 $("#villageId").change(function () {
-    $("#votingPlaceOption").html("*PILIH TPS");
-    $("#coordinatorOption").html("*PILIH KOORDINATOR");
-
     $.ajax({
         type: "POST",
         url: "/voting-places/json",
@@ -583,6 +597,28 @@ $("body").on("click", ".cancel-coordinator", function () {
     });
 });
 
+$("body").on("click", ".delete-member", function () {
+    $.ajax({
+        type: "POST",
+        url: "/voters/check",
+        data: {
+            id: $(this).data("id"),
+        },
+        success: function (data) {
+            $("#deleteMemberModal").modal("show");
+            $("#idDeleteMember").val(data.id);
+            $(".name-coordinator").html(data.name);
+        },
+        error: function (error) {
+            Swal.fire({
+                type: "error",
+                title: error.status,
+                text: "Terjadi Kesalahan, mohon ulangi beberapa saat lagi :)",
+            });
+        },
+    });
+});
+
 $("body").on("click", ".delete", function () {
     if (
         confirm(
@@ -807,6 +843,37 @@ $("#cancelCoordinatorForm").on("submit", function (event) {
             });
 
             $("#cancelCoordinatorModal").modal("hide");
+            table.ajax.reload(null, false);
+        },
+        error: function (error) {
+            Swal.fire({
+                type: "error",
+                title: error.status,
+                text: "Terjadi Kesalahan, mohon ulangi beberapa saat lagi :)",
+            });
+        },
+    });
+});
+
+$("#deleteMemberForm").on("submit", function (event) {
+    event.preventDefault();
+
+    $.ajax({
+        type: "POST",
+        url: "/delete-member",
+        data: {
+            id: $("#idDeleteMember").val(),
+        },
+        success: function (response) {
+            Swal.fire({
+                type: "success",
+                title: "Berhasil",
+                text: response,
+                showConfirmButton: !1,
+                timer: 1500,
+            });
+
+            $("#deleteMemberModal").modal("hide");
             table.ajax.reload(null, false);
         },
         error: function (error) {
