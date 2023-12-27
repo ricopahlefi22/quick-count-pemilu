@@ -77,10 +77,10 @@
                                     class="dropdown-item">
                                     <i class="fa fa-users"></i> Peta Pemilih Per Desa
                                 </a>
-                                <a href="{{ url('voters/export/district', Crypt::encrypt($district->id)) }}"
+                                {{-- <a href="{{ url('voters/export/district', Crypt::encrypt($district->id)) }}"
                                     class="dropdown-item text-success">
                                     <i class="fa fa-file-csv"></i> Ekspor CSV
-                                </a>
+                                </a> --}}
                             </div>
                         </div>
 

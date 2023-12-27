@@ -40,8 +40,9 @@ class VillageNotVoterExport implements FromCollection, ShouldAutoSize, WithHeadi
     {
         return [
             empty($voter->family_card_number) ? '-' : "'" . $voter->family_card_number,
-            "'" . $voter->id_number,
+            empty($voter->id_number) ? '-' : "'" . $voter->id_number,
             $voter->name,
+            empty($voter->age) ? '-' : $voter->age,
             empty($voter->birthplace) ? '-' : $voter->birthplace,
             empty($voter->birthday) ? '-' : $voter->birthday,
             empty($voter->gender) ? '-' : $voter->gender,
@@ -49,9 +50,11 @@ class VillageNotVoterExport implements FromCollection, ShouldAutoSize, WithHeadi
             empty($voter->address) ? '-' : $voter->address,
             empty($voter->rt) ? '-' : $voter->rt,
             empty($voter->rw) ? '-' : $voter->rw,
-            $voter->district->name,
-            $voter->village->name,
+            empty($voter->phone_number) ? '-' : $voter->phone_number,
+            empty($voter->district->name) ? '-' : $voter->district->name,
+            empty($voter->village->name) ? '-' : $voter->village->name,
             empty($voter->voting_place_id) ? '-' : $voter->votingPlace->name,
+            empty($voter->coordinator->name) ? '-' : $voter->coordinator->name,
         ];
     }
 
@@ -61,6 +64,7 @@ class VillageNotVoterExport implements FromCollection, ShouldAutoSize, WithHeadi
             'NO KK',
             'NIK',
             'NAMA LENGKAP',
+            'UMUR',
             'TEMPAT LAHIR',
             'TANGGAL LAHIR',
             'JENIS KELAMIN',
@@ -68,9 +72,11 @@ class VillageNotVoterExport implements FromCollection, ShouldAutoSize, WithHeadi
             'ALAMAT',
             'RT',
             'RW',
+            'NOMOR HANDPHONE',
             'KECAMATAN',
             'KELURAHAN',
             'TPS',
+            'KOORDINATOR'
         ];
     }
 }

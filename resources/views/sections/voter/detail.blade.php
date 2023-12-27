@@ -274,7 +274,7 @@
                         <div class="card-body">
                             <h4 class="card-title mb-4">
                                 Anggota
-                                {{-- <a href="{{url('voters')}}" class="btn btn-dark">Ekspor CSV</a> --}}
+                                <a href="{{ url('voters/export/coordinator-member', Crypt::encrypt($voter->id)) }}" class="btn btn-sm btn-success float-end"><i class="fa fa-file-export"></i> Ekspor CSV</a>
                             </h4>
 
                             <table id="table" class="table table-centered mb-0">

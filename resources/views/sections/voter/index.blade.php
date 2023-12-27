@@ -68,9 +68,9 @@
                                 <a href="{{ url('mapping-result') }}" class="dropdown-item">
                                     <i class="fa fa-chart-area"></i> Grafik Pemetaan Suara
                                 </a>
-                                <a href="{{ url('voters/export') }}" class="dropdown-item text-success">
+                                {{-- <a href="{{ url('voters/export/all') }}" class="dropdown-item text-success">
                                     <i class="fa fa-file-csv"></i> Ekspor CSV
-                                </a>
+                                </a> --}}
                             </div>
                         </div>
 

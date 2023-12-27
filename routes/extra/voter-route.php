@@ -21,6 +21,7 @@ Route::prefix('voters')->controller(VoterController::class)->group(function () {
         Route::get('export/district/{id}', 'district');
         Route::get('export/village/{id}', 'village');
         Route::get('export/voting-place/{id}', 'votingPlace');
+        Route::get('export/coordinator-member/{id}', 'coordinatorMember');
     });
 
     Route::controller(ImportController::class)->group(function () {

@@ -42,15 +42,17 @@
                                     <strong>{{ $party->name }}</strong>
                                 </h5>
                                 <p>Jumlah Calon Legislatif: <strong>{{ $party->candidates->count() }} Orang</strong></p>
-                                <p>Jumlah Suara:
-                                    @php
-                                        $totalVotingResult = 0;
-                                        foreach ($party->votingResult as $votingResult) {
-                                            $totalVotingResult += $votingResult->number;
-                                        }
-                                    @endphp
-                                    <strong>{{ $totalVotingResult }} Suara</strong>
-                                </p>
+                                @if (env('QUICK_COUNT') == true)
+                                    <p>Jumlah Suara:
+                                        @php
+                                            $totalVotingResult = 0;
+                                            foreach ($party->votingResult as $votingResult) {
+                                                $totalVotingResult += $votingResult->number;
+                                            }
+                                        @endphp
+                                        <strong>{{ $totalVotingResult }} Suara</strong>
+                                    </p>
+                                @endif
                             </div>
                         </div>
                         <div class="card-footer">
