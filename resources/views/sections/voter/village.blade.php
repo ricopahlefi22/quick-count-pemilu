@@ -29,6 +29,10 @@
                             <li class="breadcrumb-item">
                                 <a href="javascript: void(0);">Data Pemilih</a>
                             </li>
+                            <li class="breadcrumb-item">
+                                <a
+                                    href="{{ url('voters/district', Crypt::encrypt($village->district->id)) }}">{{ $village->district->name }}</a>
+                            </li>
                             <li class="breadcrumb-item active">{{ $village->name }}</li>
                         </ol>
                     </div>

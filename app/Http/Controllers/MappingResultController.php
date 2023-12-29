@@ -21,8 +21,7 @@ class MappingResultController extends Controller
     function district(Request $request)
     {
         $data['district'] = District::findOrFail(Crypt::decrypt($request->id));
-        $data['title'] = 'Hasil Kecamatan ' . $data['district']->name;
-        $data['villages'] = Village::where('district_id', $data['district']->id)->get();
+        $data['title'] = 'Hasil Pemetaan Kecamatan ' . $data['district']->name;
 
         return view('owner.mapping-result.district', $data);
     }
@@ -30,7 +29,7 @@ class MappingResultController extends Controller
     function village(Request $request)
     {
         $data['village'] = Village::findOrFail(Crypt::decrypt($request->id));
-        $data['title'] = 'Hasil Kecamatan ' . $data['village']->name;
+        $data['title'] = 'Hasil Pemetaan ' . $data['village']->name;
 
         return view('owner.mapping-result.village', $data);
     }

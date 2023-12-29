@@ -15,7 +15,7 @@
 
 @section('content')
     <div class="page-content">
-        <!-- start page title -->
+        <!-- Title -->
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <!-- end page title -->
+        <!-- Title -->
 
 
         @if (Auth::user()->level == true || Auth::guard('owner')->check())
@@ -164,11 +164,9 @@
                         <button id="createButton" class="dropdown-item">
                             <i class="fa fa-plus-circle"></i> Tambah Data
                         </button>
-                        <a href="{{ url('voters/export') }}?vllg={{ $village->id }}" class="dropdown-item">
+                        <a href="{{ url('voters/export/village', Crypt::encrypt($village->id)) }}"
+                            class="dropdown-item text-success">
                             <i class="fa fa-file-csv"></i> Ekspor CSV
-                        </a>
-                        <a href="{{ url('voters/import') }}" class="dropdown-item text-success">
-                            <i class="fa fa-file-pdf"></i> Impor
                         </a>
                     </div>
                 </div>
@@ -176,12 +174,12 @@
         </div>
 
         <div class="row">
-            @foreach ($votingPlaces as $votingPlace)
+            @foreach ($village->votingPlace as $votingPlace)
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="card border-dark">
                         <a href="{{ url('voters/voting-place', Crypt::encrypt($votingPlace->id)) }}">
                             <div class="card-header bg-primary text-white d-flex justify-content-between">
-                                <span class="lh-1">TPS {{ $votingPlace->name }}</span>
+                                <span class="lh-1">{{ $village->name }} TPS {{ $votingPlace->name }}</span>
                                 <i class="fa fa-arrow-right"></i>
                             </div>
                         </a>
@@ -255,7 +253,7 @@
     <!-- Select2 -->
     <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
 
-    <!-- form mask -->
+    <!-- Jquery Input Mask -->
     <script src="{{ asset('assets/libs/inputmask/min/jquery.inputmask.bundle.min.js') }}"></script>
 
     <!-- Dropify -->

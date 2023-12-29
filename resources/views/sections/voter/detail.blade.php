@@ -96,7 +96,7 @@
                                 </div>
 
                                 <div class="row mt-3 border border-start-0 border-end-0 p-2">
-                                    <div class="col">
+                                    {{-- <div class="col">
                                         <h6 class="text-muted">
                                             TPS
                                         </h6>
@@ -105,6 +105,14 @@
                                             <strong class="font-size-12">
                                                 {{ $voter->village->name }}
                                             </strong>
+                                        </h5>
+                                    </div> --}}
+                                    <div class="col">
+                                        <h6 class="text-muted">
+                                            TPS
+                                        </h6>
+                                        <h5 class="mb-0">
+                                            Diluar Daerah Pemilihan
                                         </h5>
                                     </div>
                                     @if ($voter->level == 1)
@@ -127,7 +135,7 @@
                                                     {{ $voter->coordinator->name }}
                                                 </h5>
                                                 <strong class="font-size-12">
-                                                    {{ $voter->coordinator->village->name }}
+                                                    {{ empty($voter->coordinator->village_id) ? 'Diluar Daerah Pemilihan' : $voter->coordinator->village->name }}
                                                 </strong>
                                             </div>
                                         @endif
@@ -274,7 +282,9 @@
                         <div class="card-body">
                             <h4 class="card-title mb-4">
                                 Anggota
-                                <a href="{{ url('voters/export/coordinator-member', Crypt::encrypt($voter->id)) }}" class="btn btn-sm btn-success float-end"><i class="fa fa-file-export"></i> Ekspor CSV</a>
+                                <a href="{{ url('voters/export/coordinator-member', Crypt::encrypt($voter->id)) }}"
+                                    class="btn btn-sm btn-success float-end"><i class="fa fa-file-export"></i> Ekspor
+                                    CSV</a>
                             </h4>
 
                             <table id="table" class="table table-centered mb-0">

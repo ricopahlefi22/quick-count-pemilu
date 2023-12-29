@@ -21,7 +21,7 @@
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
                     <h4 class="page-title my-4 lh-1">
-                        DPT TPS {{ $votingPlace->name }} {{ $votingPlace->village->name }}
+                        DPT {{ $votingPlace->village->name }} TPS {{ $votingPlace->name }}
                     </h4>
 
                     <div class="page-title-right d-none d-xl-block">
@@ -29,7 +29,15 @@
                             <li class="breadcrumb-item">
                                 <a href="javascript: void(0);">Data Pemilih</a>
                             </li>
-                            <li class="breadcrumb-item active">Seluruh</li>
+                            <li class="breadcrumb-item">
+                                <a
+                                    href="{{ url('voters/district', Crypt::encrypt($votingPlace->district->id)) }}">{{ $votingPlace->district->name }}</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a
+                                    href="{{ url('voters/village', Crypt::encrypt($votingPlace->village->id)) }}">{{ $votingPlace->village->name }}</a>
+                            </li>
+                            <li class="breadcrumb-item active">TPS {{ $votingPlace->name }}</li>
                         </ol>
                     </div>
                 </div>

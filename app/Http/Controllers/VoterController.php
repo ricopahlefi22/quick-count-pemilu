@@ -15,10 +15,8 @@ class  VoterController extends Controller
 {
     function index(Request $request)
     {
-        $data['title'] = 'Data Pemilih';
-        $data['districts'] = District::all();
-
-        $data['voters'] = Voter::query();
+        $data['title'] = 'Seluruh Pemilih';
+        $data['voters'] = Voter::query()->orderBy('name', 'asc');
 
         $data['coordinators_count'] = Voter::where('level', true)->count();
         $data['registered_voters_count'] = Voter::whereNotNull('coordinator_id')->count();
@@ -38,10 +36,8 @@ class  VoterController extends Controller
 
     function district(Request $request)
     {
-        $data['title'] = 'Data Pemilih';
-        $data['districts'] = District::all();
-
         $data['district'] = District::findOrFail(Crypt::decrypt($request->id));
+        $data['title'] = 'DPT Kecamatan ' . $data['district']->name;
         $data['voters'] = Voter::query()->where('district_id', $data['district']->id)->orderBy('name', 'asc');
 
         $data['coordinators_count'] = Voter::where('district_id', $data['district']->id)->where('level', true)->count();
@@ -62,10 +58,8 @@ class  VoterController extends Controller
 
     function village(Request $request)
     {
-        $data['title'] = 'Data Pemilih';
-        $data['districts'] = District::all();
-
         $data['village'] = Village::findOrFail(Crypt::decrypt($request->id));
+        $data['title'] = 'DPT ' . $data['village']->name;
         $data['voters'] = Voter::query()->where('village_id', $data['village']->id)->orderBy('name', 'asc');
 
         $data['coordinators_count'] = Voter::where('village_id', $data['village']->id)->where('level', true)->count();
@@ -86,10 +80,8 @@ class  VoterController extends Controller
 
     function votingPlace(Request $request)
     {
-        $data['title'] = 'Data Pemilih';
-        $data['districts'] = District::all();
-
         $data['votingPlace'] = VotingPlace::findOrFail(Crypt::decrypt($request->id));
+        $data['title'] = 'DPT ' . $data['votingPlace']->village->name . ' TPS ' . $data['votingPlace']->name;
         $data['voters'] = Voter::query()->where('voting_place_id', $data['votingPlace']->id)->orderBy('name', 'asc');
 
         $data['coordinators_count'] = Voter::where('voting_place_id', $data['votingPlace']->id)->where('level', true)->count();
@@ -139,9 +131,9 @@ class  VoterController extends Controller
             // 'address' => 'required',
             'rt' => 'min:3',
             'rw' => 'min:3',
-            'district_id' => 'required',
-            'village_id' => 'required',
-            'voting_place_id' => 'required',
+            // 'district_id' => 'required',
+            // 'village_id' => 'required',
+            // 'voting_place_id' => 'required',
         ], Voter::$validationMessage);
 
         $photo = $request->hidden_photo;
@@ -249,7 +241,7 @@ class  VoterController extends Controller
                     $gender = ($voter->level == true) ? ' <i class="fa fa-mars text-white" title="Laki-Laki"></i>' : ' <i class="fa fa-mars text-primary" title="Laki-Laki"></i>';
                 }
                 $id_number = empty($voter->id_number) ? null : '<br> NIK. ' . $voter->id_number;
-                return $voter->name . $gender . $id_number;
+                return '<a href="/voters/detail/' . Crypt::encrypt($voter->id) . '" target="_blank" class="' . ($voter->level == true ? 'text-white' : 'text-secondary') . '">' . $voter->name . '</a>' . $gender . $id_number;
             })
             ->addColumn('age', function (Voter $voter) {
                 return empty($voter->age) ? '-' : $voter->age . ' Tahun';
@@ -260,14 +252,16 @@ class  VoterController extends Controller
                     $address = '<b>' . $voter->address . '</b><br>';
                 }
 
-                if ($voter->rt && $voter->rw) {
+                if ($voter->village_id && $voter->rt && $voter->rw) {
                     $defaultAddress = $voter->village->name . ', RT ' . $voter->rt . '/RW ' . $voter->rw;
-                } else if ($voter->rt) {
+                } else if ($voter->village_id && $voter->rt) {
                     $defaultAddress = $voter->village->name . ', RT ' . $voter->rt;
-                } else if ($voter->rw) {
+                } else if ($voter->village_id && $voter->rw) {
                     $defaultAddress = $voter->village->name . ', RW ' . $voter->rw;
-                } else {
+                } else if($voter->village_id) {
                     $defaultAddress = $voter->village->name;
+                } else {
+                    $defaultAddress = 'Diluar Daerah Pemilihan';
                 }
 
                 return $address . $defaultAddress;
@@ -279,7 +273,7 @@ class  VoterController extends Controller
                 return empty($voter->rw) ? '-' : 'RW ' . $voter->rw;
             })
             ->addColumn('voting_place', function (Voter $voter) {
-                return empty($voter->voting_place_id) ? '-' : '<b>TPS ' . $voter->votingPlace->name . '</b><br>' . $voter->votingPlace->village->name;
+                return empty($voter->voting_place_id) ? '-' : '<a href="/voters/voting-place/' . Crypt::encrypt($voter->votingPlace->id) . '" target="_blank" class="' . ($voter->level == true ? 'text-white' : 'text-secondary') . ' fw-bold">TPS ' . $voter->votingPlace->name . '</a><br><a href="/voters/village/' . Crypt::encrypt($voter->village->id) . '" target="_blank" class="' . ($voter->level == true ? 'text-white' : 'text-secondary') . '">' . $voter->votingPlace->village->name . '</a>';
             })
             ->addColumn('phone_number', function (Voter $voter) {
                 return empty($voter->phone_number) ? '-' : '<a href="https://wa.me/+62' . $voter->phone_number . '" class="' . ($voter->level == true ? 'text-white' : 'text-secondary') . '" target="_blank">' . $voter->phone_number . '</a>';
@@ -288,7 +282,7 @@ class  VoterController extends Controller
                 if ($voter->coordinator_id == $voter->id) {
                     return '<b>Koordinator</b>' . '<br>' . 'Dengan ' . $voter->member->except($voter->id)->count() . ' anggota';
                 } else {
-                    return empty($voter->coordinator_id) ? '-' : '<b>' . $voter->coordinator->name . '</b>' . '<br>' . $voter->coordinator->village->name . ' TPS ' . $voter->coordinator->votingPlace->name;
+                    return empty($voter->coordinator_id) ? '-' : '<a href="/voters/detail/' . Crypt::encrypt($voter->coordinator->id) . '" target="_blank" class="' . ($voter->level == true ? 'text-white' : 'text-secondary') . ' fw-bold">' . $voter->coordinator->name . '</a>' . '<br>' . (empty($voter->coordinator->village_id) ? 'Diluar Daerah Pemilihan' : $voter->coordinator->village->name . ' TPS ' . $voter->coordinator->votingPlace->name);
                 }
             })
             ->addColumn('action', function (Voter $voter) {

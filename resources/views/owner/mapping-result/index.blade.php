@@ -4,18 +4,9 @@
     $web = App\Models\WebConfig::first();
 @endphp
 
-{{-- @push('style')
-    <!-- DataTables -->
-    <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet"
-        type="text/css" />
-    <link href="{{ asset('assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet"
-        type="text/css" />
-    <link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet"
-        type="text/css" />
-@endpush --}}
-
 @section('content')
     <div class="page-content">
+        <!-- Title -->
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
@@ -31,13 +22,14 @@
                 </div>
             </div>
         </div>
-        <!-- end page title -->
+        <!-- Title -->
 
         <div class="row">
             <div class="col-12 col-lg-5">
                 <div class="card">
                     <div class="card-body">
-                        <p class="mb-2">Perbandingan Pendukung <b>{{ $web->name }}</b> per Kecamatan Dalam Persentase</p>
+                        <p class="mb-2">Perbandingan Pendukung <b>{{ App\Models\Candidate::where('id', $web->candidate_id)->first()->name }}</b> per Kecamatan Dalam Persentase
+                        </p>
 
                         <div id="pieChart" class="apex-charts" dir="ltr"></div>
                     </div>
@@ -47,7 +39,7 @@
             <div class="col-12 col-lg-7">
                 <div class="card">
                     <div class="card-body">
-                        <p class="mb-2">Perbandingan Pendukung <b>{{ $web->name }}</b> per Desa Dalam Persentase</p>
+                        <p class="mb-2">Perbandingan Pendukung <b>{{ App\Models\Candidate::where('id', $web->candidate_id)->first()->name }}</b> per Desa Dalam Persentase</p>
 
                         <div id="donutChart" class="apex-charts" dir="ltr"></div>
                     </div>
@@ -60,7 +52,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4">Grafik Pemetaan Pendukung <b>{{ $web->name }}</b> per Desa</h4>
+                        <h4 class="card-title mb-4">Grafik Pemetaan Pendukung <b>{{ App\Models\Candidate::where('id', $web->candidate_id)->first()->name }}</b> per Desa</h4>
 
                         <div id="barChart" class="apex-charts" dir="ltr"></div>
                     </div>

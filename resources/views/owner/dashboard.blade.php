@@ -37,9 +37,6 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12">
-                
-            </div>
             <div class="col-12 col-md-3">
                 <div class="card">
                     <div class="card-body">
@@ -87,7 +84,7 @@
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-12">
-                                <p class="mb-2">Grafik Pendukung <b>{{ $web->name }}</b> per Kecamatan</p>
+                                <p class="mb-2">Grafik Pendukung <b>{{ App\Models\Candidate::where('id', $web->candidate_id)->first()->name }}</b> per Kecamatan</p>
                                 <div id="pieChart" class="apex-charts" dir="ltr"></div>
                             </div>
                         </div>

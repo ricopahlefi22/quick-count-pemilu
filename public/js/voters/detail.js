@@ -9,7 +9,7 @@ var photo = $("#photo").dropify({
     },
 });
 
-photo.on("dropify.afterClear", function (event, element) {
+photo.on("dropify.afterClear", function () {
     $("#hiddenPhoto").val("");
 });
 
@@ -22,7 +22,7 @@ var ktp = $("#ktp").dropify({
     },
 });
 
-ktp.on("dropify.afterClear", function (event, element) {
+ktp.on("dropify.afterClear", function () {
     $("#hiddenKTP").val("");
 });
 
@@ -35,7 +35,7 @@ var evidence = $("#evidence").dropify({
     },
 });
 
-evidence.on("dropify.afterClear", function (event, element) {
+evidence.on("dropify.afterClear", function () {
     $("#hiddenEvidence").val("");
 });
 
@@ -185,7 +185,7 @@ $("#createButton").click(function () {
             },
             success: function (response) {
                 var options = "";
-                $.each(response, function (key, value) {
+                $.each(response, function (_, value) {
                     options +=
                         '<option value="' +
                         value["id"] +
@@ -299,7 +299,7 @@ $("#villageId").change(function () {
         success: function (response) {
             var options = "";
             if (response.length != 0) {
-                $.each(response, function (key, value) {
+                $.each(response, function (_, value) {
                     options +=
                         '<option value="' +
                         value["id"] +
@@ -439,7 +439,7 @@ $("body").on("click", ".edit", function () {
                     data: { district_id: data.district_id },
                     success: function (response) {
                         var options = "";
-                        $.each(response, function (key, value) {
+                        $.each(response, function (_, value) {
                             options +=
                                 '<option value="' +
                                 value["id"] +
@@ -462,7 +462,7 @@ $("body").on("click", ".edit", function () {
                             data: { village_id: data.village_id },
                             success: function (response) {
                                 var options = "";
-                                $.each(response, function (key, value) {
+                                $.each(response, function (_, value) {
                                     options +=
                                         '<option value="' +
                                         value["id"] +
@@ -516,18 +516,28 @@ $("body").on("click", ".coordinator", function () {
             $("#idCoordinator").val(id);
 
             var options = "";
-            $.each(response.list, function (key, value) {
-                options +=
-                    '<option value="' +
-                    value["id"] +
-                    '">' +
-                    value["name"] +
-                    " (" +
-                    value["village"]["name"] +
-                    " TPS " +
-                    value["voting_place"]["name"] +
-                    ")";
-                ("</option>");
+            $.each(response.list, function (_, value) {
+                if (value.village_id != null) {
+                    options +=
+                        '<option value="' +
+                        value.id +
+                        '">' +
+                        value.name +
+                        " (" +
+                        value.village.name +
+                        " TPS " +
+                        value.voting_place.name +
+                        ")" +
+                        "</option>";
+                } else {
+                    options +=
+                        '<option value="' +
+                        value.id +
+                        '">' +
+                        value.name +
+                        " (Diluar Daerah Pemilihan)" +
+                        "</option>";
+                }
             });
 
             $("#coordinatorId").html(
@@ -539,6 +549,7 @@ $("body").on("click", ".coordinator", function () {
             $("#coordinatorModal").modal("show");
         },
         error: function (error) {
+            console.error(error);
             Swal.fire({
                 type: "error",
                 title: error.status,
@@ -839,7 +850,6 @@ $("#cancelCoordinatorForm").on("submit", function (event) {
 
             $("#cancelCoordinatorModal").modal("hide");
             table.ajax.reload(null, false);
-            window.location.reload();
         },
         error: function (error) {
             Swal.fire({

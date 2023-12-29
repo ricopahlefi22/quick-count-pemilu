@@ -92,52 +92,58 @@
                             </li>
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link" href="{{ url('voters') }}">
-                                    Seluruh Pemilih
-                                </a>
-                            </li>
-
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle arrow-none" href="#"
-                                    id="district-voters-data-topnav" role="button">
-                                    Pemilih Per Kecamatan <div class="arrow-down"></div>
-                                </a>
-
-                                <div class="dropdown-menu" aria-labelledby="district-voters-data-topnav">
-                                    @foreach (App\Models\District::all() as $district)
-                                        <a href="{{ url('voters/district', Crypt::encrypt($district->id)) }}"
-                                            class="dropdown-item">
-                                            {{ $district->name }}
-                                        </a>
-                                    @endforeach
-                                </div>
-                            </li>
-
-                            <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle arrow-none" href="#"
                                     id="village-voters-data-topnav" role="button">
-                                    Pemilih per Desa<div class="arrow-down"></div>
+                                    Data Pemilih<div class="arrow-down"></div>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="village-voters-data-topnav">
-                                    @foreach (App\Models\District::all() as $district)
-                                        <div class="dropdown">
-                                            <a class="dropdown-item dropdown-toggle arrow-none" href="#"
-                                                id="topnav-voters-district-{{ $district->id }}" role="button">
-                                                {{ $district->name }} <div class="arrow-down"></div>
-                                            </a>
-                                            <div class="dropdown-menu"
-                                                aria-labelledby="topnav-voters-district-{{ $district->id }}">
-                                                @foreach (App\Models\Village::where('district_id', $district->id)->get() as $village)
-                                                    <a href="{{ url('voters/village', Crypt::encrypt($village->id)) }}"
-                                                        class="dropdown-item">
-                                                        {{ $village->name }}
-                                                    </a>
-                                                @endforeach
-                                            </div>
+                                    <a href="{{ url('voters') }}" class="dropdown-item">
+                                        Seluruh Pemilih
+                                    </a>
+                                    <div class="dropdown">
+                                        <a class="dropdown-item dropdown-toggle arrow-none" href="#"
+                                            id="topnav-voters-district" role="button">
+                                            Pemilih per Kecamatan <div class="arrow-down"></div>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="topnav-voters-district">
+                                            @foreach (App\Models\District::all() as $district)
+                                                <a href="{{ url('voters/district', Crypt::encrypt($district->id)) }}"
+                                                    class="dropdown-item">
+                                                    {{ $district->name }}
+                                                </a>
+                                            @endforeach
                                         </div>
-                                    @endforeach
+                                    </div>
                                 </div>
                             </li>
+
+                            @if (env('QUICK_COUNT') != true)
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle arrow-none" href="#"
+                                        id="village-voters-data-topnav" role="button">
+                                        Pemilih per Desa<div class="arrow-down"></div>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="village-voters-data-topnav">
+                                        @foreach (App\Models\District::all() as $district)
+                                            <div class="dropdown">
+                                                <a class="dropdown-item dropdown-toggle arrow-none" href="#"
+                                                    id="topnav-voters-district-{{ $district->id }}" role="button">
+                                                    {{ $district->name }} <div class="arrow-down"></div>
+                                                </a>
+                                                <div class="dropdown-menu"
+                                                    aria-labelledby="topnav-voters-district-{{ $district->id }}">
+                                                    @foreach (App\Models\Village::where('district_id', $district->id)->get() as $village)
+                                                        <a href="{{ url('voters/village', Crypt::encrypt($village->id)) }}"
+                                                            class="dropdown-item">
+                                                            {{ $village->name }}
+                                                        </a>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </li>
+                            @endif
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle arrow-none" href="#" id="other-topnav"
@@ -184,7 +190,7 @@
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="rounded-circle header-profile-user"
                         src="{{ asset(empty(Auth::user()->photo) ? 'images/default-photos.jpg' : Auth::user()->photo) }}">
-                    {{-- <span class="d-none d-xl-inline-block ms-1">{{ Auth::user()->name }}</span> --}}
+                    <span class="d-none d-xl-inline-block ms-1">{{ Auth::user()->name }}</span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
