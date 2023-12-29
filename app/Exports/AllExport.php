@@ -10,8 +10,8 @@ class AllExport implements WithMultipleSheets
     {
         $sheets = [
             'Terdaftar' => new AllVoterExport(),
-            'Tidak Terdaftar' => new AllNotVoterExport(),
-            'Semua Data' => new AllDPTExport(),
+            // 'Tidak Terdaftar' => new AllNotVoterExport(),
+            // 'Semua Data' => new AllDPTExport(),
         ];
 
         return $sheets;

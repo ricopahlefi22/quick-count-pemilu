@@ -15,8 +15,8 @@ class DistrictExport implements WithMultipleSheets
     {
         $sheets = [
             'Terdaftar' => new DistrictVoterExport($this->district),
-            'Tidak Terdaftar' => new DistrictNotVoterExport($this->district),
-            'Semua Data' => new DistrictDPTExport($this->district),
+            // 'Tidak Terdaftar' => new DistrictNotVoterExport($this->district),
+            // 'Semua Data' => new DistrictDPTExport($this->district),
         ];
 
         return $sheets;

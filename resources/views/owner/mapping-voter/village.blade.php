@@ -186,7 +186,12 @@
                         <div class="card-body">
                             <p class="my-0 lh-1">
                                 Saksi :
-                                {{ empty($votingPlace->witness) ? '-' : $votingPlace->witness->voter->name }}
+                                @if (empty($votingPlace->witness))
+                                    -
+                                @else
+                                    <a href="{{ url('voters/detail', Crypt::encrypt($votingPlace->witness->voter->id)) }}"
+                                        target="_blank" class="text-dark">{{ $votingPlace->witness->voter->name }}</a>
+                                @endif
                             </p>
                             <p class="mt-2 mb-4 lh-base">
                                 Pemantau :
@@ -195,7 +200,9 @@
                                 @else
                                     @foreach ($votingPlace->monitor as $monitor)
                                         <br>
-                                        {{ $loop->iteration }}. {{ $monitor->voter->name }}
+                                        {{ $loop->iteration }}. <a
+                                            href="{{ url('voters/detail', Crypt::encrypt($monitor->voter->id)) }}"
+                                            target="_blank" class="text-dark">{{ $monitor->voter->name }}</a>
                                     @endforeach
                                 @endif
                             </p>

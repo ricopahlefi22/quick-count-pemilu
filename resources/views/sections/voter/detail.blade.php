@@ -96,25 +96,28 @@
                                 </div>
 
                                 <div class="row mt-3 border border-start-0 border-end-0 p-2">
-                                    {{-- <div class="col">
-                                        <h6 class="text-muted">
-                                            TPS
-                                        </h6>
-                                        <h5 class="mb-0">
-                                            {{ $voter->votingPlace->name }} <br>
-                                            <strong class="font-size-12">
-                                                {{ $voter->village->name }}
-                                            </strong>
-                                        </h5>
-                                    </div> --}}
-                                    <div class="col">
-                                        <h6 class="text-muted">
-                                            TPS
-                                        </h6>
-                                        <h5 class="mb-0">
-                                            Diluar Daerah Pemilihan
-                                        </h5>
-                                    </div>
+                                    @if (empty($voter->village_id))
+                                        <div class="col">
+                                            <h6 class="text-muted">
+                                                TPS
+                                            </h6>
+                                            <h5 class="mb-0">
+                                                Diluar Daerah Pemilihan
+                                            </h5>
+                                        </div>
+                                    @else
+                                        <div class="col">
+                                            <h6 class="text-muted">
+                                                TPS
+                                            </h6>
+                                            <h5 class="mb-0">
+                                                {{ $voter->votingPlace->name }} <br>
+                                                <strong class="font-size-12">
+                                                    {{ $voter->village->name }}
+                                                </strong>
+                                            </h5>
+                                        </div>
+                                    @endif
                                     @if ($voter->level == 1)
                                         <div class="col">
                                             <h6 class="text-muted">
@@ -282,9 +285,17 @@
                         <div class="card-body">
                             <h4 class="card-title mb-4">
                                 Anggota
-                                <a href="{{ url('voters/export/coordinator-member', Crypt::encrypt($voter->id)) }}"
-                                    class="btn btn-sm btn-success float-end"><i class="fa fa-file-export"></i> Ekspor
-                                    CSV</a>
+
+                                <div class="btn-group float-end">
+                                    {{-- <a href="{{ url('voters/print/coordinator-member', Crypt::encrypt($voter->id)) }}"
+                                    target="_blank" class="btn btn-sm btn-danger">
+                                        <i class="fa fa-file-pdf"></i> Cetak PDF
+                                    </a> --}}
+                                    <a href="{{ url('voters/export/coordinator-member', Crypt::encrypt($voter->id)) }}"
+                                        class="btn btn-sm btn-success">
+                                        <i class="fa fa-file-export"></i> Ekspor CSV
+                                    </a>
+                                </div>
                             </h4>
 
                             <table id="table" class="table table-centered mb-0">
