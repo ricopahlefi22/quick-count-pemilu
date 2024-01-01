@@ -54,9 +54,14 @@ class Voter extends Model
         'voting_place_id.required' => 'tps belum dipilih',
     ];
 
+    public function witness()
+    {
+        return $this->hasOne(Witness::class, 'voter_id');
+    }
+
     public function monitor()
     {
-        return $this->hasOne(Monitor::class);
+        return $this->hasOne(Monitor::class, 'voter_id');
     }
 
     public function coordinator()

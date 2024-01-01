@@ -86,31 +86,40 @@ class CoordinatorController extends Controller
                         $gender = ($voter->level == true) ? ' <i class="fa fa-mars text-white" title="Laki-Laki"></i>' : ' <i class="fa fa-mars text-primary" title="Laki-Laki"></i>';
                     }
                     $id_number = empty($voter->id_number) ? null : '<br> NIK. ' . $voter->id_number;
-                    return $voter->name . $gender . $id_number;
+                    return '<a href="/voters/detail/' . Crypt::encrypt($voter->id) . '" target="_blank" class="text-secondary">' . $voter->name . '</a>' . $gender . $id_number;
                 })
-                ->addColumn('voting_place', function (Voter $coordinator) {
-                    return 'TPS ' . $coordinator->votingPlace->name . ' ' . $coordinator->village->name;
+                ->addColumn('voting_place', function (Voter $voter) {
+                    return empty($voter->voting_place_id) ? '-' : '<a href="/voters/voting-place/' . Crypt::encrypt($voter->votingPlace->id) . '" target="_blank" class="text-secondary">TPS ' . $voter->votingPlace->name . '</a><br><a href="/voters/village/' . Crypt::encrypt($voter->village->id) . '" target="_blank" class="text-secondary">' . $voter->votingPlace->village->name . '</a>';
                 })
                 ->addColumn('address', function (Voter $voter) {
-                    if ($voter->address && $voter->rt && $voter->rw) {
-                        return $voter->address . ', RT ' . $voter->rt . '/RW ' . $voter->rw;
-                    } else if ($voter->address && $voter->rt) {
-                        return $voter->address . ', RT ' . $voter->rt;
-                    } else if ($voter->rt && $voter->rw) {
-                        return 'RT ' . $voter->rt . '/RW ' . $voter->rw;
-                    } else {
-                        return $voter->address;
+                    $address = '';
+                    if ($voter->address) {
+                        $address = '<b>' . $voter->address . '</b><br>';
                     }
+
+                    if ($voter->village_id && $voter->rt && $voter->rw) {
+                        $defaultAddress = $voter->village->name . ', RT ' . $voter->rt . '/RW ' . $voter->rw;
+                    } else if ($voter->village_id && $voter->rt) {
+                        $defaultAddress = $voter->village->name . ', RT ' . $voter->rt;
+                    } else if ($voter->village_id && $voter->rw) {
+                        $defaultAddress = $voter->village->name . ', RW ' . $voter->rw;
+                    } else if ($voter->village_id) {
+                        $defaultAddress = $voter->village->name;
+                    } else {
+                        $defaultAddress = 'Diluar Daerah Pemilihan';
+                    }
+
+                    return $address . $defaultAddress;
                 })
-                ->addColumn('phone_number', function (Voter $coordinator) {
-                    return empty($coordinator->phone_number) ? '-' : $coordinator->phone_number;
+                ->addColumn('phone_number', function (Voter $voter) {
+                    return empty($voter->phone_number) ? '-' : '<a href="https://wa.me/+62' . $voter->phone_number . '" class="' . ($voter->level == true ? 'text-white' : 'text-secondary') . '" target="_blank">' . $voter->phone_number . '</a>';
                 })
                 ->addColumn('member_total', function (Voter $coordinator) {
                     return $coordinator->member->except($coordinator->id)->count() . " Orang";
                 })
                 ->addColumn('action', function (Voter $coordinator) {
                     if (Auth::guard('owner')->check()) {
-                        $btn = '<a href="/coordinators/detail/' . Crypt::encrypt($coordinator->id) . '" class="dropdown-item">Detail</a> ';
+                        $btn = '<a href="/voters/detail/' . Crypt::encrypt($coordinator->id) . '" class="dropdown-item">Detail</a> ';
                         $btn .= '<button data-id="' . $coordinator->id . '"  class="dropdown-item text-warning edit">Edit</button> ';
                     } else {
                         $btn = '<button data-id="' . $coordinator->id . '"  class="dropdown-item text-warning edit">Edit</button> ';
@@ -125,7 +134,7 @@ class CoordinatorController extends Controller
                         . $btn
                         . '</div></div>';
                 })
-                ->rawColumns(['name', 'address', 'phone_number', 'member_total', 'action'])
+                ->rawColumns(['name', 'address', 'voting_place', 'phone_number', 'member_total', 'action'])
                 ->make(true);
         }
 

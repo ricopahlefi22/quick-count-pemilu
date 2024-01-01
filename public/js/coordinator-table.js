@@ -55,10 +55,12 @@ $(document).ready(function () {
         {
             data: "phone_number",
             name: "phone_number",
+            class: "text-center",
         },
         {
             data: "voting_place",
             name: "voting_place",
+            class: "text-center",
         },
         {
             data: "address",

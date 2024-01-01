@@ -93,6 +93,14 @@
                                         <span class="badge bg-warning">Pernah Menikah</span>
                                     @else
                                     @endif
+
+                                    @if ($voter->witness()->exists())
+                                        <span class="badge bg-primary">Saksi</span>
+                                    @endif
+
+                                    @if ($voter->monitor()->exists())
+                                        <span class="badge bg-primary">Pemantau</span>
+                                    @endif
                                 </div>
 
                                 <div class="row mt-3 border border-start-0 border-end-0 p-2">
