@@ -15,12 +15,11 @@
         <div class="card-body pt-5">
             <div class="p-2">
                 <form id="form" class="form-horizontal">
-
                     <div class="mb-3">
-                        <label class="form-label" for="email">Email</label>
-                        <input id="email" type="text" name="email" class="form-control"
-                            placeholder="Masukkan email">
-                        <div id="emailError" class="invalid-feedback"></div>
+                        <label class="form-label" for="username">Username</label>
+                        <input id="username" type="text" name="username" class="form-control"
+                            placeholder="Masukkan username">
+                        <div id="usernameError" class="invalid-feedback"></div>
                     </div>
 
                     <div class="mb-3">

@@ -32,21 +32,15 @@
                         <span class="text-muted float-end">
                             Berikut adalah data pribadimu, harap jaga kerahasiaan akunmu untuk keamanan data.
                         </span>
-                        <div class="btn-group dropdown float-start">
-                            <button id="btnGroupDropdown" type="button" class="btn btn-sm btn-dark dropdown-toggle"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-ellipsis-v"></i>
+                        <div class="btn-group float-start">
+                            <button type="button" class="dropdown-item me-2" data-bs-toggle="modal"
+                                data-bs-target="#editProfileModal">
+                                <i class="fa fa-edit"></i> Edit Profil
                             </button>
-                            <div class="dropdown-menu" aria-labelledby="btnGroupDropdown">
-                                <button type="button" class="dropdown-item" data-bs-toggle="modal"
-                                    data-bs-target="#editProfileModal">
-                                    <i class="fa fa-edit"></i> Edit Profil
-                                </button>
-                                <button type="button" class="dropdown-item" data-bs-toggle="modal"
-                                    data-bs-target="#changePasswordModal">
-                                    <i class="fa fa-key"></i> Ganti Password
-                                </button>
-                            </div>
+                            <button type="button" class="dropdown-item me-2" data-bs-toggle="modal"
+                                data-bs-target="#changePasswordModal">
+                                <i class="fa fa-key"></i> Ganti Password
+                            </button>
                         </div>
                     </div>
                     <div class="card-body">
@@ -65,8 +59,8 @@
                                 </div>
 
                                 <div class="mt-3">
-                                    <p class="font-size-12 text-muted mb-1">Alamat Email</p>
-                                    <h6>{{ Auth::user()->email }}</h6>
+                                    <p class="font-size-12 text-muted mb-1">Username</p>
+                                    <h6>{{ Auth::user()->username }}</h6>
                                 </div>
 
                                 <div class="mt-3">
@@ -119,11 +113,11 @@
                                     <span id="nameError" class="invalid-feedback"></span>
                                 </div>
                                 <div class="mb-2">
-                                    <label for="email" class="form-label">Email<strong class="text-danger">*</strong>
+                                    <label for="username" class="form-label">Username<strong class="text-danger">*</strong>
                                     </label>
-                                    <input type="text" class="form-control" id="email" name="email"
-                                        placeholder="Email" value="{{ Auth::user()->email }}">
-                                    <span id="emailError" class="invalid-feedback"></span>
+                                    <input type="text" class="form-control" id="username" name="username"
+                                        placeholder="Username" value="{{ Auth::user()->username }}">
+                                    <span id="usernameError" class="invalid-feedback"></span>
                                 </div>
                                 <div class="mb-2">
                                     <label for="phoneNumber" class="form-label">No. Handphone<strong

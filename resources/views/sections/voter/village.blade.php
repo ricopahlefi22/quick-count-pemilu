@@ -46,48 +46,52 @@
         <input id="villageIdValue" type="hidden" value="{{ $village->id }}">
         <!-- ID Position -->
 
-        <!-- Counter -->
-        <div class="badge bg-primary text-white fs-6">
-            Koordinator ({{ $coordinators_count }} Orang)
-        </div>
-        <div class="badge bg-primary-subtle text-dark fs-6">
-            Terdaftar ({{ $registered_voters_count }} Orang)
-        </div>
-        <div class="badge bg-secondary-subtle text-dark fs-6">
-            Tidak Terdaftar ({{ $not_registered_voters_count }} Orang)
-        </div>
-        <div class="badge bg-dark text-white fs-6">
-            Total Pemilih ({{ $voters_count }} Orang)
-        </div>
-        <!-- Counter -->
+        @if (Auth::guard('owner')->check())
+            <!-- Counter -->
+            <div class="badge bg-primary text-white fs-6">
+                Koordinator ({{ $coordinators_count }} Orang)
+            </div>
+            <div class="badge bg-primary-subtle text-dark fs-6">
+                Terdaftar ({{ $registered_voters_count }} Orang)
+            </div>
+            <div class="badge bg-secondary-subtle text-dark fs-6">
+                Tidak Terdaftar ({{ $not_registered_voters_count }} Orang)
+            </div>
+            <div class="badge bg-dark text-white fs-6">
+                Total Pemilih ({{ $voters_count }} Orang)
+            </div>
+            <!-- Counter -->
+        @endif
 
         <div class="row mt-2">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="btn-group dropdown float-end">
-                            <button id="btnGroupDropdown" type="button" class="btn btn-sm btn-dark dropdown-toggle"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Aksi Lainnya <i class="mdi mdi-chevron-down"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="btnGroupDropdown">
-                                <button id="createButton" class="dropdown-item">
-                                    <i class="fa fa-plus-circle"></i> Tambah Data
+                        @if (Auth::user()->level == true)
+                            <div class="btn-group dropdown float-end">
+                                <button id="btnGroupDropdown" type="button" class="btn btn-sm btn-dark dropdown-toggle"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Aksi Lainnya <i class="mdi mdi-chevron-down"></i>
                                 </button>
-                                <a href="{{ url('mapping-result/village', Crypt::encrypt($village->id)) }}"
-                                    class="dropdown-item">
-                                    <i class="fa fa-chart-area"></i> Grafik Pemetaan Suara
-                                </a>
-                                <a href="{{ url('mapping-voters/village', Crypt::encrypt($village->id)) }}"
-                                    class="dropdown-item">
-                                    <i class="fa fa-users"></i> Peta Pemilih Per TPS
-                                </a>
-                                <a href="{{ url('voters/export/village', Crypt::encrypt($village->id)) }}"
-                                    class="dropdown-item text-success">
-                                    <i class="fa fa-file-csv"></i> Ekspor CSV
-                                </a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="btnGroupDropdown">
+                                    <button id="createButton" class="dropdown-item">
+                                        <i class="fa fa-plus-circle"></i> Tambah Data
+                                    </button>
+                                    <a href="{{ url('mapping-result/village', Crypt::encrypt($village->id)) }}"
+                                        class="dropdown-item">
+                                        <i class="fa fa-chart-area"></i> Grafik Pemetaan Suara
+                                    </a>
+                                    <a href="{{ url('mapping-voters/village', Crypt::encrypt($village->id)) }}"
+                                        class="dropdown-item">
+                                        <i class="fa fa-users"></i> Peta Pemilih Per TPS
+                                    </a>
+                                    <a href="{{ url('voters/export/village', Crypt::encrypt($village->id)) }}"
+                                        class="dropdown-item text-success">
+                                        <i class="fa fa-file-csv"></i> Ekspor CSV
+                                    </a>
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
                         <table id="table" class="table table-bordered dt-responsive nowrap">
                             <thead>

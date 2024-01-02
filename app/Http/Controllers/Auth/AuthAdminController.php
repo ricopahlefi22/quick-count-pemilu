@@ -25,7 +25,7 @@ class AuthAdminController extends Controller
             'username' => 'required',
             'password' => 'required|min:8',
         ], [
-            'username.required' => 'Email tidak boleh kosong',
+            'username.required' => 'Username tidak boleh kosong',
             'password.required' => 'Kata sandi tidak boleh kosong',
             'password.min' => 'Panjang kata sandi minimal 8 karakter',
         ]);

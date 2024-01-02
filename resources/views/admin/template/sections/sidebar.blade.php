@@ -33,27 +33,22 @@
                 </li>
 
                 <li>
-                    <a href="{{ url('search') }}" class="waves-effect">
-                        <i class="bx bx-search-alt"></i>
-                        <span>Pencarian</span>
-                    </a>
-                </li>
-
-                <li>
                     <a href="{{ url('coordinators') }}" class="waves-effect">
                         <i class="fa fa-user-tie"></i>
                         <span>Data Koordinator</span>
                     </a>
                 </li>
 
-                <li class="menu-title">Perhitungan Cepat</li>
+                @if (env('QUICK_COUNT') == true)
+                    <li class="menu-title">Perhitungan Cepat</li>
 
-                <li>
-                    <a href="{{ url('input-voting-result') }}" class="waves-effect">
-                        <i class="fa fa-calculator"></i>
-                        <span>Input Perolehan Suara</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ url('input-voting-result') }}" class="waves-effect">
+                            <i class="fa fa-calculator"></i>
+                            <span>Input Perolehan Suara</span>
+                        </a>
+                    </li>
+                @endif
 
                 <li class="menu-title">Data Pemilih</li>
 
@@ -65,7 +60,9 @@
                         </a>
                         <ul class="sub-menu" aria-expanded="true">
                             @foreach (App\Models\Village::where('district_id', $district->id)->get() as $village)
-                                <li><a href="{{ url('voters/village', Crypt::encrypt($village->id)) }}">{{ $village->name }}</a></li>
+                                <li><a
+                                        href="{{ url('voters/village', Crypt::encrypt($village->id)) }}">{{ $village->name }}</a>
+                                </li>
                             @endforeach
                         </ul>
                     </li>
