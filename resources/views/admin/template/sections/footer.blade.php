@@ -1,7 +1,7 @@
 <footer class="footer">
     <div class="row">
         <div class="col-sm-6">
-            2023 © Quixx.
+            2023 - {{ date('Y') }} © Quixx.
         </div>
         <div class="col-sm-6">
             <div class="text-sm-end d-none d-sm-block">

@@ -67,7 +67,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        @if (Auth::user()->level == true)
+                        @if (Auth::user()->level == true || Auth::guard('owner')->check())
                             <div class="btn-group dropdown float-end">
                                 <button id="btnGroupDropdown" type="button" class="btn btn-sm btn-dark dropdown-toggle"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -146,6 +146,7 @@
     <script src="{{ asset('assets/libs/inputmask/min/jquery.inputmask.bundle.min.js') }}"></script>
     <!-- Dropify -->
     <script src="{{ asset('assets/libs/dropify/js/dropify.min.js') }}"></script>
+
     <!-- Script -->
-    <script src="{{ asset('js/voters/village.js') }}"></script>
+    @include('sections.voter.script')
 @endpush

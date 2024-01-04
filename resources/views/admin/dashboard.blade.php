@@ -22,7 +22,6 @@
                             <i class="fas fa-info-circle h6 text-primary"></i> Informasi
                         </h4>
                         <div id="reviewExampleControls" class="carousel slide review-carousel" data-ride="carousel">
-
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
                                     <div>
@@ -54,14 +53,14 @@
                                 </div> --}}
                             </div>
 
-                            <a class="carousel-control-prev" href="#reviewExampleControls" role="button"
+                            {{-- <a class="carousel-control-prev" href="#reviewExampleControls" role="button"
                                 data-bs-slide="prev">
                                 <i class="mdi mdi-chevron-left carousel-control-icon"></i>
                             </a>
                             <a class="carousel-control-next" href="#reviewExampleControls" role="button"
                                 data-bs-slide="next">
                                 <i class="mdi mdi-chevron-right carousel-control-icon"></i>
-                            </a>
+                            </a> --}}
                         </div>
 
                     </div>

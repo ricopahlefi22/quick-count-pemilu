@@ -12,7 +12,6 @@
         type="text/css" />
     <link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet"
         type="text/css" />
-
 @endpush
 
 @section('content')
@@ -58,33 +57,43 @@
                         </div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col-12">
-                                <p class="mb-2">Jumlah Saksi</p>
-                                <h4 class="mb-0"><strong>@livewire('live-saksi')</strong></h4>
+
+                @if (env('WITNESSES') == true)
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-12">
+                                    <p class="mb-2">Jumlah Saksi</p>
+                                    <h4 class="mb-0"><strong>@livewire('live-saksi')</strong></h4>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col-12">
-                                <p class="mb-2">Jumlah Pemantau</p>
-                                <h4 class="mb-0"><strong>@livewire('live-pemantau')</strong></h4>
+                @endif
+
+                @if (env('MONITORS') == true)
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-12">
+                                    <p class="mb-2">Jumlah Pemantau</p>
+                                    <h4 class="mb-0"><strong>@livewire('live-pemantau')</strong></h4>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endif
             </div>
             <div class="col-12 col-md-9">
                 <div class="card">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-12">
-                                <p class="mb-2">Grafik Pendukung <b>{{ App\Models\Candidate::where('id', $web->candidate_id)->first()->name }}</b> per Kecamatan</p>
+                                <p class="mb-2">Grafik Pendukung
+                                    <b>{{ empty($web->candidate_id) ? null : App\Models\Candidate::where('id', $web->candidate_id)->first()->name }}</b>
+                                    per
+                                    Kecamatan
+                                </p>
                                 <div id="pieChart" class="apex-charts" dir="ltr"></div>
                             </div>
                         </div>
@@ -170,5 +179,4 @@
             )).render();
         });
     </script>
-
 @endpush

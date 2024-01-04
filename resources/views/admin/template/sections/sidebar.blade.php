@@ -1,7 +1,5 @@
 <div class="vertical-menu">
-
     <div class="h-100">
-
         <div class="user-wid text-center py-4">
             <div class="user-img">
                 <a class="image-popup-no-margins"
@@ -32,10 +30,19 @@
                     </a>
                 </li>
 
+                @if (Auth::user()->level == true)
+                    <li>
+                        <a href="{{ url('coordinators') }}" class="waves-effect">
+                            <i class="fa fa-user-tie"></i>
+                            <span>Data Koordinator</span>
+                        </a>
+                    </li>
+                @endif
+
                 <li>
-                    <a href="{{ url('coordinators') }}" class="waves-effect">
-                        <i class="fa fa-user-tie"></i>
-                        <span>Data Koordinator</span>
+                    <a href="{{ url('voters') }}" class="waves-effect">
+                        <i class="fa fa-users"></i>
+                        <span>Data Seluruh Pemilih</span>
                     </a>
                 </li>
 
@@ -50,12 +57,23 @@
                     </li>
                 @endif
 
-                <li class="menu-title">Data Pemilih</li>
+                <li class="menu-title">Data Pemilih Per Kecamatan</li>
+
+                @foreach (App\Models\District::all() as $district)
+                    <li>
+                        <a href="{{ url('voters/district', Crypt::encrypt($district->id)) }}" class="waves-effect">
+                            <i class="fa fa-circle-notch"></i>
+                            <span>{{ $district->name }}</span>
+                        </a>
+                    </li>
+                @endforeach
+
+                <li class="menu-title">Data Pemilih Per Desa</li>
 
                 @foreach (App\Models\District::all() as $district)
                     <li>
                         <a href="javascript:void(0)" class="has-arrow waves-effect">
-                            <i class="fas fa-users"></i>
+                            <i class="fa fa-circle"></i>
                             <span>{{ $district->name }}</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="true">

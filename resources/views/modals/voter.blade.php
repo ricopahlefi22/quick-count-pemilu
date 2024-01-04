@@ -176,7 +176,7 @@
                                     <div class="col-12 col-lg-6 order-first order-lg-last">
                                         <div class="mb-2">
                                             <label for="districtId" class="form-label">
-                                                Kecamatan<span class="text-danger" title="Wajib Diisi">*</span>
+                                                Kecamatan
                                             </label>
                                             <select name="district_id" id="districtId" class="form-control"
                                                 style="width: 100%;">
@@ -191,7 +191,7 @@
 
                                         <div class="mb-2">
                                             <label for="villageId" class="form-label">
-                                                Kelurahan / Desa<span class="text-danger">*</span>
+                                                Kelurahan / Desa
                                             </label>
                                             <select name="village_id" id="villageId" class="form-control"
                                                 style="width: 100%;" disabled>
@@ -201,7 +201,7 @@
 
                                         <div class="mb-2">
                                             <label for="votingPlaceId" class="form-label">
-                                                TPS<span class="text-danger" title="Wajib Diisi">*</span>
+                                                TPS
                                             </label>
                                             <select name="voting_place_id" id="votingPlaceId" class="form-control"
                                                 style="width: 100%;" disabled>

@@ -97,7 +97,7 @@ class  VoterController extends Controller
             return view('owner.voter.voting-place', $data);
         }
 
-        return view('admin.voter.village', $data);
+        return view('admin.voter.voting-place', $data);
     }
 
     function detail(Request $request)
@@ -258,7 +258,7 @@ class  VoterController extends Controller
                     $defaultAddress = $voter->village->name . ', RT ' . $voter->rt;
                 } else if ($voter->village_id && $voter->rw) {
                     $defaultAddress = $voter->village->name . ', RW ' . $voter->rw;
-                } else if($voter->village_id) {
+                } else if ($voter->village_id) {
                     $defaultAddress = $voter->village->name;
                 } else {
                     $defaultAddress = 'Diluar Daerah Pemilihan';
@@ -298,8 +298,10 @@ class  VoterController extends Controller
                 } else {
                     $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-danger cancel-coordinator">Batalkan Koordinator</button>';
                 }
-                // $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-danger delete">Hapus Data</button>';
 
+                if (Auth::user()->level == true || Auth::guard('owner')->check()) {
+                    $btn .= '<button data-id="' . $voter->id . '" class="dropdown-item text-danger delete">Hapus Data</button>';
+                }
 
                 return '<div class="btn-group dropup"><button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></button>'
                     . '<div class="dropdown-menu" role="menu">'

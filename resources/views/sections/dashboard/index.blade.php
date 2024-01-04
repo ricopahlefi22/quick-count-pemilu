@@ -48,11 +48,17 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Kecamatan</th>
-                                                        <th>Jumlah Desa</th>
-                                                        <th>Jumlah TPS</th>
-                                                        <th>Jumlah Pemilih</th>
-                                                        <th>Pemetaan Suara</th>
-                                                        <th>Perolehan Suara</th>
+                                                        <th class="text-center">Jumlah Desa</th>
+                                                        <th class="text-center">Jumlah TPS</th>
+                                                        <th class="text-center">Jumlah Pemilih</th>
+
+                                                        @if (Auth::guard('owner')->check())
+                                                            <th class="text-center">Pemetaan Suara</th>
+
+                                                            @if (env('QUICK_COUNT') == true)
+                                                                <th>Perolehan Suara</th>
+                                                            @endif
+                                                        @endif
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -70,19 +76,25 @@
                                                             <td class="text-center">
                                                                 {{ $district->voters->count() }}
                                                             </td>
-                                                            <td class="text-center">
-                                                                {{ $district->voters->whereNotNull('coordinator_id')->count() }}
-                                                            </td>
-                                                            <td class="text-center">
-                                                                @php
-                                                                    $districtVotingResult = 0;
-                                                                    foreach ($district->votingResult->where('party_id', $web->party_id)->where('candidate_id', $web->candidate_id) as $key => $value) {
-                                                                        $districtVotingResult += $value->number;
-                                                                    }
-                                                                @endphp
 
-                                                                {{ $districtVotingResult }}
-                                                            </td>
+                                                            @if (Auth::guard('owner')->check())
+                                                                <td class="text-center">
+                                                                    {{ $district->voters->whereNotNull('coordinator_id')->count() }}
+                                                                </td>
+
+                                                                @if (env('QUICK_COUNT') == true)
+                                                                    <td class="text-center">
+                                                                        @php
+                                                                            $districtVotingResult = 0;
+                                                                            foreach ($district->votingResult->where('party_id', $web->party_id)->where('candidate_id', $web->candidate_id) as $key => $value) {
+                                                                                $districtVotingResult += $value->number;
+                                                                            }
+                                                                        @endphp
+
+                                                                        {{ $districtVotingResult }}
+                                                                    </td>
+                                                                @endif
+                                                            @endif
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -136,8 +148,14 @@
                                                         <th>Kelurahan/Desa</th>
                                                         <th>Jumlah TPS</th>
                                                         <th>Jumlah Pemilih</th>
-                                                        <th>Pemetaan Suara</th>
-                                                        <th>Perolehan Suara</th>
+
+                                                        @if (Auth::guard('owner')->check())
+                                                            <th>Pemetaan Suara</th>
+                                                        @endif
+
+                                                        @if (env('QUICK_COUNT') == true)
+                                                            <th>Perolehan Suara</th>
+                                                        @endif
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -155,19 +173,25 @@
                                                             <td class="text-center">
                                                                 {{ $village->voters->count() }}
                                                             </td>
-                                                            <td class="text-center">
-                                                                {{ $village->voters->whereNotNull('coordinator_id')->count() }}
-                                                            </td>
-                                                            <td class="text-center">
-                                                                @php
-                                                                    $villageVotingResult = 0;
-                                                                    foreach ($village->votingResult->where('party_id', $web->party_id)->where('candidate_id', $web->candidate_id) as $key => $value) {
-                                                                        $villageVotingResult += $value->number;
-                                                                    }
-                                                                @endphp
 
-                                                                {{ $villageVotingResult }}
-                                                            </td>
+                                                            @if (Auth::guard('owner')->check())
+                                                                <td class="text-center">
+                                                                    {{ $village->voters->whereNotNull('coordinator_id')->count() }}
+                                                                </td>
+                                                            @endif
+
+                                                            @if (env('QUICK_COUNT') == true)
+                                                                <td class="text-center">
+                                                                    @php
+                                                                        $villageVotingResult = 0;
+                                                                        foreach ($village->votingResult->where('party_id', $web->party_id)->where('candidate_id', $web->candidate_id) as $key => $value) {
+                                                                            $villageVotingResult += $value->number;
+                                                                        }
+                                                                    @endphp
+
+                                                                    {{ $villageVotingResult }}
+                                                                </td>
+                                                            @endif
                                                         </tr>
                                                     @endforeach
                                                 </tbody>

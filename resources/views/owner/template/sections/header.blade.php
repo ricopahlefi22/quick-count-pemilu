@@ -158,18 +158,27 @@
                                     <a href="{{ url('coordinators') }}" class="dropdown-item">
                                         Data Koordinator
                                     </a>
-                                    <a href="{{ url('witnesses') }}" class="dropdown-item">
-                                        Data Saksi
-                                    </a>
-                                    <a href="{{ url('monitors') }}" class="dropdown-item">
-                                        Data Pemantau
-                                    </a>
-                                    <a href="{{ url('parties') }}" class="dropdown-item">
-                                        Data Partai
-                                    </a>
-                                    <a href="{{ url('candidates') }}" class="dropdown-item">
-                                        Data Calon Legislatif
-                                    </a>
+                                    @if (env('WITNESSES') == true)
+                                        <a href="{{ url('witnesses') }}" class="dropdown-item">
+                                            Data Saksi
+                                        </a>
+                                    @endif
+
+                                    @if (env('MONITORS') == true)
+                                        <a href="{{ url('monitors') }}" class="dropdown-item">
+                                            Data Pemantau
+                                        </a>
+                                    @endif
+
+                                    @if (env('QUICK_COUNT') == true)
+                                        <a href="{{ url('parties') }}" class="dropdown-item">
+                                            Data Partai
+                                        </a>
+                                        <a href="{{ url('candidates') }}" class="dropdown-item">
+                                            Data Calon Legislatif
+                                        </a>
+                                    @endif
+
                                     <a href="{{ url('voting-places') }}" class="dropdown-item">
                                         Peta TPS
                                     </a>
