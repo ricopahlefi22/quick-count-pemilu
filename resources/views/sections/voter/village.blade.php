@@ -47,8 +47,7 @@
         <!-- ID Position -->
 
         @if (Auth::guard('owner')->check())
-        @livewire('live-village') 
-            
+            @livewire('live-village')
             <!-- Counter -->
         @endif
 

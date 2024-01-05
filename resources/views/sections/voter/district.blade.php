@@ -36,13 +36,15 @@
             </div>
         </div>
         <!-- Title -->
-        
-            @livewire('live-footer') 
-        
+
+        @if (Auth::guard('owner')->check())
+            @livewire('live-footer')
+        @endif
+
         <!-- ID Position -->
         <input id="districtIdValue" type="hidden" value="{{ $district->id }}">
         <!-- ID Position -->
-         <!-- Counter -->
+        <!-- Counter -->
         {{-- <div class="badge bg-primary text-white fs-6">
             Koordinator ({{ $coordinators_count }} Orang)
         </div>
@@ -140,6 +142,5 @@
     <script src="{{ asset('assets/libs/dropify/js/dropify.min.js') }}"></script>
     <!-- Script -->
     <script src="{{ asset('js/voters/district.js') }}"></script>
-   
 @endpush
- {{-- <livewire:scripts /> --}}
+{{-- <livewire:scripts /> --}}
