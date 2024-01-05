@@ -47,19 +47,8 @@
         <!-- ID Position -->
 
         @if (Auth::guard('owner')->check())
-            <!-- Counter -->
-            <div class="badge bg-primary text-white fs-6">
-                Koordinator ({{ $coordinators_count }} Orang)
-            </div>
-            <div class="badge bg-primary-subtle text-dark fs-6">
-                Terdaftar ({{ $registered_voters_count }} Orang)
-            </div>
-            <div class="badge bg-secondary-subtle text-dark fs-6">
-                Tidak Terdaftar ({{ $not_registered_voters_count }} Orang)
-            </div>
-            <div class="badge bg-dark text-white fs-6">
-                Total Pemilih ({{ $voters_count }} Orang)
-            </div>
+        @livewire('live-village') 
+            
             <!-- Counter -->
         @endif
 

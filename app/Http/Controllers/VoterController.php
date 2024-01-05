@@ -40,10 +40,10 @@ class  VoterController extends Controller
         $data['title'] = 'DPT Kecamatan ' . $data['district']->name;
         $data['voters'] = Voter::query()->where('district_id', $data['district']->id)->orderBy('name', 'asc');
 
-        $data['coordinators_count'] = Voter::where('district_id', $data['district']->id)->where('level', true)->count();
-        $data['registered_voters_count'] = Voter::where('district_id', $data['district']->id)->whereNotNull('coordinator_id')->count();
-        $data['not_registered_voters_count'] = Voter::where('district_id', $data['district']->id)->whereNull('coordinator_id')->count();
-        $data['voters_count'] = Voter::where('district_id', $data['district']->id)->count();
+        // $data['coordinators_count'] = Voter::where('district_id', $data['district']->id)->where('level', true)->count();
+        // $data['registered_voters_count'] = Voter::where('district_id', $data['district']->id)->whereNotNull('coordinator_id')->count();
+        // $data['not_registered_voters_count'] = Voter::where('district_id', $data['district']->id)->whereNull('coordinator_id')->count();
+        // $data['voters_count'] = Voter::where('district_id', $data['district']->id)->count();
 
         if ($request->ajax()) {
             return $this->formatDatatables($data['voters']);

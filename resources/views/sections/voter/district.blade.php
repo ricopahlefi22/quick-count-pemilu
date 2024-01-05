@@ -13,7 +13,7 @@
     <!-- Select2 -->
     <link href="{{ asset('assets/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
 @endpush
-
+{{-- <livewire:styles /> --}}
 @section('content')
     <div class="page-content">
         <!-- Title -->
@@ -36,13 +36,14 @@
             </div>
         </div>
         <!-- Title -->
-
+        
+            @livewire('live-footer') 
+        
         <!-- ID Position -->
         <input id="districtIdValue" type="hidden" value="{{ $district->id }}">
         <!-- ID Position -->
-
-        <!-- Counter -->
-        <div class="badge bg-primary text-white fs-6">
+         <!-- Counter -->
+        {{-- <div class="badge bg-primary text-white fs-6">
             Koordinator ({{ $coordinators_count }} Orang)
         </div>
         <div class="badge bg-primary-subtle text-dark fs-6">
@@ -53,7 +54,7 @@
         </div>
         <div class="badge bg-dark text-white fs-6">
             Total Pemilih ({{ $voters_count }} Orang)
-        </div>
+        </div> --}}
         <!-- Counter -->
 
         <div class="row mt-2">
@@ -139,4 +140,6 @@
     <script src="{{ asset('assets/libs/dropify/js/dropify.min.js') }}"></script>
     <!-- Script -->
     <script src="{{ asset('js/voters/district.js') }}"></script>
+   
 @endpush
+ {{-- <livewire:scripts /> --}}
