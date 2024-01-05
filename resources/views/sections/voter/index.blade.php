@@ -40,7 +40,6 @@
         @if (Auth::guard('owner')->check())
             <!-- Counter -->
             @livewire('live-index') 
-            
             <!-- Counter -->
         @endif
 
