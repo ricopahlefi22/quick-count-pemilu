@@ -62,20 +62,20 @@
 		<table class="table table-bordered mt-5" style="font-size: 9pt;">
 			<thead>
 				<tr class="bg-secondary text-white">
-					<th class="page-number">NO</th>
-					<th>NAMA SESUAI KTP</th>
-					<th>NIK</th>
-					<th>ALAMAT</th>
-					<th>NO HP(WA)</th>
-					<th>KETERANGAN</th>
-					<th>TPS</th>
+					<th class="text-center">NO</th>
+					<th class="text-center">NAMA SESUAI KTP</th>
+					<th class="text-center">NIK</th>
+					<th class="text-center">ALAMAT</th>
+					<th class="text-center">NO HP(WA)</th>
+					<th class="text-center">KETERANGAN</th>
+					<th class="text-center">TPS</th>
 				</tr>
 			</thead>
 
 			<tbody>
 				@foreach($members as $item)
 				<tr>
-					<td>{{$loop->iteration}}</td>
+					<td class="text-center">{{$loop->iteration}}</td>
 					<td>{{strtoupper($item->name)}}</td>
 					<td>{{strtoupper($item->id_number)}}</td>
 					<td>{{strtoupper($item->address)}}</td>
@@ -91,10 +91,8 @@
 </div>
 
 <script>
-    // Wait for the content to load before triggering the print
-    window.onload = function () {
         window.print();
-    };
+   
 </script>
 	
 </body>
