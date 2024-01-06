@@ -295,10 +295,10 @@
                                 Anggota
 
                                 <div class="btn-group float-end">
-                                    {{-- <a href="{{ url('voters/print/coordinator-member', Crypt::encrypt($voter->id)) }}"
+                                    <a href="{{ url('voters/print/coordinator-member', Crypt::encrypt($voter->id)) }}"
                                     target="_blank" class="btn btn-sm btn-danger">
                                         <i class="fa fa-file-pdf"></i> Cetak PDF
-                                    </a> --}}
+                                    </a>
                                     <a href="{{ url('voters/export/coordinator-member', Crypt::encrypt($voter->id)) }}"
                                         class="btn btn-sm btn-success">
                                         <i class="fa fa-file-export"></i> Ekspor CSV
