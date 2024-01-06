@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TvController;
 use Illuminate\Support\Facades\Route;
+use Livewire\Livewire;
 
 // TV Controller
 Route::controller(TvController::class)->group(function () {
@@ -121,4 +122,7 @@ Route::middleware('auth:owner')->group(function () {
 
         include 'extra/candidate-route.php';
     }
+});
+Livewire::setUpdateRoute(function ($handle) {
+    return Route::post('/livewire/update', $handle);
 });

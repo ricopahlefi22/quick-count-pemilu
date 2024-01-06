@@ -91,3 +91,11 @@ section.content{
     font-weight: 900;
     color: var(--primary);
 }
+.card-chart{
+    border-radius: 4px;
+    padding: 24px;
+    border: 0;
+    box-shadow: var(--shadow);
+    width: 100%;
+    overflow-x: auto;
+}
