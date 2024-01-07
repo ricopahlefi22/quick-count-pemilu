@@ -123,6 +123,3 @@ Route::middleware('auth:owner')->group(function () {
         include 'extra/candidate-route.php';
     }
 });
-Livewire::setUpdateRoute(function ($handle) {
-    return Route::post('/livewire/update', $handle);
-});

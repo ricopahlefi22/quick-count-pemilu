@@ -8,7 +8,8 @@
     <title>Quixx</title>
     <link rel="stylesheet" href="{{ asset('assets/libs/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <livewire:styles />
+    @livewireStyles
+    @livewireScripts
 </head>
 <body>
 
@@ -29,10 +30,9 @@
 
     <script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    
+   
 
-    {{-- <livewire:scripts /> --}}
-    @livewireScripts
-    {{-- @livewireChartsScripts --}}
+  
+    @stack('js')
 </body>
 </html>
