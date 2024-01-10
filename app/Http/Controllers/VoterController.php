@@ -16,7 +16,7 @@ class  VoterController extends Controller
     function index(Request $request)
     {
         $data['title'] = 'Seluruh Pemilih';
-        $data['voters'] = Voter::query()->orderBy('name', 'asc');
+        $data['voters'] = Voter::query()->orderBy('coordinator_id', 'desc');
 
         $data['coordinators_count'] = Voter::where('level', true)->count();
         $data['registered_voters_count'] = Voter::whereNotNull('coordinator_id')->count();
@@ -38,7 +38,7 @@ class  VoterController extends Controller
     {
         $data['district'] = District::findOrFail(Crypt::decrypt($request->id));
         $data['title'] = 'DPT Kecamatan ' . $data['district']->name;
-        $data['voters'] = Voter::query()->where('district_id', $data['district']->id)->orderBy('name', 'asc');
+        $data['voters'] = Voter::query()->where('district_id', $data['district']->id)->orderBy('coordinator_id', 'desc');
 
         // $data['coordinators_count'] = Voter::where('district_id', $data['district']->id)->where('level', true)->count();
         // $data['registered_voters_count'] = Voter::where('district_id', $data['district']->id)->whereNotNull('coordinator_id')->count();
@@ -60,7 +60,7 @@ class  VoterController extends Controller
     {
         $data['village'] = Village::findOrFail(Crypt::decrypt($request->id));
         $data['title'] = 'DPT ' . $data['village']->name;
-        $data['voters'] = Voter::query()->where('village_id', $data['village']->id)->orderBy('name', 'asc');
+        $data['voters'] = Voter::query()->where('village_id', $data['village']->id)->orderBy('coordinator_id', 'desc');
 
         $data['coordinators_count'] = Voter::where('village_id', $data['village']->id)->where('level', true)->count();
         $data['registered_voters_count'] = Voter::where('village_id', $data['village']->id)->whereNotNull('coordinator_id')->count();
@@ -82,7 +82,7 @@ class  VoterController extends Controller
     {
         $data['votingPlace'] = VotingPlace::findOrFail(Crypt::decrypt($request->id));
         $data['title'] = 'DPT ' . $data['votingPlace']->village->name . ' TPS ' . $data['votingPlace']->name;
-        $data['voters'] = Voter::query()->where('voting_place_id', $data['votingPlace']->id)->orderBy('name', 'asc');
+        $data['voters'] = Voter::query()->where('voting_place_id', $data['votingPlace']->id)->orderBy('coordinator_id', 'desc');
 
         $data['coordinators_count'] = Voter::where('voting_place_id', $data['votingPlace']->id)->where('level', true)->count();
         $data['registered_voters_count'] = Voter::where('voting_place_id', $data['votingPlace']->id)->whereNotNull('coordinator_id')->count();
@@ -128,43 +128,33 @@ class  VoterController extends Controller
             'id_number' => empty($request->id_number) ? 'max:16' : ($request->old_id_number == $request->id_number ? 'unique:voters,id_number,' . $request->id . ',id,deleted_at,NULL|min:16' : 'unique:voters,id_number,NULL,id,deleted_at,NULL|min:16'),
             empty($request->family_card_number) ? null : 'family_card_number' => 'min:16',
             empty($request->phone_number) ? null : 'phone_number' => 'min:10|max:14|regex:/^(08[0-9\s\-\+\(\)]*)$/',
-            // 'address' => 'required',
             'rt' => 'min:3',
             'rw' => 'min:3',
-            // 'district_id' => 'required',
-            // 'village_id' => 'required',
-            // 'voting_place_id' => 'required',
         ], Voter::$validationMessage);
 
         $photo = $request->hidden_photo;
-
         if ($request->file('photo')) {
             $path = 'public/voter-photos/';
             $file = $request->file('photo');
             $file_name = $request->id_number . '-[' . time() . '].' . $file->getClientOriginalExtension();
-
             $file->storeAs($path, $file_name);
             $photo = "storage/voter-photos/" . $file_name;
         }
 
         $ktp = $request->hidden_ktp;
-
         if ($request->file('ktp')) {
             $path = 'public/voter-ktp/';
             $file = $request->file('ktp');
             $file_name = $request->id_number . '-[' . time() . '].' . $file->getClientOriginalExtension();
-
             $file->storeAs($path, $file_name);
             $ktp = "storage/voter-ktp/" . $file_name;
         }
 
         $evidence = $request->hidden_evidence;
-
         if ($request->file('evidence')) {
             $path = 'public/voter-evidence/';
             $file = $request->file('evidence');
             $file_name = $request->id_number . '-[' . time() . '].' . $file->getClientOriginalExtension();
-
             $file->storeAs($path, $file_name);
             $evidence = "storage/voter-evidence/" . $file_name;
         }
@@ -237,8 +227,10 @@ class  VoterController extends Controller
             ->addColumn('name', function (Voter $voter) {
                 if ($voter->gender == 'P') {
                     $gender = ' <i class="fa fa-venus text-danger" title="Perempuan"></i>';
-                } else {
+                } else if ($voter->gender == 'L') {
                     $gender = ($voter->level == true) ? ' <i class="fa fa-mars text-white" title="Laki-Laki"></i>' : ' <i class="fa fa-mars text-primary" title="Laki-Laki"></i>';
+                } else {
+                    $gender = null;
                 }
                 $id_number = empty($voter->id_number) ? null : '<br> NIK. ' . $voter->id_number;
                 return '<a href="/voters/detail/' . Crypt::encrypt($voter->id) . '" target="_blank" class="' . ($voter->level == true ? 'text-white' : 'text-secondary') . '">' . $voter->name . '</a>' . $gender . $id_number;

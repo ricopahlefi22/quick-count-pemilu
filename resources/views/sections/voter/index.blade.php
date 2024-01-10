@@ -37,11 +37,11 @@
         </div>
         <!-- Title -->
 
+        <!-- Counter -->
         @if (Auth::guard('owner')->check())
-            <!-- Counter -->
-            @livewire('live-index') 
-            <!-- Counter -->
+            @livewire('live-index')
         @endif
+        <!-- Counter -->
 
         <div class="row mt-2">
             <div class="col-12">
@@ -59,9 +59,6 @@
                                 <a href="{{ url('mapping-result') }}" class="dropdown-item">
                                     <i class="fa fa-chart-area"></i> Grafik Pemetaan Suara
                                 </a>
-                                {{-- <a href="{{ url('voters/export/all') }}" class="dropdown-item text-success">
-                                    <i class="fa fa-file-csv"></i> Ekspor CSV
-                                </a> --}}
                             </div>
                         </div>
 
@@ -119,5 +116,5 @@
     <!-- Dropify -->
     <script src="{{ asset('assets/libs/dropify/js/dropify.min.js') }}"></script>
     <!-- Script -->
-    <script src="{{ asset('js/voters/index.js') }}"></script>
+    @include('sections.voter.script')
 @endpush

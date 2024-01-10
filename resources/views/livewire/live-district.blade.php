@@ -1,4 +1,4 @@
-<div class="row" wire:poll="liveVillage">
+<div class="row" wire:poll="liveDistrict">
     <div class="col-md-3">
         <div class="card bg-primary text-white">
             <div class="card-body">

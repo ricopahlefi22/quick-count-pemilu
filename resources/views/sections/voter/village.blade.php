@@ -46,10 +46,11 @@
         <input id="villageIdValue" type="hidden" value="{{ $village->id }}">
         <!-- ID Position -->
 
+        <!-- Counter -->
         @if (Auth::guard('owner')->check())
             @livewire('live-village')
-            <!-- Counter -->
         @endif
+        <!-- Counter -->
 
         <div class="row mt-2">
             <div class="col-12">
@@ -134,7 +135,6 @@
     <script src="{{ asset('assets/libs/inputmask/min/jquery.inputmask.bundle.min.js') }}"></script>
     <!-- Dropify -->
     <script src="{{ asset('assets/libs/dropify/js/dropify.min.js') }}"></script>
-
     <!-- Script -->
     @include('sections.voter.script')
 @endpush

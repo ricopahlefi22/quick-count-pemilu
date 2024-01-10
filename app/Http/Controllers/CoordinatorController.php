@@ -61,7 +61,6 @@ class CoordinatorController extends Controller
             return abort(404);
         }
 
-
         if (Auth::guard('owner')->check()) {
             return view('owner.coordinator.index', $data);
         }

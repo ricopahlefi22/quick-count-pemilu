@@ -1,39 +1,34 @@
-{{-- wire:poll="foo" --}}
-<div class="row" wire:poll="liveindex">
+<div class="row" wire:poll="liveIndex">
     <div class="col-md-3">
-        <div class="card bg-primary">
+        <div class="card bg-primary text-white">
             <div class="card-body">
-                <h3 style="font-size: 16px;color:white;display:block;padding:0;margin:0">Koordinator</h3>
-                <p style="font-size: 16px;color:white;display:block;padding:0;margin:0"> {{ $coordinators_count }} Orang</p>
+                <h3 class="m-0 p-0 fs-5">Koordinator</h3>
+                <p class="m-0 p-0 fs-5 fw-bold"> {{ $coordinators_count }} Orang</p>
             </div>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card bg-success">
+        <div class="card bg-primary-subtle">
             <div class="card-body">
-                <h3 style="font-size: 16px;color:white;display:block;padding:0;margin:0">Terdaftar</h3>
-                <p style="font-size: 16px;color:white;display:block;padding:0;margin:0"> {{ $registered_voters_count }} Orang</p>
+                <h3 class="m-0 p-0 fs-5">Terdaftar</h3>
+                <p class="m-0 p-0 fs-5 fw-bold"> {{ $registered_voters_count }} Orang</p>
             </div>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card bg-danger">
+        <div class="card bg-secondary-subtle">
             <div class="card-body">
-                <h3 style="font-size: 16px;color:white;display:block;padding:0;margin:0">Tidak Terdaftar</h3>
-                <p style="font-size: 16px;color:white;display:block;padding:0;margin:0"> {{ $not_registered_voters_count }} Orang</p>
+                <h3 class="m-0 p-0 fs-5">Tidak Terdaftar</h3>
+                <p class="m-0 p-0 fs-5 fw-bold"> {{ $not_registered_voters_count }} Orang</p>
             </div>
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card bg-info">
+        <div class="card bg-dark text-white">
             <div class="card-body">
-                <h3 style="font-size: 16px;color:white;display:block;padding:0;margin:0">Total Pemilih</h3>
-                <p style="font-size: 16px;color:white;display:block;padding:0;margin:0"> {{ $voters_count }} Orang</p>
+                <h3 class="m-0 p-0 fs-5">Total Pemilih</h3>
+                <p class="m-0 p-0 fs-5 fw-bold"> {{ $voters_count }} Orang</p>
             </div>
         </div>
     </div>
-    
-  
 </div>
-
-

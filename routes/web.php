@@ -113,9 +113,9 @@ Route::middleware('auth:owner')->group(function () {
 
     include 'extra/mapping-voter-route.php';
 
-    if (env('QUICK_COUNT') == true) {
-        include 'extra/mapping-result-route.php';
+    include 'extra/mapping-result-route.php';
 
+    if (env('QUICK_COUNT') == true) {
         include 'extra/voting-result-route.php';
 
         include 'extra/party-route.php';
