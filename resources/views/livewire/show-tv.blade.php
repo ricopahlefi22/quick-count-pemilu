@@ -14,7 +14,7 @@
         <div class="col-md-6">
             <div class="card-counter mb-3">
                 <div class="counter-image">
-                    <img src="{{ asset($candidate->photo) }}" alt="">
+                    <img src="{{ asset($candidate->photo) }}" class="rounded">
                     <span class="name">{{ $candidate->name }}</span>
                 </div>
                 <div class="box-count">
@@ -26,7 +26,7 @@
         <div class="col-md-6">
             <div class="card-counter mb-3">
                 <div class="counter-image">
-                    <img src="{{ asset($party->logo) }}" alt="">
+                    <img src="{{ asset($party->logo) }}" class="rounded">
                     <span class="name">{{ $party->name }}</span>
                 </div>
                 <div class="box-count">

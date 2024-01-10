@@ -5,14 +5,12 @@ use App\Http\Controllers\Auth\AuthAdminController;
 use App\Http\Controllers\Auth\AuthOwnerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TvController;
 use Illuminate\Support\Facades\Route;
-use Livewire\Livewire;
 
 // TV Controller
 Route::controller(TvController::class)->group(function () {
-    Route::get('tv', 'tv');
+    Route::get('tv/{token}', 'tv');
 });
 
 // ADMIN

@@ -2,28 +2,30 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card card-chart" wire:poll="liveFoo">
-                @if ($datas)
+                @if ($candidates)
                     <ol class="ol">
-                        @foreach ($datas as $data)
+                        @foreach ($candidates as $candidate)
                             <li class="indicator">
-                                <span class="name">{{ $loop->iteration }}. {{ $data['label'] }}</span>
-                                <span class="bars" style="width: {{ min($data['data'] / 100, 100) }}%">
-                                    @if ($data['data'] > 1000)
-                                        {{ $data['data'] }} Suara
+                                <span class="name">
+                                    {{ $loop->iteration }}. {{ $candidate['name'] }}
+                                    <img src="{{ asset($candidate['party_logo']) }}" height="20" alt="">
+                                </span>
+                                <span class="bars" style="width: {{ min($candidate['total_votes'] / 100, 100) }}%"
+                                    title="{{ $candidate['total_votes'] }} Suara">
+                                    @if ($candidate['total_votes'] >= 1000)
+                                        {{ $candidate['total_votes'] }} Suara
                                     @endif
                                 </span>
-                                @if ($data['data'] < 1000)
-                                    <span class="count">{{ $data['data'] }} Suara</span>
+                                @if ($candidate['total_votes'] < 1000)
+                                    <span class="count">{{ $candidate['total_votes'] }} Suara</span>
                                 @endif
-
                             </li>
                         @endforeach
                     </ol>
                 @else
-                    <p>No data available.</p>
+                    <p>Data Tidak Tersedia.</p>
                 @endif
             </div>
         </div>
     </div>
-
 </div>

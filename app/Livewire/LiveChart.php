@@ -8,7 +8,7 @@ use App\Models\VotingResult;
 
 class LiveChart extends Component
 {
-    public $datas;
+    public $candidates;
 
     public function mount()
     {
@@ -28,13 +28,14 @@ class LiveChart extends Component
         foreach ($candidates as $candidate) {
             $totalVotes = VotingResult::where('candidate_id', $candidate->id)->sum('number');
             $data[] = [
-                'label' => $candidate->name,
-                'data' => $totalVotes,
+                'name' => $candidate->name,
+                'party_logo' => $candidate->party->logo,
+                'total_votes' => $totalVotes,
             ];
         }
 
-        usort($data, fn ($a, $b) => $b['data'] - $a['data']);
-        $this->datas = array_slice($data, 0, 10);
+        usort($data, fn ($a, $b) => $b['total_votes'] - $a['total_votes']);
+        $this->candidates = array_slice($data, 0, 10);
     }
 
     public function render()

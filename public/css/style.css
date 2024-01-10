@@ -6,11 +6,11 @@
     --shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 body{
-    font-family: 'SF UI Text', sans-serif;   
-    background-color: #f1f5f9;                                     
+    font-family: 'SF UI Text', sans-serif;
+    background-color: #f1f5f9;
 }
 header.header{
-   
+
     padding: 20px 0;
     position: fixed;
     left: 0;
@@ -24,14 +24,12 @@ header.header .brand{
     font-size: 22px;
     font-weight: 900;
     color: var(--primary);
-   
+
 }
 
 section.content{
     width: 100vw;
     height: 100vh;
-    padding-top: 100px;
-    padding-bottom: 100px;
 }
 
 .card-counter{
@@ -81,7 +79,7 @@ section.content{
     font-size: 24px;
     font-weight: 500;
     color: var(--text-color);
-    
+
 }
 .box-count .count{
     display: block;
@@ -112,8 +110,9 @@ section.content{
     padding: 4px 3px;
 }
 .indicator .name{
+    font-weight: bold;
     display: inline-block;
-    width: 160px;
+    width: 300px;
     font-size: 12px
 }
 .indicator .count{
