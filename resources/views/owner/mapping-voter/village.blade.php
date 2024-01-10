@@ -184,40 +184,49 @@
                             </div>
                         </a>
                         <div class="card-body">
-                            <p class="my-0 lh-1">
-                                Saksi :
-                                @if (empty($votingPlace->witness))
-                                    -
-                                @else
-                                    <a href="{{ url('voters/detail', Crypt::encrypt($votingPlace->witness->voter->id)) }}"
-                                        target="_blank" class="text-dark">{{ $votingPlace->witness->voter->name }}</a>
-                                @endif
-                            </p>
-                            <p class="mt-2 mb-4 lh-base">
-                                Pemantau :
-                                @if ($votingPlace->monitor->count() == 0)
-                                    -
-                                @else
-                                    @foreach ($votingPlace->monitor as $monitor)
-                                        <br>
-                                        {{ $loop->iteration }}. <a
-                                            href="{{ url('voters/detail', Crypt::encrypt($monitor->voter->id)) }}"
-                                            target="_blank" class="text-dark">{{ $monitor->voter->name }}</a>
-                                    @endforeach
-                                @endif
-                            </p>
+                            @if (env('WITNESSES') == true)
+                                <p class="mt-1 mb-2 lh-1">
+                                    Saksi :
+                                    @if (empty($votingPlace->witness))
+                                        -
+                                    @else
+                                        <a href="{{ url('voters/detail', Crypt::encrypt($votingPlace->witness->voter->id)) }}"
+                                            target="_blank" class="text-dark">{{ $votingPlace->witness->voter->name }}</a>
+                                    @endif
+                                </p>
+                            @endif
+
+                            @if (env('MONITORS') == true)
+                                <p class="mt-1 mb-2 lh-base">
+                                    Pemantau :
+                                    @if ($votingPlace->monitor->count() == 0)
+                                        -
+                                    @else
+                                        @foreach ($votingPlace->monitor as $monitor)
+                                            <br>
+                                            {{ $loop->iteration }}. <a
+                                                href="{{ url('voters/detail', Crypt::encrypt($monitor->voter->id)) }}"
+                                                target="_blank" class="text-dark">{{ $monitor->voter->name }}</a>
+                                        @endforeach
+                                    @endif
+                                </p>
+                            @endif
+
                             <div class="row">
-                                <div class="col-6 text-dark text-center">
-                                    Jumlah Suara <strong>({{ $web->candidate->name }})</strong><br>
-                                    @php
-                                        $totalVotingResult = 0;
-                                        foreach ($votingPlace->votingResult->where('candidate_id', $web->candidate_id) as $votingResult) {
-                                            $totalVotingResult += $votingResult->number;
-                                        }
-                                    @endphp
-                                    <strong style="font-size: 20px;">{{ $totalVotingResult }}</strong>
-                                </div>
-                                <div class="col-6 text-dark text-center">
+                                @if (env('QUICK_COUNT') == true)
+                                    <div class="col text-dark text-center">
+                                        Jumlah Suara <strong>({{ $web->candidate->name }})</strong><br>
+                                        @php
+                                            $totalVotingResult = 0;
+                                            foreach ($votingPlace->votingResult->where('candidate_id', $web->candidate_id) as $votingResult) {
+                                                $totalVotingResult += $votingResult->number;
+                                            }
+                                        @endphp
+                                        <strong style="font-size: 20px;">{{ $totalVotingResult }}</strong>
+                                    </div>
+                                @endif
+
+                                <div class="col text-dark text-center">
                                     Jumlah Pendukung<br>
                                     <strong
                                         style="font-size: 20px;">{{ $votingPlace->voters->whereNotNull('coordinator_id')->count() }}</strong>

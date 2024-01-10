@@ -18,11 +18,6 @@ class  VoterController extends Controller
         $data['title'] = 'Seluruh Pemilih';
         $data['voters'] = Voter::query()->orderBy('coordinator_id', 'desc');
 
-        $data['coordinators_count'] = Voter::where('level', true)->count();
-        $data['registered_voters_count'] = Voter::whereNotNull('coordinator_id')->count();
-        $data['not_registered_voters_count'] = Voter::whereNull('coordinator_id')->count();
-        $data['voters_count'] = Voter::count();
-
         if ($request->ajax()) {
             return $this->formatDatatables($data['voters']);
         }
@@ -39,11 +34,6 @@ class  VoterController extends Controller
         $data['district'] = District::findOrFail(Crypt::decrypt($request->id));
         $data['title'] = 'DPT Kecamatan ' . $data['district']->name;
         $data['voters'] = Voter::query()->where('district_id', $data['district']->id)->orderBy('coordinator_id', 'desc');
-
-        // $data['coordinators_count'] = Voter::where('district_id', $data['district']->id)->where('level', true)->count();
-        // $data['registered_voters_count'] = Voter::where('district_id', $data['district']->id)->whereNotNull('coordinator_id')->count();
-        // $data['not_registered_voters_count'] = Voter::where('district_id', $data['district']->id)->whereNull('coordinator_id')->count();
-        // $data['voters_count'] = Voter::where('district_id', $data['district']->id)->count();
 
         if ($request->ajax()) {
             return $this->formatDatatables($data['voters']);
@@ -62,11 +52,6 @@ class  VoterController extends Controller
         $data['title'] = 'DPT ' . $data['village']->name;
         $data['voters'] = Voter::query()->where('village_id', $data['village']->id)->orderBy('coordinator_id', 'desc');
 
-        $data['coordinators_count'] = Voter::where('village_id', $data['village']->id)->where('level', true)->count();
-        $data['registered_voters_count'] = Voter::where('village_id', $data['village']->id)->whereNotNull('coordinator_id')->count();
-        $data['not_registered_voters_count'] = Voter::where('village_id', $data['village']->id)->whereNull('coordinator_id')->count();
-        $data['voters_count'] = Voter::where('village_id', $data['village']->id)->count();
-
         if ($request->ajax()) {
             return $this->formatDatatables($data['voters']);
         }
@@ -83,11 +68,6 @@ class  VoterController extends Controller
         $data['votingPlace'] = VotingPlace::findOrFail(Crypt::decrypt($request->id));
         $data['title'] = 'DPT ' . $data['votingPlace']->village->name . ' TPS ' . $data['votingPlace']->name;
         $data['voters'] = Voter::query()->where('voting_place_id', $data['votingPlace']->id)->orderBy('coordinator_id', 'desc');
-
-        $data['coordinators_count'] = Voter::where('voting_place_id', $data['votingPlace']->id)->where('level', true)->count();
-        $data['registered_voters_count'] = Voter::where('voting_place_id', $data['votingPlace']->id)->whereNotNull('coordinator_id')->count();
-        $data['not_registered_voters_count'] = Voter::where('voting_place_id', $data['votingPlace']->id)->whereNull('coordinator_id')->count();
-        $data['voters_count'] = Voter::where('voting_place_id', $data['votingPlace']->id)->count();
 
         if ($request->ajax()) {
             return $this->formatDatatables($data['voters']);

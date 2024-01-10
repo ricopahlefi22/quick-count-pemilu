@@ -200,6 +200,16 @@
                 </button>
             </div>
 
+            @if (env('QUICK_COUNT') == true)
+                <div class="dropdown d-none d-lg-inline-block ms-1">
+                    <a href="{{ url('tv', Crypt::encrypt(App\Models\WebConfig::first()->token)) }}" target="_blank">
+                        <button type="button" class="btn header-item noti-icon waves-effect">
+                            <i class="mdi mdi-television-classic"></i>
+                        </button>
+                    </a>
+                </div>
+            @endif
+
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

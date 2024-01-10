@@ -8,11 +8,12 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TvController;
 use Illuminate\Support\Facades\Route;
 
-// TV Controller
-Route::controller(TvController::class)->group(function () {
-    Route::get('tv/{token}', 'tv');
-});
-
+if (env('QUICK_COUNT') == true) {
+    // TV Controller
+    Route::controller(TvController::class)->group(function () {
+        Route::get('tv/{token}', 'tv');
+    });
+}
 // ADMIN
 Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
     Route::controller(AuthAdminController::class)->group(function () {

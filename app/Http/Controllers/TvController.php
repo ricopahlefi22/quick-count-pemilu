@@ -11,9 +11,9 @@ class TvController extends Controller
     function tv(Request $request)
     {
         $web = WebConfig::first();
-        // $token = Crypt::decrypt($request->token);
+        $token = Crypt::decrypt($request->token);
 
-        if ($request->token == $web->token) {
+        if ($token == $web->token) {
             $data['title'] = 'TV Hasil Perolehan Suara';
 
             return view('tv', $data);
