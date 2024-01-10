@@ -15,12 +15,12 @@ class WebConfigSeeder extends Seeder
     {
         WebConfig::factory()->create([
             'token' => '0GxB0JURoGbukwlxok6sY9DKhnyjQTvy',
-            'name' => 'Nama Caleg',
+            'name' => 'Apolonius Salim',
             'password' => bcrypt('12341234'),
             'phone_number' => '089528597031',
             'strict' => true,
-            'party_id' => 14,
-            'candidate_id' => 92,
+            'party_id' => 3,
+            'candidate_id' => 16,
         ]);
     }
 }
