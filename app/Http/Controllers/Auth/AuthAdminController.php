@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Models\Admin;
 use App\Models\AdminPasswordReset;
 use App\Http\Controllers\Controller;
+use App\Models\WebConfig;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -70,33 +71,38 @@ class AuthAdminController extends Controller
             $check = Admin::where('phone_number', $request->phone_number)->first();
 
             if (!empty($check)) {
-
                 $checkOTP = AdminPasswordReset::where('phone_number', $request->phone_number)->first();
-
                 if (empty($checkOTP)) {
                     $otp = rand(123456, 999999);
                     $token = Str::random(60);
-                    AdminPasswordReset::insert([
-                        'phone_number' => $request->phone_number,
-                        'otp' => $otp,
-                        'token' => $token,
-                        'expired_at' => Carbon::now()->addMinutes(10)
-                    ]);
 
-                    $response = Http::asForm()->post('https://wa.srv2.wapanels.com/send-message', [
-                        'api_key' => '0GxB0JURoGbukwlxok6sY9DKhnyjQTvy',
-                        'sender' => '6285171121070',
+                    $response = Http::asForm()->post('https://app.ruangwa.id/api/send_message', [
+                        'token' => WebConfig::first()->token,
                         'number' => $request->phone_number,
                         'message' => $otp . " adalah kode OTP anda untuk mengatur ulang kata sandi. Jangan berikan kode ini kepada siapapun. \n\n*Quixx - Rekan Pemenangan 2024*",
                     ]);
 
-                    return response()->json([
-                        'code' => 200,
-                        'status' => 'OTP Terkirim!',
-                        'message' => 'Mengarahkanmu ke halaman pemeriksaan OTP.',
-                        'token' => $token,
-                        'other' => $response,
-                    ]);
+                    if ($response["result"] == 'true' && $response["status"] == 'sent') {
+                        AdminPasswordReset::insert([
+                            'phone_number' => $request->phone_number,
+                            'otp' => $otp,
+                            'token' => $token,
+                            'expired_at' => Carbon::now()->addMinutes(10)
+                        ]);
+
+                        return response()->json([
+                            'code' => 200,
+                            'status' => 'OTP Terkirim!',
+                            'message' => 'Mengarahkanmu ke halaman pemeriksaan OTP.',
+                            'token' => $checkOTP->token,
+                        ]);
+                    } else {
+                        return response()->json([
+                            'code' => 500,
+                            'status' => 'Gagal Mengirim OTP!',
+                            'message' => 'Terjadi kesalahan saat mengirim OTP, cobalah beberapa saat lagi atau hubungi developer.',
+                        ]);
+                    }
                 }
 
                 return response()->json([

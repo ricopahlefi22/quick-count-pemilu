@@ -16,7 +16,7 @@ class AuthOwnerController extends Controller
 {
     function login()
     {
-    
+
         $data['config'] = WebConfig::first();
 
         return view('owner.lock-screen', $data);
@@ -71,21 +71,18 @@ class AuthOwnerController extends Controller
             $check = WebConfig::where('phone_number', $request->phone_number)->first();
 
             if (!empty($check)) {
-
                 $checkOTP = PasswordReset::where('phone_number', $request->phone_number)->first();
-
                 if (empty($checkOTP)) {
                     $otp = rand(123456, 999999);
                     $token = Str::random(60);
 
-                    $response = Http::asForm()->post('https://wa.srv2.wapanels.com/send-message', [
-                        'api_key' => WebConfig::first()->token,
-                        'sender' => '6285171121070',
+                    $response = Http::asForm()->post('https://app.ruangwa.id/api/send_message', [
+                        'token' => WebConfig::first()->token,
                         'number' => $request->phone_number,
                         'message' => $otp . " adalah kode OTP anda untuk mengatur ulang kata sandi. Jangan berikan kode ini kepada siapapun. \n\n*Quixx - Rekan Pemenangan 2024*",
                     ]);
 
-                    if ($response['status'] == "success" && $response['data'][0]['status'] == "online") {
+                    if ($response["result"] == 'true' && $response["status"] == 'sent') {
                         PasswordReset::insert([
                             'phone_number' => $request->phone_number,
                             'otp' => $otp,
@@ -97,6 +94,7 @@ class AuthOwnerController extends Controller
                             'code' => 200,
                             'status' => 'OTP Terkirim!',
                             'message' => 'Mengarahkanmu ke halaman pemeriksaan OTP.',
+                            'token' => $checkOTP->token,
                         ]);
                     } else {
                         return response()->json([

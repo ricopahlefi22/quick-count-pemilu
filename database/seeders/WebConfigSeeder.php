@@ -14,7 +14,7 @@ class WebConfigSeeder extends Seeder
     public function run(): void
     {
         WebConfig::factory()->create([
-            'token' => '0GxB0JURoGbukwlxok6sY9DKhnyjQTvy',
+            'token' => 'XR9154bgT7ZS1Nk38RYb2WnEEe5pfsfSnpVu5M1y2gV9L1CZ34',
             'name' => 'Apolonius Salim',
             'password' => bcrypt('12341234'),
             'phone_number' => '089528597031',
