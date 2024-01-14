@@ -20,58 +20,57 @@ class VotingResultController extends Controller
 {
     function index()
     {
-        $data['title'] = 'Hasil Perhitungan Cepat';
-        $data['districts'] = District::all();
-        $data['villages'] = Village::all();
-        $data['time'] = '2024/01/01';
+        if (Auth::guard('owner')->check()) {
+            $data['title'] = 'Hasil Perhitungan Cepat';
+            $data['districts'] = District::all();
+            $data['villages'] = Village::all();
+            $data['time'] = '2024/01/01';
 
+            $partai = $data['parties'] = Party::all();
+            foreach ($partai as $item) {
+                $total_suara = VotingResult::where('party_id', $item->id)
+                    ->sum('number');
+                $item->total_suara = $total_suara;
+            }
 
-        $partai = $data['parties'] = Party::all();
-        foreach ($partai as $item) {
-            $total_suara = VotingResult::where('party_id', $item->id)
-                ->sum('number');
-            $item->total_suara = $total_suara;
+            $kandidat = $data['kandidat'] = Candidate::all();
+            foreach ($kandidat as $item) {
+                $total_suara_kandidat = VotingResult::where('candidate_id', $item->id)
+                    ->sum('number');
+                $item->total_suara_kandidat = $total_suara_kandidat;
+            }
+
+            return view('owner.voting-result.index', $data);
         }
 
-
-        $kandidat = $data['kandidat'] = Candidate::all();
-        foreach ($kandidat as $item) {
-            $total_suara_kandidat = VotingResult::where('candidate_id', $item->id)
-                ->sum('number');
-            $item->total_suara_kandidat = $total_suara_kandidat;
-        }
-
-        return view('owner.voting-result.index', $data);
+        return abort(404);
     }
 
     function district(District $id)
     {
-        $data['title'] = 'Hasil Perhitungan Cepat/Kecamatan';
-        $partai = $data['parties'] = Party::all();
-        foreach ($partai as $item) {
-            $total_suara = VotingResult::where('party_id', $item->id)
-                ->where('district_id', $id->id)
-                ->sum('number');
-            $item->total_suara = $total_suara;
+        if (Auth::guard('owner')->check()) {
+            $data['title'] = 'Hasil Perhitungan Cepat/Kecamatan';
+            $partai = $data['parties'] = Party::all();
+            foreach ($partai as $item) {
+                $total_suara = VotingResult::where('party_id', $item->id)
+                    ->where('district_id', $id->id)
+                    ->sum('number');
+                $item->total_suara = $total_suara;
+            }
+
+
+            $kandidat = $data['kandidat'] = Candidate::all();
+            foreach ($kandidat as $item) {
+                $total_suara_kandidat = VotingResult::where('candidate_id', $item->id)
+                    ->where('district_id', $id->id)
+                    ->sum('number');
+                $item->total_suara_kandidat = $total_suara_kandidat;
+            }
+
+            return view('owner.voting-result.district', $data);
         }
 
-
-        $kandidat = $data['kandidat'] = Candidate::all();
-        foreach ($kandidat as $item) {
-            $total_suara_kandidat = VotingResult::where('candidate_id', $item->id)
-                ->where('district_id', $id->id)
-                ->sum('number');
-            $item->total_suara_kandidat = $total_suara_kandidat;
-        }
-
-        return view('owner.voting-result.district', $data);
-    }
-
-    function village()
-    {
-        $data['time'] = '2024/01/01';
-
-        return view('errors.maintenance', $data);
+        return abort(404);
     }
 
     function inputIndex(Request $request)

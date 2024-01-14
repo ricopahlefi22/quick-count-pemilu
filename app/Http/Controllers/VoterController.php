@@ -91,7 +91,11 @@ class  VoterController extends Controller
             return $this->formatDatatables($data['members']);
         }
 
-        return view('owner.voter.detail', $data);
+        if (Auth::guard('owner')->check()) {
+            return view('owner.voter.detail', $data);
+        }
+
+        return view('admin.voter.detail', $data);
     }
 
     function store(Request $request)

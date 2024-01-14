@@ -56,9 +56,11 @@
                                 <button id="createButton" class="dropdown-item">
                                     <i class="fa fa-plus-circle"></i> Tambah Data
                                 </button>
-                                <a href="{{ url('mapping-result') }}" class="dropdown-item">
-                                    <i class="fa fa-chart-area"></i> Grafik Pemetaan Suara
-                                </a>
+                                @if (Auth::guard('owner')->check())
+                                    <a href="{{ url('mapping-result') }}" class="dropdown-item">
+                                        <i class="fa fa-chart-area"></i> Grafik Pemetaan Suara
+                                    </a>
+                                @endif
                             </div>
                         </div>
 

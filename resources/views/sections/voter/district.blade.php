@@ -60,14 +60,16 @@
                                 <button id="createButton" class="dropdown-item">
                                     <i class="fa fa-plus-circle"></i> Tambah Data
                                 </button>
-                                <a href="{{ url('mapping-result/district', Crypt::encrypt($district->id)) }}"
-                                    class="dropdown-item">
-                                    <i class="fa fa-chart-area"></i> Grafik Pemetaan Suara
-                                </a>
-                                <a href="{{ url('mapping-voters/district', Crypt::encrypt($district->id)) }}"
-                                    class="dropdown-item">
-                                    <i class="fa fa-users"></i> Peta Pemilih Per Desa
-                                </a>
+                                @if (Auth::guard('owner')->check())
+                                    <a href="{{ url('mapping-result/district', Crypt::encrypt($district->id)) }}"
+                                        class="dropdown-item">
+                                        <i class="fa fa-chart-area"></i> Grafik Pemetaan Suara
+                                    </a>
+                                    <a href="{{ url('mapping-voters/district', Crypt::encrypt($district->id)) }}"
+                                        class="dropdown-item">
+                                        <i class="fa fa-users"></i> Peta Pemilih Per Desa
+                                    </a>
+                                @endif
                             </div>
                         </div>
 

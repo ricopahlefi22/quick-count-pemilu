@@ -94,7 +94,7 @@ class AuthAdminController extends Controller
                             'code' => 200,
                             'status' => 'OTP Terkirim!',
                             'message' => 'Mengarahkanmu ke halaman pemeriksaan OTP.',
-                            'token' => $checkOTP->token,
+                            'token' => $token,
                         ]);
                     } else {
                         return response()->json([

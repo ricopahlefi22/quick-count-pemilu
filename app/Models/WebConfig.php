@@ -29,4 +29,9 @@ class WebConfig extends Authenticatable
     {
         return $this->belongsTo(Candidate::class);
     }
+
+    public function party()
+    {
+        return $this->belongsTo(Party::class);
+    }
 }

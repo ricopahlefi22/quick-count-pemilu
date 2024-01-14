@@ -50,7 +50,7 @@
                     <li class="menu-title">Perhitungan Cepat</li>
 
                     <li>
-                        <a href="{{ url('input-voting-result') }}" class="waves-effect">
+                        <a href="{{ url('input-voting-results') }}" class="waves-effect">
                             <i class="fa fa-calculator"></i>
                             <span>Input Perolehan Suara</span>
                         </a>
