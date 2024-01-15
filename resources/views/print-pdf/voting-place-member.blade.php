@@ -141,12 +141,6 @@
             text-align: left;
         }
 
-        .slogan {
-            margin-top: 40px;
-            text-align: center;
-            font-weight: bold;
-        }
-
         .bg-warning {
             background-color: yellowgreen;
         }
@@ -266,12 +260,6 @@
                     @endforeach
                 </tbody>
             </table>
-
-            @if (env('SLOGAN'))
-                <div class="slogan">
-                    ~ {{ env('SLOGAN') }} ~
-                </div>
-            @endif
         </div>
     </div>
 </body>
