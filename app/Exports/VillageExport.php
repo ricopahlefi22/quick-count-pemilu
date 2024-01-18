@@ -15,7 +15,7 @@ class VillageExport implements WithMultipleSheets
     {
         $sheets = [
             'Terdaftar' => new VillageVoterExport($this->village),
-            'Tidak Terdaftar' => new VillageNotVoterExport($this->village),
+            // 'Tidak Terdaftar' => new VillageNotVoterExport($this->village),
             // 'Semua Data' => new VillageDPTExport($this->village),
         ];
 

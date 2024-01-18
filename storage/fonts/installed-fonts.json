@@ -12,5 +12,19 @@
         "600": "C:\\Users\\asus\\Documents\\GitHub\\quixx-pileg\\storage\\fonts\/open_sans_600_1d42dc21a4a5b191c558979588779918",
         "600_italic": "C:\\Users\\asus\\Documents\\GitHub\\quixx-pileg\\storage\\fonts\/open_sans_600_italic_bc994ef32780fb046ec2947da6d9023a",
         "italic": "open_sans_italic_d7f17c84ba02c334508e01514ca42cd1"
+    },
+    "montserrat": {
+        "bold": "C:\\Users\\asus\\Documents\\GitHub\\quixx-pileg\\storage\\fonts\/montserrat_bold_76bb297d0b728b4bd4aec8341d076f02",
+        "bold_italic": "C:\\Users\\asus\\Documents\\GitHub\\quixx-pileg\\storage\\fonts\/montserrat_bold_italic_5d37fe8e8e54a0a3b0edd107531f8448",
+        "800": "C:\\Users\\asus\\Documents\\GitHub\\quixx-pileg\\storage\\fonts\/montserrat_800_d8eb8d3f8a9fb1dbf22bd2b6694e4810",
+        "800_italic": "C:\\Users\\asus\\Documents\\GitHub\\quixx-pileg\\storage\\fonts\/montserrat_800_italic_0c1b62a2aba0ce563f970dd7b2ca35ad",
+        "300": "C:\\Users\\asus\\Documents\\GitHub\\quixx-pileg\\storage\\fonts\/montserrat_300_c7d9ca80ed0f32dc3dfe3d53b5acfbdd",
+        "300_italic": "C:\\Users\\asus\\Documents\\GitHub\\quixx-pileg\\storage\\fonts\/montserrat_300_italic_12d294d8e6c02a6d705a7036721a181c",
+        "500": "C:\\Users\\asus\\Documents\\GitHub\\quixx-pileg\\storage\\fonts\/montserrat_500_3281ea2bf40f09a4e962801c3ae8690d",
+        "500_italic": "C:\\Users\\asus\\Documents\\GitHub\\quixx-pileg\\storage\\fonts\/montserrat_500_italic_e12f55a144c28859cf2faa98ee760705",
+        "normal": "C:\\Users\\asus\\Documents\\GitHub\\quixx-pileg\\storage\\fonts\/montserrat_normal_18b367c0b0984164450d5f73c381c8f3",
+        "600": "C:\\Users\\asus\\Documents\\GitHub\\quixx-pileg\\storage\\fonts\/montserrat_600_1d42dc21a4a5b191c558979588779918",
+        "600_italic": "C:\\Users\\asus\\Documents\\GitHub\\quixx-pileg\\storage\\fonts\/montserrat_600_italic_bc994ef32780fb046ec2947da6d9023a",
+        "italic": "montserrat_italic_d7f17c84ba02c334508e01514ca42cd1"
     }
 }

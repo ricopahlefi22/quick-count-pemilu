@@ -27,15 +27,17 @@
                     <div class="page-title-right d-none d-xl-block">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item">
-                                <a href="javascript: void(0);">Data Pemilih</a>
+                                <a href="{{ url('voters') }}">Data Pemilih</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a
-                                    href="{{ url('voters/district', Crypt::encrypt($votingPlace->district->id)) }}">{{ $votingPlace->district->name }}</a>
+                                <a href="{{ url('voters/district', Crypt::encrypt($votingPlace->district->id)) }}">
+                                    {{ $votingPlace->district->name }}
+                                </a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a
-                                    href="{{ url('voters/village', Crypt::encrypt($votingPlace->village->id)) }}">{{ $votingPlace->village->name }}</a>
+                                <a href="{{ url('voters/village', Crypt::encrypt($votingPlace->village->id)) }}">
+                                    {{ $votingPlace->village->name }}
+                                </a>
                             </li>
                             <li class="breadcrumb-item active">TPS {{ $votingPlace->name }}</li>
                         </ol>
@@ -70,10 +72,16 @@
                                 <button id="createButton" class="dropdown-item">
                                     <i class="fa fa-plus-circle"></i> Tambah Data
                                 </button>
-                                <a href="{{ url('voters/export/voting-place', Crypt::encrypt($votingPlace->id)) }}"
-                                    class="dropdown-item text-success">
-                                    <i class="fa fa-file-csv"></i> Ekspor CSV
-                                </a>
+                                @if (Auth::guard('owner')->check())
+                                    <a href="{{ url('voters/export/voting-place', Crypt::encrypt($votingPlace->id)) }}"
+                                        class="dropdown-item text-success">
+                                        <i class="fa fa-file-csv"></i> Ekspor CSV
+                                    </a>
+                                    <a href="{{ url('voters/print/voting-place', Crypt::encrypt($votingPlace->id)) }}"
+                                        class="dropdown-item text-danger" target="_blank">
+                                        <i class="fa fa-file-csv"></i> Cetak PDF
+                                    </a>
+                                @endif
                             </div>
                         </div>
 

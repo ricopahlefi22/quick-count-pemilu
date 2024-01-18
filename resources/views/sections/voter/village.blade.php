@@ -56,16 +56,16 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        @if (Auth::user()->level == true || Auth::guard('owner')->check())
-                            <div class="btn-group dropdown float-end">
-                                <button id="btnGroupDropdown" type="button" class="btn btn-sm btn-dark dropdown-toggle"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Aksi Lainnya <i class="mdi mdi-chevron-down"></i>
+                        <div class="btn-group dropdown float-end">
+                            <button id="btnGroupDropdown" type="button" class="btn btn-sm btn-dark dropdown-toggle"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Aksi Lainnya <i class="mdi mdi-chevron-down"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="btnGroupDropdown">
+                                <button id="createButton" class="dropdown-item">
+                                    <i class="fa fa-plus-circle"></i> Tambah Data
                                 </button>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="btnGroupDropdown">
-                                    <button id="createButton" class="dropdown-item">
-                                        <i class="fa fa-plus-circle"></i> Tambah Data
-                                    </button>
+                                @if (Auth::guard('owner')->check())
                                     <a href="{{ url('mapping-result/village', Crypt::encrypt($village->id)) }}"
                                         class="dropdown-item">
                                         <i class="fa fa-chart-area"></i> Grafik Pemetaan Suara
@@ -78,9 +78,9 @@
                                         class="dropdown-item text-success">
                                         <i class="fa fa-file-csv"></i> Ekspor CSV
                                     </a>
-                                </div>
+                                @endif
                             </div>
-                        @endif
+                        </div>
 
                         <table id="table" class="table table-bordered dt-responsive nowrap">
                             <thead>

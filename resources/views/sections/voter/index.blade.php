@@ -27,7 +27,7 @@
                     <div class="page-title-right d-none d-xl-block">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item">
-                                <a href="javascript: void(0);">Data Pemilih</a>
+                                <a href="{{ url('voters') }}">Data Pemilih</a>
                             </li>
                             <li class="breadcrumb-item active">Seluruh</li>
                         </ol>
@@ -59,6 +59,9 @@
                                 @if (Auth::guard('owner')->check())
                                     <a href="{{ url('mapping-result') }}" class="dropdown-item">
                                         <i class="fa fa-chart-area"></i> Grafik Pemetaan Suara
+                                    </a>
+                                    <a href="{{ url('voters/export/all') }}" class="dropdown-item text-success">
+                                        <i class="fa fa-file-csv"></i> Ekspor CSV
                                     </a>
                                 @endif
                             </div>
