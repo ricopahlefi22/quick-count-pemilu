@@ -172,7 +172,7 @@
             <img src="{{ $web->photo }}" height="100" alt="Foto" class="float-right">
         @endif
         <h4 class="title">
-            DAFTAR ANGGOTA PEDULORAN {{ strtoupper($web->candidate->name) }}<br>
+            DAFTAR PENDUKUNG {{ strtoupper($web->candidate->name) }}<br>
             PER KOORDINATOR
         </h4>
     </div>

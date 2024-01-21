@@ -166,7 +166,7 @@
             <img src="{{ $web->photo }}" height="100" alt="Foto" class="float-right">
         @endif
         <h4 class="title">
-            DAFTAR ANGGOTA PEDULORAN {{ strtoupper($web->candidate->name) }}<br> DI TPS {{ $votingPlace->name }}
+            DAFTAR PENDUKUNG {{ strtoupper($web->candidate->name) }}<br> DI TPS {{ $votingPlace->name }}
             {{ strtoupper($votingPlace->village->name) }}
         </h4>
     </div>
