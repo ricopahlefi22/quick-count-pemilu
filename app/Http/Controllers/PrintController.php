@@ -19,7 +19,7 @@ class PrintController extends Controller
         $data['title'] = 'Detail Anggota ' . $data['voter']->name . ' - ' . Carbon::now()->isoFormat('DD MMMM YYYY');
         $data['web'] = WebConfig::first();
         $data['member_same_voting_place'] = Voter::where('coordinator_id', $data['voter']->id)->where('voting_place_id', $data['voter']->voting_place_id)->orderBy('level', 'desc')->get();
-        $data['member_not_same_voting_place'] = Voter::where('coordinator_id', $data['voter']->id)->where('voting_place_id', '!=', $data['voter']->voting_place_id)->orderBy('village_id', 'asc')->get();
+        $data['member_not_same_voting_place'] = Voter::where('coordinator_id', $data['voter']->id)->where('voting_place_id', '!=', $data['voter']->voting_place_id)->orderBy('village_id', 'asc')->orderBy('voting_place_id', 'asc')->get();
 
         $data['members'] = $data['member_same_voting_place']->merge($data['member_not_same_voting_place']);
 
