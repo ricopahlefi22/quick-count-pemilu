@@ -13,14 +13,24 @@ class WebConfigSeeder extends Seeder
      */
     public function run(): void
     {
+        // WebConfig::factory()->create([
+        //     'token' => 'XR9154bgT7ZS1Nk38RYb2WnEEe5pfsfSnpVu5M1y2gV9L1CZ34',
+        //     'name' => 'Apolonius Salim',
+        //     'password' => bcrypt('12341234'),
+        //     'phone_number' => '089528597031',
+        //     'strict' => true,
+        //     'party_id' => 3,
+        //     'candidate_id' => 16,
+        // ]);
+
         WebConfig::factory()->create([
             'token' => 'XR9154bgT7ZS1Nk38RYb2WnEEe5pfsfSnpVu5M1y2gV9L1CZ34',
-            'name' => 'Apolonius Salim',
+            'name' => 'Y. Agung R.',
             'password' => bcrypt('12341234'),
             'phone_number' => '089528597031',
             'strict' => true,
-            'party_id' => 3,
-            'candidate_id' => 16,
+            'party_id' => 14,
+            'candidate_id' => 41,
         ]);
     }
 }

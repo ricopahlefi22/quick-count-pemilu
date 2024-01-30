@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\District;
 use App\Models\Village;
 use App\Models\VotingPlace;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class Dapil7Seeder extends Seeder
