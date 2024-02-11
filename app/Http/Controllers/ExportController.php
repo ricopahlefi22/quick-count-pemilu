@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\AllExport;
+use App\Exports\CoordinatorExport;
 use App\Exports\CoordinatorMemberExport;
 use App\Exports\DistrictExport;
 use App\Exports\VillageExport;
@@ -64,5 +65,10 @@ class ExportController extends Controller
         $coordinator = Voter::findOrFail(Crypt::decrypt($request->id));
 
         return Excel::download(new CoordinatorMemberExport(Crypt::decrypt($request->id)), '[' . Str::random(3) . '] Data Anggota ' . $coordinator->name . '.xlsx');
+    }
+
+    function allCoordinator()
+    {
+        return Excel::download(new CoordinatorExport(), '[' . Str::random(3) . '] Data Seluruh Koordinator.xlsx');
     }
 }

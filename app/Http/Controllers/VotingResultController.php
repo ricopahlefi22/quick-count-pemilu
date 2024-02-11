@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\Candidate;
 use App\Models\District;
 use App\Models\Party;
+use App\Models\Village;
 use App\Models\VotingPlace;
 use App\Models\VotingResult;
 use App\Models\WebConfig;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Yajra\DataTables\Facades\DataTables;
-
-use App\Models\Village;
-use Illuminate\Support\Facades\Auth;
 
 class VotingResultController extends Controller
 {

@@ -35,7 +35,7 @@
                             Aksi Lainnya <i class="mdi mdi-chevron-down"></i>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="btnGroupDropdown">
-                            <a href="{{ url('coordinators/export') }}" class="dropdown-item">
+                            <a href="{{ url('voters/export/coordinator') }}" class="dropdown-item text-success">
                                 <i class="fa fa-file-csv"></i> Ekspor CSV
                             </a>
                         </div>

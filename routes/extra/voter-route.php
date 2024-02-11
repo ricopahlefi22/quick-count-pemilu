@@ -23,6 +23,7 @@ Route::prefix('voters')->controller(VoterController::class)->group(function () {
         Route::get('export/village/{id}', 'village');
         Route::get('export/voting-place/{id}', 'votingPlace');
         Route::get('export/coordinator-member/{id}', 'coordinatorMember');
+        Route::get('export/coordinator', 'allCoordinator');
     });
 
     Route::controller(PrintController::class)->group(function(){
