@@ -119,7 +119,7 @@ class VotingResultController extends Controller
 
         return view('admin.input-voting-result.input-c1', $data);
     }
-
+    
     function store(Request $request)
     {
         $request->validate([

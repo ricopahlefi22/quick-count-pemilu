@@ -71,6 +71,7 @@ class Dapil7Seeder extends Seeder
                 'district_id' => 1,
             ]);
         }
+
         // DESA NEGERI BARU
         Village::factory()->create(['name' => 'Desa Negeri Baru', 'district_id' => 1]);
         for ($i = 1; $i <= 9; $i++) {
